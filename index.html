@@ -663,6 +663,154 @@
       font-size: 12px;
       color: #667799;
     }
+
+    /* Daily Logs */
+    .daily-logs-container {
+      display: flex;
+      gap: 24px;
+      min-height: 500px;
+    }
+
+    .daily-logs-sidebar {
+      width: 200px;
+      flex-shrink: 0;
+      background: #181818;
+      border: 1px solid #252525;
+      border-radius: 12px;
+      padding: 16px;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .daily-log-item {
+      padding: 12px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 4px;
+      transition: all 0.15s;
+    }
+
+    .daily-log-item:hover {
+      background: #252525;
+    }
+
+    .daily-log-item.active {
+      background: #1e2a3a;
+      border-left: 3px solid #5b9bf5;
+    }
+
+    .daily-log-item .day {
+      font-size: 14px;
+      color: #e5e5e5;
+      font-weight: 500;
+    }
+
+    .daily-log-item .date {
+      font-size: 12px;
+      color: #666;
+      margin-top: 2px;
+    }
+
+    .daily-logs-content {
+      flex: 1;
+      background: #181818;
+      border: 1px solid #252525;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .daily-log-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #252525;
+      background: #1a1a1a;
+    }
+
+    .daily-log-header .daily-log-date {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .daily-log-body {
+      padding: 24px;
+      max-height: 500px;
+      overflow-y: auto;
+      color: #ccc;
+      line-height: 1.7;
+    }
+
+    .daily-log-body h1,
+    .daily-log-body h2,
+    .daily-log-body h3 {
+      color: #fff;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+
+    .daily-log-body h1 { font-size: 22px; margin-top: 0; }
+    .daily-log-body h2 { font-size: 18px; color: #5b9bf5; }
+    .daily-log-body h3 { font-size: 16px; color: #888; }
+
+    .daily-log-body ul, .daily-log-body ol {
+      margin: 12px 0;
+      padding-left: 24px;
+    }
+
+    .daily-log-body li {
+      margin-bottom: 8px;
+    }
+
+    .daily-log-body code {
+      background: #252525;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 13px;
+    }
+
+    .daily-log-body pre {
+      background: #1a1a1a;
+      border: 1px solid #252525;
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+
+    .daily-log-body pre code {
+      background: none;
+      padding: 0;
+    }
+
+    .daily-log-body strong {
+      color: #fff;
+    }
+
+    .daily-log-body a {
+      color: #5b9bf5;
+      text-decoration: none;
+    }
+
+    .daily-log-body a:hover {
+      text-decoration: underline;
+    }
+
+    .daily-log-body blockquote {
+      border-left: 3px solid #5b9bf5;
+      margin: 16px 0;
+      padding-left: 16px;
+      color: #999;
+    }
+
+    @media (max-width: 768px) {
+      .daily-logs-container {
+        flex-direction: column;
+      }
+      .daily-logs-sidebar {
+        width: 100%;
+        max-height: 200px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -701,6 +849,14 @@
       <div class="nav-item" data-filter="archived">
         <i data-lucide="archive"></i> Archived
         <span class="count">0</span>
+      </div>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">History</div>
+      <div class="nav-item" data-filter="daily-logs">
+        <i data-lucide="calendar"></i> Daily Logs
+        <span class="count" id="navDailyLogs">0</span>
       </div>
     </nav>
 
@@ -884,6 +1040,24 @@
           <button onclick="closeFileViewer()" style="background: #333; border: none; color: #999; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Close</button>
         </div>
         <pre id="fileContent" style="background: #1a1a1a; border: 1px solid #252525; border-radius: 8px; padding: 20px; color: #ccc; font-size: 14px; line-height: 1.6; overflow-x: auto; white-space: pre-wrap; max-height: 600px; overflow-y: auto;"></pre>
+      </div>
+    </section>
+
+    <!-- Daily Logs Section -->
+    <section class="section" id="dailyLogsSection" style="display: none;">
+      <div class="section-header">
+        <span class="section-title"><i data-lucide="calendar"></i> Daily Logs</span>
+      </div>
+      <div class="daily-logs-container">
+        <div class="daily-logs-sidebar" id="dailyLogsList"></div>
+        <div class="daily-logs-content">
+          <div class="daily-log-header" id="dailyLogHeader">
+            <span class="daily-log-date">Select a day</span>
+          </div>
+          <div class="daily-log-body" id="dailyLogBody">
+            <p style="color: #666; padding: 40px; text-align: center;">← Choose a date from the list to view that day's log</p>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -1205,7 +1379,8 @@
           archived: 'Archived',
           tools: 'Tools & APIs',
           crons: 'Cron Jobs',
-          files: 'Core Files'
+          files: 'Core Files',
+          'daily-logs': 'Daily Logs'
         };
         document.getElementById('pageTitle').textContent = titles[currentFilter];
         
@@ -1222,6 +1397,7 @@
           toolsSection.style.display = 'block';
           cronsSection.style.display = 'none';
           document.getElementById('filesSection').style.display = 'none';
+          document.getElementById('dailyLogsSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1232,6 +1408,7 @@
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'block';
           document.getElementById('filesSection').style.display = 'none';
+          document.getElementById('dailyLogsSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1242,6 +1419,18 @@
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
           document.getElementById('filesSection').style.display = 'block';
+          document.getElementById('dailyLogsSection').style.display = 'none';
+          projectsSection.style.display = 'none';
+          document.getElementById('tasksSection').style.display = 'none';
+          activitySection.style.display = 'none';
+          statsRow.style.display = 'none';
+          currentBanner.style.display = 'none';
+          document.getElementById('ideasSection').style.display = 'none';
+        } else if (currentFilter === 'daily-logs') {
+          toolsSection.style.display = 'none';
+          cronsSection.style.display = 'none';
+          document.getElementById('filesSection').style.display = 'none';
+          document.getElementById('dailyLogsSection').style.display = 'block';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1252,6 +1441,7 @@
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
           document.getElementById('filesSection').style.display = 'none';
+          document.getElementById('dailyLogsSection').style.display = 'none';
           projectsSection.style.display = 'block';
           document.getElementById('tasksSection').style.display = 'block';
           activitySection.style.display = 'block';
@@ -1362,6 +1552,113 @@
     // Auto-refresh
     setInterval(loadData, 30000);
     loadData();
+
+    // Daily Logs
+    const dailyLogFiles = [
+      '2026-01-28',
+      '2026-01-27',
+      '2026-01-26',
+      '2026-01-25'
+    ];
+
+    function formatLogDate(dateStr) {
+      const date = new Date(dateStr + 'T12:00:00');
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      return {
+        day: days[date.getDay()],
+        full: `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+      };
+    }
+
+    function renderDailyLogsList() {
+      document.getElementById('navDailyLogs').textContent = dailyLogFiles.length;
+      
+      const listHtml = dailyLogFiles.map((dateStr, i) => {
+        const fmt = formatLogDate(dateStr);
+        return `
+          <div class="daily-log-item ${i === 0 ? 'active' : ''}" data-date="${dateStr}" onclick="loadDailyLog('${dateStr}')">
+            <div class="day">${fmt.day}</div>
+            <div class="date">${fmt.full}</div>
+          </div>
+        `;
+      }).join('');
+      
+      document.getElementById('dailyLogsList').innerHTML = listHtml;
+      
+      // Load most recent by default
+      if (dailyLogFiles.length > 0) {
+        loadDailyLog(dailyLogFiles[0]);
+      }
+    }
+
+    async function loadDailyLog(dateStr) {
+      // Update active state
+      document.querySelectorAll('.daily-log-item').forEach(el => {
+        el.classList.toggle('active', el.dataset.date === dateStr);
+      });
+
+      const fmt = formatLogDate(dateStr);
+      document.getElementById('dailyLogHeader').innerHTML = `
+        <span class="daily-log-date">${fmt.day}, ${fmt.full}</span>
+      `;
+
+      try {
+        const response = await fetch(`daily-logs/${dateStr}.md?` + Date.now());
+        if (!response.ok) throw new Error('Not found');
+        const markdown = await response.text();
+        document.getElementById('dailyLogBody').innerHTML = renderMarkdown(markdown);
+      } catch (e) {
+        document.getElementById('dailyLogBody').innerHTML = `
+          <p style="color: #666; padding: 40px; text-align: center;">No log found for this date</p>
+        `;
+      }
+    }
+
+    function renderMarkdown(md) {
+      // Simple markdown renderer
+      let html = md
+        // Code blocks
+        .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+        // Inline code
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        // Headers
+        .replace(/^### (.*)$/gm, '<h3>$1</h3>')
+        .replace(/^## (.*)$/gm, '<h2>$1</h2>')
+        .replace(/^# (.*)$/gm, '<h1>$1</h1>')
+        // Bold
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        // Italic
+        .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+        // Links
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+        // Blockquotes
+        .replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>')
+        // Unordered lists
+        .replace(/^- (.*)$/gm, '<li>$1</li>')
+        // Horizontal rules
+        .replace(/^---$/gm, '<hr>')
+        // Paragraphs (double newlines)
+        .replace(/\n\n/g, '</p><p>')
+        // Single newlines in lists become nothing
+        .replace(/<\/li>\n<li>/g, '</li><li>');
+
+      // Wrap consecutive li tags in ul
+      html = html.replace(/(<li>.*?<\/li>)+/gs, '<ul>$&</ul>');
+      
+      // Clean up empty paragraphs
+      html = html.replace(/<p><\/p>/g, '');
+      
+      // Wrap in paragraph if not already structured
+      if (!html.startsWith('<')) {
+        html = '<p>' + html + '</p>';
+      }
+
+      return html;
+    }
+
+    // Initialize daily logs on load
+    renderDailyLogsList();
 
     // Initialize Lucide icons
     lucide.createIcons();
