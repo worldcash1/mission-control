@@ -313,69 +313,91 @@
     {
       "name": "Schwab API",
       "status": "active",
-      "description": "Market data, token auto-refresh every 25min",
+      "paid": false,
+      "description": "Trading platform API for portfolio data, positions, and market quotes. Auto-refreshes OAuth token every 25 minutes.",
       "note": "Portfolio access needs re-auth"
     },
     {
       "name": "Oura Ring API",
       "status": "active",
-      "description": "Sleep, HRV, readiness, activity data"
+      "paid": true,
+      "cost": "Included with Oura subscription (~$6/mo)",
+      "description": "Health data from your Oura ring: sleep quality, HRV, readiness score, heart rate, activity, and stress levels."
     },
     {
       "name": "Twitter/X API",
       "status": "active",
-      "description": "Read-only access to @Nam_Le",
-      "note": "$200/mo for write access"
+      "paid": false,
+      "description": "Read-only access to @Nam_Le timeline, mentions, and search. Can monitor tweets but cannot post.",
+      "note": "Write access = $200/mo (Basic tier)"
     },
     {
       "name": "Brave Search API",
       "status": "active",
-      "description": "Web search capability"
+      "paid": true,
+      "cost": "$5/mo (2000 queries)",
+      "description": "Web search engine API. Used for real-time web searches, news, and research queries."
     },
     {
       "name": "Alpha Vantage API",
       "status": "active",
-      "description": "Stock market data"
+      "paid": false,
+      "description": "Free stock market data: quotes, historical prices, technical indicators. 25 requests/day limit on free tier."
     },
     {
       "name": "AgentMail",
       "status": "active",
-      "description": "Primary email: alfred-x@agentmail.to"
+      "paid": false,
+      "description": "AI-friendly email service. Primary email: alfred-x@agentmail.to. Can send/receive emails programmatically."
     },
     {
       "name": "GitHub",
       "status": "active",
-      "description": "worldcash1 + alfred-assist-ai accounts"
+      "paid": false,
+      "description": "Code hosting and version control. Using worldcash1 account for repos. Unlimited private repos on free tier."
     },
     {
       "name": "ElevenLabs",
       "status": "active",
-      "description": "Text-to-speech, voice generation"
+      "paid": true,
+      "cost": "$5/mo (Starter)",
+      "description": "AI text-to-speech with natural voices. Used for voice messages, audiobook-style narration, and TTS features."
     },
     {
       "name": "Telegram Bot",
       "status": "active",
-      "description": "Primary communication channel"
+      "paid": false,
+      "description": "Primary communication channel. Bot API for sending/receiving messages, photos, files. Unlimited and free."
+    },
+    {
+      "name": "Vercel",
+      "status": "active",
+      "paid": false,
+      "description": "Web hosting platform. Auto-deploys from GitHub. Free tier covers all our current apps (mission-control, etc)."
     },
     {
       "name": "Browser Control",
       "status": "active",
-      "description": "Can control Chrome via relay"
+      "paid": false,
+      "description": "Chrome automation via Clawdbot relay. Can browse websites, fill forms, take screenshots, scrape data."
     },
     {
       "name": "WhatsApp",
       "status": "inactive",
-      "description": "Needs QR scan to connect"
+      "paid": false,
+      "description": "Messaging via WhatsApp Business API. Needs QR scan to connect. Would enable WhatsApp channel for Alfred."
     },
     {
       "name": "Calendar (CalDAV)",
       "status": "inactive",
-      "description": "Not connected yet"
+      "paid": false,
+      "description": "iCloud/Google calendar sync. Would allow reading and creating calendar events. Skill available on ClawdHub."
     },
     {
       "name": "Notion API",
       "status": "inactive",
-      "description": "Available but not configured"
+      "paid": false,
+      "description": "Notion workspace integration. Can read/write pages, databases. Free to use with any Notion account."
     }
   ]
 }
