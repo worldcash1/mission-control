@@ -1554,12 +1554,18 @@
     loadData();
 
     // Daily Logs
-    const dailyLogFiles = [
-      '2026-01-28',
-      '2026-01-27',
-      '2026-01-26',
-      '2026-01-25'
-    ];
+    let dailyLogFiles = [];
+
+    async function loadDailyLogManifest() {
+      try {
+        const response = await fetch('daily-logs/manifest.txt?' + Date.now());
+        const text = await response.text();
+        dailyLogFiles = text.trim().split('\n').filter(f => f.length > 0);
+        renderDailyLogsList();
+      } catch (e) {
+        console.error('Failed to load daily logs manifest:', e);
+      }
+    }
 
     function formatLogDate(dateStr) {
       const date = new Date(dateStr + 'T12:00:00');
@@ -1658,7 +1664,7 @@
     }
 
     // Initialize daily logs on load
-    renderDailyLogsList();
+    loadDailyLogManifest();
 
     // Initialize Lucide icons
     lucide.createIcons();
