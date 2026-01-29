@@ -542,6 +542,10 @@
         <i data-lucide="clock"></i> Cron Jobs
         <span class="count" id="navCrons">0</span>
       </div>
+      <div class="nav-item" data-filter="files">
+        <i data-lucide="file-text"></i> Core Files
+        <span class="count" id="navFiles">0</span>
+      </div>
     </nav>
 
     <div class="sidebar-footer">
@@ -675,6 +679,32 @@
           </thead>
           <tbody id="cronsTable"></tbody>
         </table>
+      </div>
+    </section>
+
+    <!-- Files Section -->
+    <section class="section" id="filesSection" style="display: none;">
+      <div class="section-header">
+        <span class="section-title"><i data-lucide="file-text"></i> Core Files</span>
+      </div>
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 20%">File</th>
+              <th>Description</th>
+              <th style="width: 15%">Category</th>
+            </tr>
+          </thead>
+          <tbody id="filesTable"></tbody>
+        </table>
+      </div>
+      <div id="fileViewer" style="display: none; margin-top: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h3 id="fileViewerTitle" style="color: #fff; font-size: 18px;"></h3>
+          <button onclick="closeFileViewer()" style="background: #333; border: none; color: #999; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Close</button>
+        </div>
+        <pre id="fileContent" style="background: #1a1a1a; border: 1px solid #252525; border-radius: 8px; padding: 20px; color: #ccc; font-size: 14px; line-height: 1.6; overflow-x: auto; white-space: pre-wrap; max-height: 600px; overflow-y: auto;"></pre>
       </div>
     </section>
   </main>
@@ -940,6 +970,33 @@
         `).join('');
       }
 
+      // Files
+      if (data.files) {
+        document.getElementById('navFiles').textContent = data.files.length;
+        document.getElementById('filesTable').innerHTML = data.files.map(file => {
+          const catColors = {
+            'Identity': '#8b5cf6',
+            'Memory': '#4ade80',
+            'System': '#f59e0b',
+            'Work': '#3b82f6'
+          };
+          const color = catColors[file.category] || '#666';
+          return `
+            <tr class="clickable" onclick="viewFile('${file.name}')" style="cursor: pointer;">
+              <td>
+                <div class="title" style="display: flex; align-items: center; gap: 8px;">
+                  <i data-lucide="file-text" style="width: 16px; height: 16px; color: ${color};"></i>
+                  ${file.name}
+                </div>
+              </td>
+              <td style="color: #999">${file.desc}</td>
+              <td><span class="badge" style="background: ${color}22; color: ${color}; font-size: 12px;">${file.category}</span></td>
+            </tr>
+          `;
+        }).join('');
+        lucide.createIcons();
+      }
+
       // Last updated
       document.getElementById('lastUpdated').textContent = 
         new Date(data.lastUpdated).toLocaleString('en-US', { 
@@ -962,7 +1019,8 @@
           idea: 'Ideas',
           archived: 'Archived',
           tools: 'Tools & APIs',
-          crons: 'Cron Jobs'
+          crons: 'Cron Jobs',
+          files: 'Core Files'
         };
         document.getElementById('pageTitle').textContent = titles[currentFilter];
         
@@ -978,6 +1036,7 @@
         if (currentFilter === 'tools') {
           toolsSection.style.display = 'block';
           cronsSection.style.display = 'none';
+          document.getElementById('filesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -987,6 +1046,17 @@
         } else if (currentFilter === 'crons') {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'block';
+          document.getElementById('filesSection').style.display = 'none';
+          projectsSection.style.display = 'none';
+          document.getElementById('tasksSection').style.display = 'none';
+          activitySection.style.display = 'none';
+          statsRow.style.display = 'none';
+          currentBanner.style.display = 'none';
+          document.getElementById('ideasSection').style.display = 'none';
+        } else if (currentFilter === 'files') {
+          toolsSection.style.display = 'none';
+          cronsSection.style.display = 'none';
+          document.getElementById('filesSection').style.display = 'block';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -996,6 +1066,7 @@
         } else {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
+          document.getElementById('filesSection').style.display = 'none';
           projectsSection.style.display = 'block';
           document.getElementById('tasksSection').style.display = 'block';
           activitySection.style.display = 'block';
@@ -1006,6 +1077,25 @@
         }
       });
     });
+
+    // File viewer functions
+    async function viewFile(filename) {
+      try {
+        const response = await fetch('files/' + filename + '?' + Date.now());
+        const content = await response.text();
+        document.getElementById('fileViewerTitle').textContent = filename;
+        document.getElementById('fileContent').textContent = content;
+        document.getElementById('fileViewer').style.display = 'block';
+      } catch (e) {
+        document.getElementById('fileViewerTitle').textContent = filename;
+        document.getElementById('fileContent').textContent = '⚠️ Could not load file. Make sure files are synced to the files/ folder.';
+        document.getElementById('fileViewer').style.display = 'block';
+      }
+    }
+
+    function closeFileViewer() {
+      document.getElementById('fileViewer').style.display = 'none';
+    }
 
     // Auto-refresh
     setInterval(loadData, 30000);

@@ -309,6 +309,18 @@
     {"name": "Workspace Backup", "schedule": "Every hour", "desc": "Git commit & push", "enabled": true},
     {"name": "Local Backup Sync", "schedule": "Every 30 min", "desc": "rsync to Documents/", "enabled": true}
   ],
+  "files": [
+    {"name": "SOUL.md", "desc": "Who I am — personality, style, values, boundaries", "category": "Identity"},
+    {"name": "AGENTS.md", "desc": "How I operate — rules, memory management, safety, heartbeats", "category": "Identity"},
+    {"name": "MEMORY.md", "desc": "Long-term curated memory — lessons, decisions, important events", "category": "Memory"},
+    {"name": "USER.md", "desc": "About Nam — name, timezone, preferences, context", "category": "Identity"},
+    {"name": "TOOLS.md", "desc": "Local setup — APIs, cron jobs, accounts, repos, workspace structure", "category": "System"},
+    {"name": "PROJECTS.md", "desc": "Active project status, specs, and blockers", "category": "Work"},
+    {"name": "IDENTITY.md", "desc": "Quick identity summary — name, emoji, avatar, vibe", "category": "Identity"},
+    {"name": "HEARTBEAT.md", "desc": "Periodic check tasks — what to do during heartbeats", "category": "System"},
+    {"name": "TODO.md", "desc": "Recovery checklist and pending items", "category": "Work"},
+    {"name": "TASKS.md", "desc": "Task tracking file", "category": "Work"}
+  ],
   "tools": [
     {
       "name": "Schwab API",
