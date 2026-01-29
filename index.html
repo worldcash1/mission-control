@@ -891,10 +891,19 @@
         </div>
       `).join('');
 
-      // Tools
+      // Tools - sorted: Free first, then Paid, alphabetically within each
       if (data.tools) {
         document.getElementById('navTools').textContent = data.tools.length;
-        document.getElementById('toolsTable').innerHTML = data.tools.map(tool => {
+        
+        // Sort: free first, then paid, alphabetically within each group
+        const sortedTools = [...data.tools].sort((a, b) => {
+          // First by paid status (free first)
+          if (a.paid !== b.paid) return a.paid ? 1 : -1;
+          // Then alphabetically
+          return a.name.localeCompare(b.name);
+        });
+        
+        document.getElementById('toolsTable').innerHTML = sortedTools.map(tool => {
           const paidBadge = tool.paid 
             ? `<span class="badge" style="background: #3d2a1a; color: #f5a623; font-size: 11px; padding: 3px 8px;">💰 Paid</span>`
             : `<span class="badge" style="background: #1a3d2a; color: #4ade80; font-size: 11px; padding: 3px 8px;">Free</span>`;
@@ -906,7 +915,7 @@
                   ${tool.name}
                   ${paidBadge}
                 </div>
-                ${tool.cost ? `<div style="color: #888; font-size: 13px; margin-top: 2px;">${tool.cost}</div>` : ''}
+                ${tool.cost ? `<div style="color: #f5a623; font-size: 13px; margin-top: 4px;">💵 ${tool.cost}</div>` : ''}
               </td>
               <td>
                 <div style="color: #999">${tool.description}</div>
