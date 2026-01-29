@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Control</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #111111;
+      color: #e5e5e5;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 270px;
+      background: #161616;
+      border-right: 1px solid #232323;
+      padding: 24px 16px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: fixed;
+    }
+
+    .sidebar-header {
+      padding: 0 0 24px 0;
+      border-bottom: 1px solid #232323;
+      margin-bottom: 20px;
+    }
+
+    .sidebar-header h1 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-section {
+      padding: 0;
+      margin-bottom: 28px;
+    }
+
+    .nav-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0 4px;
+      margin-bottom: 10px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #999;
+      transition: all 0.15s;
+    }
+
+    .nav-item:hover {
+      background: #1f1f1f;
+      color: #e5e5e5;
+    }
+
+    .nav-item.active {
+      background: #1f1f1f;
+      color: #fff;
+    }
+
+    .nav-item .count {
+      margin-left: auto;
+      font-size: 12px;
+      color: #555;
+    }
+
+    .nav-item.active .count {
+      color: #888;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 20px 0;
+      border-top: 1px solid #232323;
+      font-size: 12px;
+      color: #555;
+    }
+
+    .nav-item svg,
+    .icon svg {
+      width: 24px;
+      height: 24px;
+      stroke-width: 1.5;
+    }
+
+    .section-title svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 1.5;
+      vertical-align: -5px;
+      margin-right: 10px;
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      margin-left: 270px;
+      padding: 36px 48px;
+      min-height: 100vh;
+    }
+
+    .page-header {
+      margin-bottom: 32px;
+    }
+
+    .page-header h2 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .page-header p {
+      font-size: 16px;
+      color: #666;
+    }
+
+    /* Stats Row */
+    .stats-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .stat-box {
+      background: #181818;
+      border: 1px solid #252525;
+      border-radius: 12px;
+      padding: 20px 24px;
+      min-width: 140px;
+    }
+
+    .stat-box .label {
+      font-size: 15px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .stat-box .value {
+      font-size: 36px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .stat-box .sub {
+      font-size: 14px;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #888;
+    }
+
+    .section-action {
+      font-size: 13px;
+      color: #666;
+      cursor: pointer;
+    }
+
+    .section-action:hover {
+      color: #999;
+    }
+
+    /* Table */
+    .table-container {
+      background: #181818;
+      border: 1px solid #252525;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th {
+      text-align: left;
+      padding: 16px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid #252525;
+      background: #1a1a1a;
+    }
+
+    .table td {
+      padding: 20px 20px;
+      font-size: 16px;
+      border-bottom: 1px solid #202020;
+    }
+
+    .table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table tr:hover {
+      background: #1c1c1c;
+    }
+
+    .table tr.clickable {
+      cursor: pointer;
+    }
+
+    .table .title {
+      font-weight: 500;
+      color: #e5e5e5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .table .title .chevron {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s;
+      color: #555;
+    }
+
+    .table tr.expanded .chevron {
+      transform: rotate(90deg);
+    }
+
+    .table .desc {
+      font-size: 15px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .table .expanded-content {
+      background: #1a1a1a;
+      padding: 20px 24px;
+      border-bottom: 1px solid #252525;
+    }
+
+    .expanded-content .detail-row {
+      display: flex;
+      margin-bottom: 12px;
+    }
+
+    .expanded-content .detail-label {
+      width: 100px;
+      font-size: 14px;
+      color: #666;
+      flex-shrink: 0;
+    }
+
+    .expanded-content .detail-value {
+      font-size: 15px;
+      color: #bbb;
+      line-height: 1.5;
+    }
+
+    .expanded-content .subtasks {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #252525;
+    }
+
+    .expanded-content .subtask {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      font-size: 15px;
+      color: #999;
+    }
+
+    .expanded-content .subtask-check {
+      color: #555;
+    }
+
+    .expanded-content .subtask.done {
+      color: #666;
+      text-decoration: line-through;
+    }
+
+    .expanded-content .subtask.done .subtask-check {
+      color: #4ade80;
+    }
+
+    /* Status Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .badge-active {
+      background: #1e2a3a;
+      color: #5b9bf5;
+    }
+
+    .badge-done {
+      background: #1a2e1a;
+      color: #5bbf5b;
+    }
+
+    .badge-queue {
+      background: #252525;
+      color: #888;
+    }
+
+    .badge-blocked {
+      background: #2e261a;
+      color: #d4a33a;
+    }
+
+    .badge-idea {
+      background: #2a1e3a;
+      color: #a585d4;
+    }
+
+    /* Progress */
+    .progress {
+      width: 100px;
+      height: 6px;
+      background: #252525;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: #5b9bf5;
+      border-radius: 3px;
+    }
+
+    .progress-text {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    /* Activity List */
+    .activity-list {
+      background: #181818;
+      border: 1px solid #252525;
+      border-radius: 12px;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      border-bottom: 1px solid #202020;
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-time {
+      font-size: 14px;
+      color: #555;
+      min-width: 85px;
+    }
+
+    .activity-dot {
+      width: 8px;
+      height: 8px;
+      background: #333;
+      border-radius: 50%;
+    }
+
+    .activity-dot.active {
+      background: #5b9bf5;
+    }
+
+    .activity-text {
+      font-size: 16px;
+      color: #aaa;
+    }
+
+    /* Ideas List */
+    .ideas-list {
+      background: #181818;
+      border: 1px solid #252525;
+      border-radius: 12px;
+    }
+
+    .idea-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid #202020;
+    }
+
+    .idea-item:last-child {
+      border-bottom: none;
+    }
+
+    .idea-icon {
+      font-size: 14px;
+      margin-top: 2px;
+    }
+
+    .idea-title {
+      font-size: 16px;
+      color: #e5e5e5;
+      margin-bottom: 4px;
+    }
+
+    .idea-desc {
+      font-size: 15px;
+      color: #666;
+    }
+
+    /* Current Task Banner */
+    .current-banner {
+      background: linear-gradient(135deg, #1a2535 0%, #1d1a2e 100%);
+      border: 1px solid #2a3545;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .current-banner .dot {
+      width: 10px;
+      height: 10px;
+      background: #5b9bf5;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .current-banner .text {
+      flex: 1;
+      font-size: 14px;
+      color: #c5d5f5;
+    }
+
+    .current-banner .time {
+      font-size: 12px;
+      color: #667799;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1><i data-lucide="rocket" style="width:26px;height:26px;vertical-align:-5px;margin-right:10px;"></i>Mission Control</h1>
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-label">Overview</div>
+      <div class="nav-item active" data-filter="all">
+        <i data-lucide="layout-grid"></i> All Items
+        <span class="count" id="navAll">0</span>
+      </div>
+      <div class="nav-item" data-filter="active">
+        <i data-lucide="play-circle"></i> Active
+        <span class="count" id="navActive">0</span>
+      </div>
+      <div class="nav-item" data-filter="queue">
+        <i data-lucide="list"></i> Queue
+        <span class="count" id="navQueue">0</span>
+      </div>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Status</div>
+      <div class="nav-item" data-filter="done">
+        <i data-lucide="check-circle"></i> Completed
+        <span class="count" id="navDone">0</span>
+      </div>
+      <div class="nav-item" data-filter="idea">
+        <i data-lucide="lightbulb"></i> Ideas
+        <span class="count" id="navIdeas">0</span>
+      </div>
+      <div class="nav-item" data-filter="archived">
+        <i data-lucide="archive"></i> Archived
+        <span class="count">0</span>
+      </div>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">System</div>
+      <div class="nav-item" data-filter="tools">
+        <i data-lucide="wrench"></i> Tools & APIs
+        <span class="count" id="navTools">0</span>
+      </div>
+      <div class="nav-item" data-filter="crons">
+        <i data-lucide="clock"></i> Cron Jobs
+        <span class="count" id="navCrons">0</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      Last updated<br>
+      <span id="lastUpdated">-</span>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="page-header">
+      <h2 id="pageTitle">All Items</h2>
+      <p id="pageDate"></p>
+    </div>
+
+    <!-- Current Task Banner -->
+    <div class="current-banner" id="currentBanner">
+      <div class="dot"></div>
+      <span class="text" id="currentText">Loading...</span>
+      <span class="time" id="currentTime"></span>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="label">Active</div>
+        <div class="value" id="statActive">0</div>
+        <div class="sub">In progress</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Queue</div>
+        <div class="value" id="statQueue">0</div>
+        <div class="sub">Up next</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Completed</div>
+        <div class="value" id="statDone">0</div>
+        <div class="sub">This week</div>
+      </div>
+      <div class="stat-box">
+        <div class="label">Ideas</div>
+        <div class="value" id="statIdeas">0</div>
+        <div class="sub">Captured</div>
+      </div>
+    </div>
+
+    <!-- Projects Section -->
+    <section class="section" id="projectsSection">
+      <div class="section-header">
+        <span class="section-title"><i data-lucide="folder-kanban"></i> Projects</span>
+      </div>
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 40%">Project</th>
+              <th>Status</th>
+              <th>Progress</th>
+              <th>Updated</th>
+            </tr>
+          </thead>
+          <tbody id="projectsTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tasks Section -->
+    <section class="section" id="tasksSection">
+      <div class="section-header">
+        <span class="section-title"><i data-lucide="check-square"></i> Tasks</span>
+      </div>
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 50%">Task</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="tasksTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Ideas Section -->
+    <section class="section" id="ideasSection">
+      <div class="section-header">
+        <span class="section-title"><i data-lucide="lightbulb"></i> Ideas & Suggestions</span>
+      </div>
+      <div class="ideas-list" id="ideasList"></div>
+    </section>
+
+    <!-- Recent Activity -->
+    <section class="section" id="activitySection">
+      <div class="section-header">
+        <span class="section-title"><i data-lucide="activity"></i> Recent Activity</span>
+      </div>
+      <div class="activity-list" id="activityList"></div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="section" id="toolsSection" style="display: none;">
+      <div class="section-header">
+        <span class="section-title"><i data-lucide="wrench"></i> Tools & APIs</span>
+      </div>
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 25%">Tool</th>
+              <th>Description</th>
+              <th style="width: 15%">Status</th>
+            </tr>
+          </thead>
+          <tbody id="toolsTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Crons Section -->
+    <section class="section" id="cronsSection" style="display: none;">
+      <div class="section-header">
+        <span class="section-title"><i data-lucide="clock"></i> Scheduled Jobs</span>
+      </div>
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 25%">Job Name</th>
+              <th>Description</th>
+              <th style="width: 20%">Schedule</th>
+              <th style="width: 10%">Status</th>
+            </tr>
+          </thead>
+          <tbody id="cronsTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let data = null;
+    let currentFilter = 'all';
+
+    async function loadData() {
+      try {
+        const response = await fetch('activity.json?' + Date.now());
+        data = await response.json();
+        render();
+      } catch (e) {
+        console.error('Failed to load:', e);
+      }
+    }
+
+    function formatTime(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    }
+
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      const now = new Date();
+      const diff = Math.floor((now - date) / 1000 / 60 / 60 / 24);
+      
+      if (diff === 0) return 'Today';
+      if (diff === 1) return 'Yesterday';
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    function timeAgo(dateStr) {
+      const now = new Date();
+      const date = new Date(dateStr);
+      const diff = Math.floor((now - date) / 1000 / 60);
+      
+      if (diff < 1) return 'Now';
+      if (diff < 60) return diff + 'm ago';
+      if (diff < 1440) return Math.floor(diff / 60) + 'h ago';
+      return Math.floor(diff / 1440) + 'd ago';
+    }
+
+    function render() {
+      // Page date
+      document.getElementById('pageDate').textContent = 
+        new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+      // Current task
+      if (data.currentTask) {
+        document.getElementById('currentText').textContent = data.currentTask.title;
+        document.getElementById('currentTime').textContent = timeAgo(data.currentTask.startedAt);
+      }
+
+      // Stats
+      const active = data.items.filter(i => i.status === 'active').length;
+      const queue = data.items.filter(i => i.status === 'queue').length;
+      const done = data.items.filter(i => i.status === 'done').length;
+      const ideas = data.items.filter(i => i.status === 'idea').length;
+
+      document.getElementById('statActive').textContent = active;
+      document.getElementById('statQueue').textContent = queue;
+      document.getElementById('statDone').textContent = done;
+      document.getElementById('statIdeas').textContent = ideas;
+
+      // Nav counts
+      document.getElementById('navAll').textContent = data.items.length;
+      document.getElementById('navActive').textContent = active;
+      document.getElementById('navQueue').textContent = queue;
+      document.getElementById('navDone').textContent = done;
+      document.getElementById('navIdeas').textContent = ideas;
+
+      // Filter items
+      let items = data.items;
+      if (currentFilter !== 'all') {
+        items = items.filter(i => i.status === currentFilter);
+      }
+
+      // Projects table (type === 'project')
+      const projectItems = items.filter(i => i.type === 'project' && i.status !== 'idea');
+      document.getElementById('projectsTable').innerHTML = projectItems.map(item => {
+        const statusClass = item.blocked ? 'blocked' : item.status;
+        const statusLabel = item.blocked ? 'Blocked' : 
+                          item.status === 'active' ? 'Active' :
+                          item.status === 'done' ? 'Done' : 'Ready';
+        
+        const subtasksHtml = item.subtasks ? item.subtasks.map(st => `
+          <div class="subtask ${st.done ? 'done' : ''}">
+            <span class="subtask-check">${st.done ? '☑' : '☐'}</span>
+            <span>${st.title}</span>
+          </div>
+        `).join('') : '';
+        
+        return `
+          <tr class="clickable" data-id="${item.id}">
+            <td>
+              <div class="title">
+                <i data-lucide="chevron-right" class="chevron"></i>
+                ${item.title}
+              </div>
+              <div class="desc" style="margin-left: 24px;">${item.description}</div>
+            </td>
+            <td><span class="badge badge-${statusClass}">${statusLabel}</span></td>
+            <td>
+              ${item.progress !== undefined ? `
+                <div class="progress"><div class="progress-bar" style="width: ${item.progress}%"></div></div>
+                <div class="progress-text">${item.progress}%</div>
+              ` : '<span style="color: #555">—</span>'}
+            </td>
+            <td style="color: #666">${formatDate(item.updated || item.completed || item.created)}</td>
+          </tr>
+          <tr class="expanded-row" data-parent="${item.id}" style="display: none;">
+            <td colspan="4" class="expanded-content">
+              ${item.prd ? `
+                <div class="detail-row">
+                  <span class="detail-label">PRD</span>
+                  <span class="detail-value">${item.prd}</span>
+                </div>
+              ` : ''}
+              ${item.blocked ? `
+                <div class="detail-row">
+                  <span class="detail-label">Blocked</span>
+                  <span class="detail-value" style="color: #d4a33a;">⚠️ ${item.blocked}</span>
+                </div>
+              ` : ''}
+              <div class="detail-row">
+                <span class="detail-label">Created</span>
+                <span class="detail-value">${new Date(item.created).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'})}</span>
+              </div>
+              ${subtasksHtml ? `
+                <div class="subtasks">
+                  <div style="font-size: 13px; color: #666; margin-bottom: 10px;">Sub-tasks</div>
+                  ${subtasksHtml}
+                </div>
+              ` : ''}
+            </td>
+          </tr>
+        `;
+      }).join('');
+      
+      // Add click handlers for expandable rows
+      document.querySelectorAll('#projectsTable tr.clickable').forEach(row => {
+        row.addEventListener('click', () => {
+          const id = row.dataset.id;
+          const expandedRow = document.querySelector(`tr.expanded-row[data-parent="${id}"]`);
+          const isExpanded = row.classList.contains('expanded');
+          
+          // Collapse all
+          document.querySelectorAll('#projectsTable tr.clickable').forEach(r => r.classList.remove('expanded'));
+          document.querySelectorAll('#projectsTable tr.expanded-row').forEach(r => r.style.display = 'none');
+          
+          // Expand clicked if wasn't already expanded
+          if (!isExpanded) {
+            row.classList.add('expanded');
+            expandedRow.style.display = 'table-row';
+          }
+          
+          lucide.createIcons();
+        });
+      });
+
+      // Tasks table (type === 'task')
+      const taskItems = items.filter(i => i.type === 'task' && i.status !== 'idea');
+      document.getElementById('tasksTable').innerHTML = taskItems.map(item => {
+        const statusClass = item.blocked ? 'blocked' : item.status;
+        const statusLabel = item.blocked ? '⏸️ Blocked' : 
+                          item.status === 'active' ? '🔄 Active' :
+                          item.status === 'done' ? '✓ Done' : '○ Ready';
+        const checkmark = item.status === 'done' ? '☑' : '☐';
+        
+        return `
+          <tr>
+            <td>
+              <div class="title" style="display: flex; align-items: center; gap: 8px;">
+                <span style="color: ${item.status === 'done' ? '#4ade80' : '#555'}">${checkmark}</span>
+                <span style="${item.status === 'done' ? 'text-decoration: line-through; color: #666;' : ''}">${item.title}</span>
+              </div>
+              ${item.blocked ? `<div style="color: #d4a33a; font-size: 12px; margin-top: 4px; margin-left: 24px;">⚠️ ${item.blocked}</div>` : ''}
+            </td>
+            <td><span class="badge badge-${statusClass}">${statusLabel}</span></td>
+            <td style="color: #666">${formatDate(item.completed || item.updated || item.created)}</td>
+          </tr>
+        `;
+      }).join('');
+
+      // Show/hide sections based on content
+      document.getElementById('projectsSection').style.display = projectItems.length ? 'block' : 'none';
+      document.getElementById('tasksSection').style.display = taskItems.length ? 'block' : 'none';
+
+      // Ideas
+      const ideaItems = currentFilter === 'all' || currentFilter === 'idea' 
+        ? data.items.filter(i => i.status === 'idea') 
+        : [];
+      
+      document.getElementById('ideasSection').style.display = ideaItems.length ? 'block' : 'none';
+      document.getElementById('ideasList').innerHTML = ideaItems.map(item => `
+        <div class="idea-item">
+          <i data-lucide="lightbulb" style="width:22px;height:22px;color:#a585d4;flex-shrink:0;margin-top:2px;"></i>
+          <div>
+            <div class="idea-title">${item.title}</div>
+            <div class="idea-desc">${item.description}</div>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+
+      // Activity
+      document.getElementById('activityList').innerHTML = data.recentActivity.slice(0, 6).map((item, i) => `
+        <div class="activity-item">
+          <span class="activity-time">${formatTime(item.time)}</span>
+          <div class="activity-dot ${i === 0 ? 'active' : ''}"></div>
+          <span class="activity-text">${item.action}</span>
+        </div>
+      `).join('');
+
+      // Tools
+      if (data.tools) {
+        document.getElementById('navTools').textContent = data.tools.length;
+        document.getElementById('toolsTable').innerHTML = data.tools.map(tool => `
+          <tr>
+            <td><div class="title">${tool.name}</div></td>
+            <td>
+              <div style="color: #999">${tool.description}</div>
+              ${tool.note ? `<div style="color: #666; font-size: 12px; margin-top: 4px">⚠️ ${tool.note}</div>` : ''}
+            </td>
+            <td><span class="badge badge-${tool.status === 'active' ? 'done' : 'queue'}">${tool.status === 'active' ? '✓ Active' : 'Inactive'}</span></td>
+          </tr>
+        `).join('');
+      }
+
+      // Crons
+      if (data.crons) {
+        document.getElementById('navCrons').textContent = data.crons.length;
+        document.getElementById('cronsTable').innerHTML = data.crons.map(cron => `
+          <tr>
+            <td><div class="title">${cron.name}</div></td>
+            <td style="color: #999">${cron.desc}</td>
+            <td style="color: #888">${cron.schedule}</td>
+            <td><span class="badge badge-${cron.enabled ? 'done' : 'queue'}">${cron.enabled ? '✓ Active' : 'Disabled'}</span></td>
+          </tr>
+        `).join('');
+      }
+
+      // Last updated
+      document.getElementById('lastUpdated').textContent = 
+        new Date(data.lastUpdated).toLocaleString('en-US', { 
+          month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' 
+        });
+    }
+
+    // Navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        
+        currentFilter = item.dataset.filter;
+        const titles = {
+          all: 'All Items',
+          active: 'Active',
+          queue: 'Queue',
+          done: 'Completed',
+          idea: 'Ideas',
+          archived: 'Archived',
+          tools: 'Tools & APIs',
+          crons: 'Cron Jobs'
+        };
+        document.getElementById('pageTitle').textContent = titles[currentFilter];
+        
+        // Show/hide sections based on filter
+        const toolsSection = document.getElementById('toolsSection');
+        const projectsSection = document.getElementById('projectsSection');
+        const activitySection = document.getElementById('activitySection');
+        const statsRow = document.querySelector('.stats-row');
+        const currentBanner = document.getElementById('currentBanner');
+        
+        const cronsSection = document.getElementById('cronsSection');
+        
+        if (currentFilter === 'tools') {
+          toolsSection.style.display = 'block';
+          cronsSection.style.display = 'none';
+          projectsSection.style.display = 'none';
+          document.getElementById('tasksSection').style.display = 'none';
+          activitySection.style.display = 'none';
+          statsRow.style.display = 'none';
+          currentBanner.style.display = 'none';
+          document.getElementById('ideasSection').style.display = 'none';
+        } else if (currentFilter === 'crons') {
+          toolsSection.style.display = 'none';
+          cronsSection.style.display = 'block';
+          projectsSection.style.display = 'none';
+          document.getElementById('tasksSection').style.display = 'none';
+          activitySection.style.display = 'none';
+          statsRow.style.display = 'none';
+          currentBanner.style.display = 'none';
+          document.getElementById('ideasSection').style.display = 'none';
+        } else {
+          toolsSection.style.display = 'none';
+          cronsSection.style.display = 'none';
+          projectsSection.style.display = 'block';
+          document.getElementById('tasksSection').style.display = 'block';
+          activitySection.style.display = 'block';
+          statsRow.style.display = 'flex';
+          currentBanner.style.display = 'flex';
+          render();
+          return;
+        }
+      });
+    });
+
+    // Auto-refresh
+    setInterval(loadData, 30000);
+    loadData();
+
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>

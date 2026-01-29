@@ -1,0 +1,381 @@
+{
+  "currentTask": {
+    "title": "Building Mission Control Dashboard",
+    "startedAt": "2026-01-29T04:11:00"
+  },
+  "items": [
+    {
+      "id": "mc001",
+      "type": "project",
+      "title": "Mission Control Dashboard",
+      "description": "Activity tracker to see everything Alfred is working on",
+      "status": "active",
+      "progress": 80,
+      "created": "2026-01-29T04:11:00",
+      "updated": "2026-01-29T04:38:00",
+      "prd": "A single dashboard showing all active work, completed tasks, ideas, and system status. Includes Tools & APIs page and Cron Jobs page.",
+      "subtasks": [
+        {"title": "Basic layout with sidebar", "done": true},
+        {"title": "Projects & Tasks tables", "done": true},
+        {"title": "Tools & Crons pages", "done": true},
+        {"title": "Lucide icons", "done": true},
+        {"title": "Expandable project rows", "done": false}
+      ]
+    },
+    {
+      "id": "st001",
+      "type": "project",
+      "title": "Strategy Tracker App",
+      "description": "Trading dashboard with P&L by strategy: Earnings, BX-Trender, Premium/Wheels, Ethan's Trades",
+      "status": "active",
+      "progress": 30,
+      "created": "2026-01-28T02:00:00",
+      "updated": "2026-01-29T03:40:00",
+      "blocked": "Need VRP and Ethan specs from Nam",
+      "prd": "Track P&L per trading strategy. Each strategy gets its own page with custom metrics. Earnings: EV/trade, Premium Capture %, Win Rate by Structure. BX-Trender: 8 key metrics. Premium/Wheels: Theta Efficiency, Assignment Rate. Risk metrics: Sharpe, Sortino, Profit Factor, Expectancy.",
+      "subtasks": [
+        {"title": "Locate trade-tracker-v2 repo", "done": false},
+        {"title": "Find Magic Patterns UI components", "done": false},
+        {"title": "Build Earnings page", "done": false},
+        {"title": "Build BX-Trender page", "done": false},
+        {"title": "Build Premium/Wheels page", "done": false},
+        {"title": "Connect Schwab API", "done": false}
+      ]
+    },
+    {
+      "id": "mf001",
+      "type": "project",
+      "title": "MandarinFlow / DailyLingo",
+      "description": "Chinese learning app with phrase-based spaced repetition",
+      "status": "queue",
+      "progress": 50,
+      "created": "2026-01-27T10:00:00",
+      "updated": "2026-01-27T12:00:00"
+    },
+    {
+      "id": "ar001",
+      "type": "project",
+      "title": "Alpha Research System",
+      "description": "Chris Camillo method: Thesis vault, trend scanner, idea capture",
+      "status": "queue",
+      "progress": 40,
+      "created": "2026-01-26T18:00:00",
+      "updated": "2026-01-26T20:00:00"
+    },
+    {
+      "id": "sa001",
+      "type": "task",
+      "title": "Schwab Full Portfolio Access",
+      "description": "Re-authorize OAuth with trading/accounts scope to see positions",
+      "status": "queue",
+      "created": "2026-01-28T10:00:00",
+      "updated": "2026-01-28T10:00:00",
+      "blocked": "Need Nam to re-authorize"
+    },
+    {
+      "id": "cs001",
+      "type": "task",
+      "title": "Calendar Sync (CalDAV)",
+      "description": "Connect iCloud/Google calendar for morning brief",
+      "status": "queue",
+      "created": "2026-01-28T12:00:00",
+      "updated": "2026-01-28T12:00:00"
+    },
+    {
+      "id": "mb001",
+      "type": "task",
+      "title": "Morning Brief Cron",
+      "description": "Daily 9am HKT briefing with Oura, weather, markets, calendar, email, news",
+      "status": "done",
+      "created": "2026-01-29T03:00:00",
+      "completed": "2026-01-29T03:05:00"
+    },
+    {
+      "id": "te001",
+      "type": "task",
+      "title": "Telegram Export Analysis",
+      "description": "Analyzed 3,642 messages, recovered strategy tracker specs",
+      "status": "done",
+      "created": "2026-01-29T03:20:00",
+      "completed": "2026-01-29T03:40:00"
+    },
+    {
+      "id": "rs001",
+      "type": "task",
+      "title": "Recovered Strategy Tracker Specs",
+      "description": "Found full specs: Earnings, BX-Trender (8 metrics), Premium/Wheels, risk metrics",
+      "status": "done",
+      "created": "2026-01-29T03:30:00",
+      "completed": "2026-01-29T03:40:00"
+    },
+    {
+      "id": "cj001",
+      "type": "task",
+      "title": "15 Cron Jobs Created",
+      "description": "Morning brief, THT analysis (3x daily), Playtech (2x), backups, token refresh",
+      "status": "done",
+      "created": "2026-01-28T18:00:00",
+      "completed": "2026-01-28T20:00:00"
+    },
+    {
+      "id": "tw001",
+      "type": "task",
+      "title": "Twitter/X API Connected",
+      "description": "Read-only access to @Nam_Le account for monitoring",
+      "status": "done",
+      "created": "2026-01-28T17:00:00",
+      "completed": "2026-01-28T17:30:00"
+    },
+    {
+      "id": "sc001",
+      "type": "task",
+      "title": "Schwab Token Auto-Refresh",
+      "description": "Script running every 25 min to keep OAuth alive",
+      "status": "done",
+      "created": "2026-01-28T15:00:00",
+      "completed": "2026-01-28T16:00:00"
+    },
+    {
+      "id": "bs001",
+      "type": "task",
+      "title": "Brave Search API",
+      "description": "Web search capability added",
+      "status": "done",
+      "created": "2026-01-28T14:00:00",
+      "completed": "2026-01-28T14:30:00"
+    },
+    {
+      "id": "av001",
+      "type": "task",
+      "title": "Alpha Vantage API",
+      "description": "Market data API connected",
+      "status": "done",
+      "created": "2026-01-28T14:30:00",
+      "completed": "2026-01-28T15:00:00"
+    },
+    {
+      "id": "pe001",
+      "type": "task",
+      "title": "Proton Email Created",
+      "description": "Backup email: alfred.work.1@proton.me",
+      "status": "done",
+      "created": "2026-01-28T13:00:00",
+      "completed": "2026-01-28T13:30:00"
+    },
+    {
+      "id": "gb001",
+      "type": "task",
+      "title": "GitHub Repos Setup",
+      "description": "alfred-assist-ai/alfred-brain (public), worldcash1/alfred-brain (private backup)",
+      "status": "done",
+      "created": "2026-01-26T18:00:00",
+      "completed": "2026-01-26T19:00:00"
+    },
+    {
+      "id": "ob001",
+      "type": "task",
+      "title": "Obsidian Vault Setup",
+      "description": "Brain folder with trading docs, workflows, templates",
+      "status": "done",
+      "created": "2026-01-26T20:00:00",
+      "completed": "2026-01-26T21:00:00"
+    },
+    {
+      "id": "or001",
+      "type": "task",
+      "title": "Oura Ring Integration",
+      "description": "Health data API connected - sleep, HRV, readiness",
+      "status": "done",
+      "created": "2026-01-26T15:00:00",
+      "completed": "2026-01-26T16:00:00"
+    },
+    {
+      "id": "pd001",
+      "type": "task",
+      "title": "Peter DiCarlo Strategy Docs",
+      "description": "50 videos summarized, full BX Trender system documented",
+      "status": "done",
+      "created": "2026-01-26T10:00:00",
+      "completed": "2026-01-27T02:00:00"
+    },
+    {
+      "id": "tg001",
+      "type": "task",
+      "title": "Telegram Bot Setup",
+      "description": "Primary communication channel with Nam",
+      "status": "done",
+      "created": "2026-01-25T22:30:00",
+      "completed": "2026-01-25T22:40:00"
+    },
+    {
+      "id": "vrp01",
+      "type": "idea",
+      "title": "VRP Strategy",
+      "description": "Nam mentioned as a trading strategy - need definition. Volatility Risk Premium?",
+      "status": "idea",
+      "created": "2026-01-28T02:13:00"
+    },
+    {
+      "id": "eth01",
+      "type": "idea",
+      "title": "Ethan's Trades",
+      "description": "A trader Nam follows - biotech + mixed. Need to know: who, what platform, trade style",
+      "status": "idea",
+      "created": "2026-01-28T02:13:00"
+    },
+    {
+      "id": "phn01",
+      "type": "idea",
+      "title": "Phone Number Setup",
+      "description": "Ultra Mobile PayGo ($3/mo) or Plivo for 2FA verifications",
+      "status": "idea",
+      "created": "2026-01-26T20:00:00"
+    },
+    {
+      "id": "cmf01",
+      "type": "idea",
+      "title": "ComfyUI Image Generation",
+      "description": "Skill available on ClawdHub for AI image generation",
+      "status": "idea",
+      "created": "2026-01-27T15:00:00"
+    },
+    {
+      "id": "pomp01",
+      "type": "idea",
+      "title": "Pomp's 8-Step Portfolio Optimizer",
+      "description": "Portfolio optimization system mentioned for future",
+      "status": "idea",
+      "created": "2026-01-27T18:00:00"
+    },
+    {
+      "id": "tww01",
+      "type": "idea",
+      "title": "Twitter Write Access",
+      "description": "Regenerate token with Read+Write scope for posting",
+      "status": "idea",
+      "created": "2026-01-28T18:00:00"
+    },
+    {
+      "id": "ts001",
+      "type": "idea",
+      "title": "Tailscale VPN",
+      "description": "Blocked by ExpressVPN conflict - switch between as needed",
+      "status": "idea",
+      "created": "2026-01-27T10:00:00"
+    },
+    {
+      "id": "wa001",
+      "type": "idea",
+      "title": "WhatsApp Channel",
+      "description": "Connect WhatsApp as additional messaging channel - needs QR scan",
+      "status": "idea",
+      "created": "2026-01-26T12:00:00"
+    }
+  ],
+  "recentActivity": [
+    {"time": "2026-01-29T04:18:00", "action": "Rebuilding Mission Control with cleaner design"},
+    {"time": "2026-01-29T04:11:00", "action": "Started building Mission Control dashboard"},
+    {"time": "2026-01-29T03:52:00", "action": "Opened design inspiration from Mobbin, Dribbble"},
+    {"time": "2026-01-29T03:40:00", "action": "Updated PROJECTS.md with recovered specs"},
+    {"time": "2026-01-29T03:40:00", "action": "Created TODO.md recovery checklist"},
+    {"time": "2026-01-29T03:32:00", "action": "Analyzed 3,642 Telegram messages"},
+    {"time": "2026-01-29T03:27:00", "action": "Received JSON export from Nam"},
+    {"time": "2026-01-29T03:19:00", "action": "Nam shared Telegram export folder"},
+    {"time": "2026-01-29T03:05:00", "action": "Created morning brief cron (9am HKT)"},
+    {"time": "2026-01-29T03:04:00", "action": "Customized morning brief prompt"},
+    {"time": "2026-01-29T02:04:00", "action": "Started planning morning brief"},
+    {"time": "2026-01-28T20:00:00", "action": "Set up 15 cron jobs for automation"},
+    {"time": "2026-01-28T17:30:00", "action": "Connected Twitter/X API (read-only)"},
+    {"time": "2026-01-28T16:00:00", "action": "Created Schwab token auto-refresh script"},
+    {"time": "2026-01-28T15:00:00", "action": "Added Alpha Vantage market data API"},
+    {"time": "2026-01-28T14:30:00", "action": "Added Brave Search API"},
+    {"time": "2026-01-28T13:30:00", "action": "Created Proton backup email"}
+  ],
+  "lastUpdated": "2026-01-29T04:25:00",
+  "crons": [
+    {"name": "Morning Brief", "schedule": "9am HKT (5pm PT)", "desc": "Daily briefing with health, weather, markets", "enabled": true},
+    {"name": "THT Pre-Market", "schedule": "6:30am M-F", "desc": "Pre-market trading analysis", "enabled": true},
+    {"name": "THT Mid-Day", "schedule": "12pm M-F", "desc": "Mid-day market update", "enabled": true},
+    {"name": "THT Evening", "schedule": "6pm M-F", "desc": "End of day trading recap", "enabled": true},
+    {"name": "Playtech Morning", "schedule": "6am M-F", "desc": "LON:PTEC morning check", "enabled": true},
+    {"name": "Playtech Afternoon", "schedule": "2pm M-F", "desc": "LON:PTEC closing update", "enabled": true},
+    {"name": "Patreon Summary", "schedule": "5pm M-F", "desc": "MarketMaestro & DannyTrades posts", "enabled": true},
+    {"name": "Flight Tracker", "schedule": "9am daily", "desc": "SGN→LAX price check (Mar 9)", "enabled": true},
+    {"name": "Daily Summary", "schedule": "11pm daily", "desc": "Write day recap to memory/", "enabled": true},
+    {"name": "Transcript Archive", "schedule": "11pm daily", "desc": "Save chat history", "enabled": true},
+    {"name": "Alpha Research", "schedule": "6pm Sundays", "desc": "Weekly research report", "enabled": true},
+    {"name": "Netflix Weekly", "schedule": "9am Mondays", "desc": "New releases check", "enabled": true},
+    {"name": "Schwab Token Refresh", "schedule": "Every 25 min", "desc": "Keep OAuth token alive", "enabled": true},
+    {"name": "Workspace Backup", "schedule": "Every hour", "desc": "Git commit & push", "enabled": true},
+    {"name": "Local Backup Sync", "schedule": "Every 30 min", "desc": "rsync to Documents/", "enabled": true}
+  ],
+  "tools": [
+    {
+      "name": "Schwab API",
+      "status": "active",
+      "description": "Market data, token auto-refresh every 25min",
+      "note": "Portfolio access needs re-auth"
+    },
+    {
+      "name": "Oura Ring API",
+      "status": "active",
+      "description": "Sleep, HRV, readiness, activity data"
+    },
+    {
+      "name": "Twitter/X API",
+      "status": "active",
+      "description": "Read-only access to @Nam_Le",
+      "note": "$200/mo for write access"
+    },
+    {
+      "name": "Brave Search API",
+      "status": "active",
+      "description": "Web search capability"
+    },
+    {
+      "name": "Alpha Vantage API",
+      "status": "active",
+      "description": "Stock market data"
+    },
+    {
+      "name": "AgentMail",
+      "status": "active",
+      "description": "Primary email: alfred-x@agentmail.to"
+    },
+    {
+      "name": "GitHub",
+      "status": "active",
+      "description": "worldcash1 + alfred-assist-ai accounts"
+    },
+    {
+      "name": "ElevenLabs",
+      "status": "active",
+      "description": "Text-to-speech, voice generation"
+    },
+    {
+      "name": "Telegram Bot",
+      "status": "active",
+      "description": "Primary communication channel"
+    },
+    {
+      "name": "Browser Control",
+      "status": "active",
+      "description": "Can control Chrome via relay"
+    },
+    {
+      "name": "WhatsApp",
+      "status": "inactive",
+      "description": "Needs QR scan to connect"
+    },
+    {
+      "name": "Calendar (CalDAV)",
+      "status": "inactive",
+      "description": "Not connected yet"
+    },
+    {
+      "name": "Notion API",
+      "status": "inactive",
+      "description": "Available but not configured"
+    }
+  ]
+}
