@@ -13,13 +13,17 @@
       "progress": 80,
       "created": "2026-01-29T04:11:00",
       "updated": "2026-01-29T04:38:00",
+      "liveUrl": "https://mission-control-zeta-livid.vercel.app",
+      "repoUrl": "https://github.com/worldcash1/mission-control",
       "prd": "A single dashboard showing all active work, completed tasks, ideas, and system status. Includes Tools & APIs page and Cron Jobs page.",
       "subtasks": [
         {"title": "Basic layout with sidebar", "done": true},
         {"title": "Projects & Tasks tables", "done": true},
         {"title": "Tools & Crons pages", "done": true},
         {"title": "Lucide icons", "done": true},
-        {"title": "Expandable project rows", "done": false}
+        {"title": "Expandable project rows", "done": true},
+        {"title": "Search bar", "done": true},
+        {"title": "Mobile responsive", "done": true}
       ]
     },
     {
@@ -32,6 +36,7 @@
       "created": "2026-01-28T02:00:00",
       "updated": "2026-01-29T03:40:00",
       "blocked": "Need VRP and Ethan specs from Nam",
+      "repoUrl": "https://github.com/worldcash1/trade-tracker-v2",
       "prd": "Track P&L per trading strategy. Each strategy gets its own page with custom metrics. Earnings: EV/trade, Premium Capture %, Win Rate by Structure. BX-Trender: 8 key metrics. Premium/Wheels: Theta Efficiency, Assignment Rate. Risk metrics: Sharpe, Sortino, Profit Factor, Expectancy.",
       "subtasks": [
         {"title": "Locate trade-tracker-v2 repo", "done": false},

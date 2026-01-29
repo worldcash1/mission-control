@@ -978,12 +978,18 @@
           </div>
         `).join('') : '';
         
+        const linksHtml = `
+          ${item.liveUrl ? `<a href="${item.liveUrl}" target="_blank" onclick="event.stopPropagation()" style="display: inline-flex; align-items: center; gap: 4px; background: #1a3d2a; color: #4ade80; padding: 3px 8px; border-radius: 4px; font-size: 11px; text-decoration: none; margin-left: 8px;">▲ Live</a>` : ''}
+          ${item.repoUrl ? `<a href="${item.repoUrl}" target="_blank" onclick="event.stopPropagation()" style="display: inline-flex; align-items: center; gap: 4px; background: #2a2a3d; color: #8b8bf5; padding: 3px 8px; border-radius: 4px; font-size: 11px; text-decoration: none; margin-left: 4px;">⌥ Repo</a>` : ''}
+        `;
+        
         return `
           <tr class="clickable" data-id="${item.id}">
             <td>
               <div class="title">
                 <i data-lucide="chevron-right" class="chevron"></i>
                 ${item.title}
+                ${linksHtml}
               </div>
               <div class="desc" style="margin-left: 24px;">${item.description}</div>
             </td>
