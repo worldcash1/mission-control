@@ -319,7 +319,7 @@
     {"name": "IDENTITY.md", "desc": "Quick identity summary — name, emoji, avatar, vibe", "category": "Identity"},
     {"name": "HEARTBEAT.md", "desc": "Periodic check tasks — what to do during heartbeats", "category": "System"},
     {"name": "TODO.md", "desc": "Recovery checklist and pending items", "category": "Work"},
-    {"name": "TASKS.md", "desc": "Task tracking file", "category": "Work"}
+    {"name": "README.md", "desc": "Repository description and overview", "category": "System"}
   ],
   "tools": [
     {
