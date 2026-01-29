@@ -854,7 +854,7 @@
             <td>
               <div class="title" style="display: flex; align-items: center; gap: 8px;">
                 <span style="color: ${item.status === 'done' ? '#4ade80' : '#555'}">${checkmark}</span>
-                <span style="${item.status === 'done' ? 'text-decoration: line-through; color: #666;' : ''}">${item.title}</span>
+                <span style="${item.status === 'done' ? 'color: #888;' : ''}">${item.title}</span>
               </div>
               ${item.blocked ? `<div style="color: #d4a33a; font-size: 12px; margin-top: 4px; margin-left: 24px;">⚠️ ${item.blocked}</div>` : ''}
             </td>
