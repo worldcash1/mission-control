@@ -1438,12 +1438,12 @@
           <tbody id="docsTable"></tbody>
         </table>
       </div>
-      <div id="docViewer" style="display: none; margin-top: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-          <h3 id="docViewerTitle" style="color: #fff; font-size: 18px;"></h3>
-          <button onclick="closeDocViewer()" style="background: #333; border: none; color: #999; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Close</button>
+      <div id="docViewer" style="display: none; margin-top: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #252525;">
+          <h3 id="docViewerTitle" style="color: #fff; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 10px;"><span style="color: #4ade80;">📄</span></h3>
+          <button onclick="closeDocViewer()" style="background: #252525; border: 1px solid #333; color: #999; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 13px; transition: all 0.15s;" onmouseover="this.style.background='#333';this.style.color='#fff'" onmouseout="this.style.background='#252525';this.style.color='#999'">Close</button>
         </div>
-        <div id="docContent" style="background: #1a1a1a; border: 1px solid #252525; border-radius: 8px; padding: 20px; color: #ccc; font-size: 14px; line-height: 1.7; overflow-x: auto; max-height: 600px; overflow-y: auto;"></div>
+        <div id="docContent" style="background: #161616; border: 1px solid #252525; border-radius: 10px; padding: 28px 32px; color: #b5b5b5; font-size: 14px; line-height: 1.65; overflow-x: auto; max-height: 70vh; overflow-y: auto;"></div>
       </div>
     </section>
   </main>
@@ -1993,17 +1993,33 @@
         const response = await fetch('docs/' + docPath + '?' + Date.now());
         const content = await response.text();
         document.getElementById('docViewerTitle').textContent = docPath.split('/').pop();
-        // Simple markdown-to-html conversion
-        const html = content
-          .replace(/^### (.*$)/gm, '<h4 style="color:#fff;margin:16px 0 8px;">$1</h4>')
-          .replace(/^## (.*$)/gm, '<h3 style="color:#fff;margin:20px 0 10px;">$1</h3>')
-          .replace(/^# (.*$)/gm, '<h2 style="color:#fff;margin:24px 0 12px;">$1</h2>')
-          .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#fff;">$1</strong>')
-          .replace(/\*(.*?)\*/g, '<em>$1</em>')
-          .replace(/^- (.*$)/gm, '<li style="margin-left:20px;">$1</li>')
-          .replace(/^• (.*$)/gm, '<li style="margin-left:20px;">$1</li>')
-          .replace(/\n\n/g, '<br><br>')
-          .replace(/---/g, '<hr style="border:none;border-top:1px solid #333;margin:20px 0;">');
+        // Enhanced markdown-to-html conversion
+        let html = content
+          // Headers
+          .replace(/^#### (.*$)/gm, '<h5 style="color:#e5e5e5;font-size:14px;font-weight:600;margin:14px 0 6px;letter-spacing:0.3px;">$1</h5>')
+          .replace(/^### (.*$)/gm, '<h4 style="color:#fff;font-size:15px;font-weight:600;margin:18px 0 8px;letter-spacing:0.3px;">$1</h4>')
+          .replace(/^## (.*$)/gm, '<h3 style="color:#fff;font-size:17px;font-weight:600;margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid #2a2a2a;">$1</h3>')
+          .replace(/^# (.*$)/gm, '<h2 style="color:#fff;font-size:20px;font-weight:600;margin:0 0 16px;padding-bottom:8px;border-bottom:1px solid #333;">$1</h2>')
+          // Text formatting
+          .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#fff;font-weight:600;">$1</strong>')
+          .replace(/\*(.*?)\*/g, '<em style="color:#bbb;">$1</em>')
+          .replace(/`([^`]+)`/g, '<code style="background:#252525;padding:2px 6px;border-radius:4px;font-size:13px;color:#4ade80;">$1</code>')
+          // Lists
+          .replace(/^- (.*$)/gm, '<div style="display:flex;gap:8px;margin:4px 0 4px 8px;"><span style="color:#4ade80;">•</span><span>$1</span></div>')
+          .replace(/^• (.*$)/gm, '<div style="display:flex;gap:8px;margin:4px 0 4px 8px;"><span style="color:#4ade80;">•</span><span>$1</span></div>')
+          // Dividers
+          .replace(/^---$/gm, '<hr style="border:none;border-top:1px solid #2a2a2a;margin:20px 0;">')
+          // Links
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color:#60a5fa;text-decoration:none;">$1</a>')
+          // Line breaks
+          .replace(/\n\n/g, '</p><p style="margin:12px 0;line-height:1.6;">')
+          // Emoji/badge styling for ratings
+          .replace(/⭐/g, '<span style="color:#fbbf24;">⭐</span>')
+          .replace(/✅/g, '<span style="color:#4ade80;">✅</span>')
+          .replace(/❌/g, '<span style="color:#f87171;">❌</span>')
+          .replace(/🏆/g, '<span style="font-size:18px;">🏆</span>');
+        // Wrap in paragraph
+        html = '<p style="margin:12px 0;line-height:1.6;">' + html + '</p>';
         document.getElementById('docContent').innerHTML = html;
         document.getElementById('docViewer').style.display = 'block';
       } catch (e) {
