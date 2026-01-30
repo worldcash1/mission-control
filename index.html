@@ -903,15 +903,32 @@
     .skill-card-title {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .skill-card-title .emoji {
-      font-size: 20px;
+    .skill-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #252525;
+      border-radius: 8px;
+      color: #888;
+    }
+
+    .skill-icon.active {
+      background: linear-gradient(135deg, #1a3d2a 0%, #1a2a3d 100%);
+      color: #4ade80;
+    }
+
+    .skill-icon svg {
+      width: 18px;
+      height: 18px;
     }
 
     .skill-card-title h3 {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       color: #fff;
       margin: 0;
@@ -1917,79 +1934,79 @@
       return html;
     }
 
-    // Skills data - Complete list
+    // Skills data - Complete list with Lucide icons
     const skillsData = {
       active: [
         // Custom installed skills
-        { name: "last30days", emoji: "🔍", description: "Research any topic from the last 30 days across Reddit, X, and the web. Surfaces what people are discussing right now.", apis: ["OpenAI API", "xAI API"], usage: "/last30days [topic]", category: "Custom" },
-        { name: "earnings-scanner", emoji: "📊", description: "Scan upcoming earnings for stocks with weekly options. Shows bid/ask spreads, volume, and open interest.", apis: ["Schwab API", "Alpha Vantage"], usage: "python3 scripts/scan.py", category: "Custom" },
-        { name: "marriott-scanner", emoji: "🏨", description: "Generate Marriott booking links with MMP discount code. 80+ hotels across 9 cities.", apis: ["None"], usage: "--city 'Hong Kong' --months 'Feb,Mar'", category: "Custom" },
+        { name: "last30days", icon: "search", description: "Research any topic from the last 30 days across Reddit, X, and the web. Surfaces what people are discussing right now.", apis: ["OpenAI API", "xAI API"], usage: "/last30days [topic]", category: "Custom" },
+        { name: "earnings-scanner", icon: "bar-chart-3", description: "Scan upcoming earnings for stocks with weekly options. Shows bid/ask spreads, volume, and open interest.", apis: ["Schwab API", "Alpha Vantage"], usage: "python3 scripts/scan.py", category: "Custom" },
+        { name: "marriott-scanner", icon: "building-2", description: "Generate Marriott booking links with MMP discount code. 80+ hotels across 9 cities.", apis: ["None"], usage: "--city 'Hong Kong' --months 'Feb,Mar'", category: "Custom" },
         // Built-in active
-        { name: "github", emoji: "🐙", description: "Interact with GitHub using the gh CLI. Manage issues, PRs, CI runs, and API queries.", apis: ["GitHub CLI"], usage: "gh issue, gh pr", category: "Built-in" },
-        { name: "weather", emoji: "🌤️", description: "Get current weather and forecasts. No API key required.", apis: ["wttr.in"], usage: "Ask about weather", category: "Built-in" },
-        { name: "gog", emoji: "📧", description: "Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs.", apis: ["Google OAuth"], usage: "gog mail, gog cal", category: "Built-in" },
-        { name: "apple-notes", emoji: "📝", description: "Manage Apple Notes via memo CLI. Create, view, edit, delete, search notes.", apis: ["macOS local"], usage: "memo notes", category: "Built-in" },
-        { name: "coding-agent", emoji: "🤖", description: "Run Codex CLI, Claude Code, OpenCode, or Pi Coding Agent via background process.", apis: ["Various"], usage: "Background process control", category: "Built-in" },
-        { name: "skill-creator", emoji: "🛠️", description: "Create or update AgentSkills. Design, structure, and package skills.", apis: ["None"], usage: "Skill authoring", category: "Built-in" },
-        { name: "video-frames", emoji: "🎬", description: "Extract frames or short clips from videos using ffmpeg.", apis: ["ffmpeg"], usage: "Extract video frames", category: "Built-in" },
-        { name: "clawdhub", emoji: "🦞", description: "Search, install, update, and publish agent skills from clawdhub.com.", apis: ["ClawdHub API"], usage: "clawdhub search/install", category: "Built-in" },
+        { name: "github", icon: "github", description: "Interact with GitHub using the gh CLI. Manage issues, PRs, CI runs, and API queries.", apis: ["GitHub CLI"], usage: "gh issue, gh pr", category: "Built-in" },
+        { name: "weather", icon: "cloud-sun", description: "Get current weather and forecasts. No API key required.", apis: ["wttr.in"], usage: "Ask about weather", category: "Built-in" },
+        { name: "gog", icon: "mail", description: "Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs.", apis: ["Google OAuth"], usage: "gog mail, gog cal", category: "Built-in" },
+        { name: "apple-notes", icon: "sticky-note", description: "Manage Apple Notes via memo CLI. Create, view, edit, delete, search notes.", apis: ["macOS local"], usage: "memo notes", category: "Built-in" },
+        { name: "coding-agent", icon: "bot", description: "Run Codex CLI, Claude Code, OpenCode, or Pi Coding Agent via background process.", apis: ["Various"], usage: "Background process control", category: "Built-in" },
+        { name: "skill-creator", icon: "wrench", description: "Create or update AgentSkills. Design, structure, and package skills.", apis: ["None"], usage: "Skill authoring", category: "Built-in" },
+        { name: "video-frames", icon: "film", description: "Extract frames or short clips from videos using ffmpeg.", apis: ["ffmpeg"], usage: "Extract video frames", category: "Built-in" },
+        { name: "clawdhub", icon: "package", description: "Search, install, update, and publish agent skills from clawdhub.com.", apis: ["ClawdHub API"], usage: "clawdhub search/install", category: "Built-in" },
       ],
       available: [
         // Productivity
-        { name: "notion", emoji: "📓", description: "Notion API for creating and managing pages, databases, and blocks.", apis: ["Notion API"], usage: "Requires setup", category: "Productivity" },
-        { name: "obsidian", emoji: "🗃️", description: "Work with Obsidian vaults (plain Markdown) and automate via obsidian-cli.", apis: ["Local files"], usage: "obsidian-cli", category: "Productivity" },
-        { name: "apple-reminders", emoji: "☑️", description: "Manage Apple Reminders via remindctl CLI. Lists, dates, complete/delete.", apis: ["macOS local"], usage: "remindctl", category: "Productivity" },
-        { name: "things-mac", emoji: "✅", description: "Manage Things 3 via CLI. Add projects/todos, list inbox/today/upcoming.", apis: ["Things URL scheme"], usage: "things CLI", category: "Productivity" },
-        { name: "bear-notes", emoji: "🐻", description: "Create, search, and manage Bear notes via grizzly CLI.", apis: ["Bear app"], usage: "grizzly CLI", category: "Productivity" },
-        { name: "trello", emoji: "📋", description: "Manage Trello boards, lists, and cards via REST API.", apis: ["Trello API"], usage: "Trello operations", category: "Productivity" },
+        { name: "notion", icon: "book-open", description: "Notion API for creating and managing pages, databases, and blocks.", apis: ["Notion API"], usage: "Requires setup", category: "Productivity" },
+        { name: "obsidian", icon: "vault", description: "Work with Obsidian vaults (plain Markdown) and automate via obsidian-cli.", apis: ["Local files"], usage: "obsidian-cli", category: "Productivity" },
+        { name: "apple-reminders", icon: "check-square", description: "Manage Apple Reminders via remindctl CLI. Lists, dates, complete/delete.", apis: ["macOS local"], usage: "remindctl", category: "Productivity" },
+        { name: "things-mac", icon: "list-checks", description: "Manage Things 3 via CLI. Add projects/todos, list inbox/today/upcoming.", apis: ["Things URL scheme"], usage: "things CLI", category: "Productivity" },
+        { name: "bear-notes", icon: "file-text", description: "Create, search, and manage Bear notes via grizzly CLI.", apis: ["Bear app"], usage: "grizzly CLI", category: "Productivity" },
+        { name: "trello", icon: "layout-grid", description: "Manage Trello boards, lists, and cards via REST API.", apis: ["Trello API"], usage: "Trello operations", category: "Productivity" },
         // Communication
-        { name: "slack", emoji: "💬", description: "Control Slack - send messages, react, pin, manage channels, moderation.", apis: ["Slack API"], usage: "slack tool", category: "Communication" },
-        { name: "discord", emoji: "🎮", description: "Control Discord - messages, reactions, stickers, polls, threads, channels.", apis: ["Discord API"], usage: "discord tool", category: "Communication" },
-        { name: "imsg", emoji: "💬", description: "iMessage/SMS CLI for listing chats, history, watch, and sending.", apis: ["macOS local"], usage: "imsg CLI", category: "Communication" },
-        { name: "wacli", emoji: "📱", description: "Send WhatsApp messages and search/sync WhatsApp history.", apis: ["WhatsApp"], usage: "wacli CLI", category: "Communication" },
-        { name: "himalaya", emoji: "📬", description: "CLI to manage emails via IMAP/SMTP. List, read, write, reply, forward, search.", apis: ["IMAP/SMTP"], usage: "himalaya CLI", category: "Communication" },
-        { name: "bluebubbles", emoji: "🫧", description: "BlueBubbles external channel plugin for Clawdbot.", apis: ["BlueBubbles"], usage: "Extension", category: "Communication" },
+        { name: "slack", icon: "hash", description: "Control Slack - send messages, react, pin, manage channels, moderation.", apis: ["Slack API"], usage: "slack tool", category: "Communication" },
+        { name: "discord", icon: "gamepad-2", description: "Control Discord - messages, reactions, stickers, polls, threads, channels.", apis: ["Discord API"], usage: "discord tool", category: "Communication" },
+        { name: "imsg", icon: "message-circle", description: "iMessage/SMS CLI for listing chats, history, watch, and sending.", apis: ["macOS local"], usage: "imsg CLI", category: "Communication" },
+        { name: "wacli", icon: "smartphone", description: "Send WhatsApp messages and search/sync WhatsApp history.", apis: ["WhatsApp"], usage: "wacli CLI", category: "Communication" },
+        { name: "himalaya", icon: "inbox", description: "CLI to manage emails via IMAP/SMTP. List, read, write, reply, forward, search.", apis: ["IMAP/SMTP"], usage: "himalaya CLI", category: "Communication" },
+        { name: "bluebubbles", icon: "message-square", description: "BlueBubbles external channel plugin for Clawdbot.", apis: ["BlueBubbles"], usage: "Extension", category: "Communication" },
         // Media & Audio
-        { name: "sag", emoji: "🔊", description: "ElevenLabs text-to-speech with mac-style say UX.", apis: ["ElevenLabs"], usage: "sag 'text'", category: "Media" },
-        { name: "openai-whisper", emoji: "🎤", description: "Local speech-to-text with Whisper CLI (no API key).", apis: ["Local Whisper"], usage: "whisper CLI", category: "Media" },
-        { name: "openai-whisper-api", emoji: "🎙️", description: "Transcribe audio via OpenAI Audio Transcriptions API.", apis: ["OpenAI API"], usage: "API transcription", category: "Media" },
-        { name: "sherpa-onnx-tts", emoji: "🗣️", description: "Local text-to-speech via sherpa-onnx (offline, no cloud).", apis: ["Local"], usage: "Offline TTS", category: "Media" },
-        { name: "spotify-player", emoji: "🎵", description: "Terminal Spotify playback/search via spogo.", apis: ["Spotify"], usage: "spogo CLI", category: "Media" },
-        { name: "songsee", emoji: "📊", description: "Generate spectrograms and visualizations from audio.", apis: ["Local"], usage: "songsee CLI", category: "Media" },
-        { name: "voice-call", emoji: "📞", description: "Start voice calls via Clawdbot voice-call plugin.", apis: ["Voice"], usage: "Voice calls", category: "Media" },
-        { name: "gifgrep", emoji: "🎞️", description: "Search GIF providers, download results, extract stills.", apis: ["GIF APIs"], usage: "gifgrep CLI", category: "Media" },
+        { name: "sag", icon: "volume-2", description: "ElevenLabs text-to-speech with mac-style say UX.", apis: ["ElevenLabs"], usage: "sag 'text'", category: "Media" },
+        { name: "openai-whisper", icon: "mic", description: "Local speech-to-text with Whisper CLI (no API key).", apis: ["Local Whisper"], usage: "whisper CLI", category: "Media" },
+        { name: "openai-whisper-api", icon: "mic-2", description: "Transcribe audio via OpenAI Audio Transcriptions API.", apis: ["OpenAI API"], usage: "API transcription", category: "Media" },
+        { name: "sherpa-onnx-tts", icon: "audio-lines", description: "Local text-to-speech via sherpa-onnx (offline, no cloud).", apis: ["Local"], usage: "Offline TTS", category: "Media" },
+        { name: "spotify-player", icon: "music", description: "Terminal Spotify playback/search via spogo.", apis: ["Spotify"], usage: "spogo CLI", category: "Media" },
+        { name: "songsee", icon: "activity", description: "Generate spectrograms and visualizations from audio.", apis: ["Local"], usage: "songsee CLI", category: "Media" },
+        { name: "voice-call", icon: "phone", description: "Start voice calls via Clawdbot voice-call plugin.", apis: ["Voice"], usage: "Voice calls", category: "Media" },
+        { name: "gifgrep", icon: "image", description: "Search GIF providers, download results, extract stills.", apis: ["GIF APIs"], usage: "gifgrep CLI", category: "Media" },
         // AI & Images
-        { name: "nano-banana-pro", emoji: "🍌", description: "Generate or edit images via Gemini 3 Pro Image.", apis: ["Gemini API"], usage: "Image generation", category: "AI" },
-        { name: "openai-image-gen", emoji: "🖼️", description: "Batch-generate images via OpenAI Images API.", apis: ["OpenAI API"], usage: "Image batch", category: "AI" },
-        { name: "gemini", emoji: "💎", description: "Gemini CLI for one-shot Q&A, summaries, and generation.", apis: ["Gemini API"], usage: "gemini CLI", category: "AI" },
-        { name: "oracle", emoji: "🔮", description: "Prompt + file bundling, engines, sessions, file attachments.", apis: ["Various"], usage: "oracle CLI", category: "AI" },
-        { name: "summarize", emoji: "📄", description: "Summarize or extract text from URLs, podcasts, local files.", apis: ["Various"], usage: "summarize URL", category: "AI" },
+        { name: "nano-banana-pro", icon: "sparkles", description: "Generate or edit images via Gemini 3 Pro Image.", apis: ["Gemini API"], usage: "Image generation", category: "AI" },
+        { name: "openai-image-gen", icon: "image-plus", description: "Batch-generate images via OpenAI Images API.", apis: ["OpenAI API"], usage: "Image batch", category: "AI" },
+        { name: "gemini", icon: "brain", description: "Gemini CLI for one-shot Q&A, summaries, and generation.", apis: ["Gemini API"], usage: "gemini CLI", category: "AI" },
+        { name: "oracle", icon: "wand-2", description: "Prompt + file bundling, engines, sessions, file attachments.", apis: ["Various"], usage: "oracle CLI", category: "AI" },
+        { name: "summarize", icon: "file-text", description: "Summarize or extract text from URLs, podcasts, local files.", apis: ["Various"], usage: "summarize URL", category: "AI" },
         // Smart Home
-        { name: "openhue", emoji: "💡", description: "Control Philips Hue lights/scenes via OpenHue CLI.", apis: ["Hue Bridge"], usage: "openhue CLI", category: "Smart Home" },
-        { name: "sonoscli", emoji: "🔈", description: "Control Sonos speakers - discover, status, play, volume, group.", apis: ["Sonos local"], usage: "sonoscli", category: "Smart Home" },
-        { name: "blucli", emoji: "🎵", description: "BluOS CLI for discovery, playback, grouping, and volume.", apis: ["BluOS"], usage: "blu CLI", category: "Smart Home" },
-        { name: "eightctl", emoji: "🛏️", description: "Control Eight Sleep pods - status, temperature, alarms, schedules.", apis: ["Eight Sleep"], usage: "eightctl", category: "Smart Home" },
+        { name: "openhue", icon: "lightbulb", description: "Control Philips Hue lights/scenes via OpenHue CLI.", apis: ["Hue Bridge"], usage: "openhue CLI", category: "Smart Home" },
+        { name: "sonoscli", icon: "speaker", description: "Control Sonos speakers - discover, status, play, volume, group.", apis: ["Sonos local"], usage: "sonoscli", category: "Smart Home" },
+        { name: "blucli", icon: "radio", description: "BluOS CLI for discovery, playback, grouping, and volume.", apis: ["BluOS"], usage: "blu CLI", category: "Smart Home" },
+        { name: "eightctl", icon: "bed", description: "Control Eight Sleep pods - status, temperature, alarms, schedules.", apis: ["Eight Sleep"], usage: "eightctl", category: "Smart Home" },
         // Cameras & Automation
-        { name: "camsnap", emoji: "📷", description: "Capture frames or clips from RTSP/ONVIF cameras.", apis: ["RTSP/ONVIF"], usage: "camsnap", category: "Automation" },
-        { name: "peekaboo", emoji: "👀", description: "Capture and automate macOS UI with Peekaboo CLI.", apis: ["macOS"], usage: "peekaboo", category: "Automation" },
-        { name: "tmux", emoji: "🖥️", description: "Remote-control tmux sessions - send keystrokes, scrape output.", apis: ["tmux"], usage: "tmux control", category: "Automation" },
+        { name: "camsnap", icon: "camera", description: "Capture frames or clips from RTSP/ONVIF cameras.", apis: ["RTSP/ONVIF"], usage: "camsnap", category: "Automation" },
+        { name: "peekaboo", icon: "eye", description: "Capture and automate macOS UI with Peekaboo CLI.", apis: ["macOS"], usage: "peekaboo", category: "Automation" },
+        { name: "tmux", icon: "terminal", description: "Remote-control tmux sessions - send keystrokes, scrape output.", apis: ["tmux"], usage: "tmux control", category: "Automation" },
         // Documents & Files
-        { name: "nano-pdf", emoji: "📑", description: "Edit PDFs with natural-language instructions.", apis: ["Local"], usage: "nano-pdf CLI", category: "Documents" },
+        { name: "nano-pdf", icon: "file-type", description: "Edit PDFs with natural-language instructions.", apis: ["Local"], usage: "nano-pdf CLI", category: "Documents" },
         // Security
-        { name: "1password", emoji: "🔐", description: "Set up and use 1Password CLI. Read/inject/run secrets.", apis: ["1Password CLI"], usage: "op CLI", category: "Security" },
+        { name: "1password", icon: "key-round", description: "Set up and use 1Password CLI. Read/inject/run secrets.", apis: ["1Password CLI"], usage: "op CLI", category: "Security" },
         // Food & Places
-        { name: "food-order", emoji: "🍕", description: "Reorder Foodora orders + track ETA/status.", apis: ["Foodora"], usage: "ordercli", category: "Lifestyle" },
-        { name: "goplaces", emoji: "📍", description: "Query Google Places API for search, details, reviews.", apis: ["Google Places"], usage: "goplaces CLI", category: "Lifestyle" },
-        { name: "local-places", emoji: "🗺️", description: "Search for places via Google Places API proxy.", apis: ["Google Places"], usage: "Local proxy", category: "Lifestyle" },
+        { name: "food-order", icon: "utensils", description: "Reorder Foodora orders + track ETA/status.", apis: ["Foodora"], usage: "ordercli", category: "Lifestyle" },
+        { name: "goplaces", icon: "map-pin", description: "Query Google Places API for search, details, reviews.", apis: ["Google Places"], usage: "goplaces CLI", category: "Lifestyle" },
+        { name: "local-places", icon: "map", description: "Search for places via Google Places API proxy.", apis: ["Google Places"], usage: "Local proxy", category: "Lifestyle" },
         // Social
-        { name: "bird", emoji: "🐦", description: "X/Twitter CLI for reading, searching, posting, engagement.", apis: ["X cookies"], usage: "bird CLI", category: "Social" },
-        { name: "blogwatcher", emoji: "📡", description: "Monitor blogs and RSS/Atom feeds for updates.", apis: ["RSS/Atom"], usage: "blogwatcher", category: "Social" },
+        { name: "bird", icon: "twitter", description: "X/Twitter CLI for reading, searching, posting, engagement.", apis: ["X cookies"], usage: "bird CLI", category: "Social" },
+        { name: "blogwatcher", icon: "rss", description: "Monitor blogs and RSS/Atom feeds for updates.", apis: ["RSS/Atom"], usage: "blogwatcher", category: "Social" },
         // Misc
-        { name: "canvas", emoji: "🎨", description: "Canvas control for presentations.", apis: ["Canvas"], usage: "canvas tool", category: "Misc" },
-        { name: "mcporter", emoji: "🔌", description: "List, configure, auth, and call MCP servers/tools.", apis: ["MCP"], usage: "mcporter CLI", category: "Misc" },
-        { name: "model-usage", emoji: "📈", description: "Summarize per-model usage/cost from CodexBar.", apis: ["CodexBar"], usage: "codexbar cost", category: "Misc" },
-        { name: "session-logs", emoji: "📜", description: "Search and analyze your own session logs using jq.", apis: ["Local"], usage: "jq queries", category: "Misc" },
-        { name: "ordercli", emoji: "🛵", description: "Foodora-only CLI for checking past orders and status.", apis: ["Foodora"], usage: "ordercli", category: "Misc" },
+        { name: "canvas", icon: "presentation", description: "Canvas control for presentations.", apis: ["Canvas"], usage: "canvas tool", category: "Misc" },
+        { name: "mcporter", icon: "plug", description: "List, configure, auth, and call MCP servers/tools.", apis: ["MCP"], usage: "mcporter CLI", category: "Misc" },
+        { name: "model-usage", icon: "line-chart", description: "Summarize per-model usage/cost from CodexBar.", apis: ["CodexBar"], usage: "codexbar cost", category: "Misc" },
+        { name: "session-logs", icon: "scroll", description: "Search and analyze your own session logs using jq.", apis: ["Local"], usage: "jq queries", category: "Misc" },
+        { name: "ordercli", icon: "bike", description: "Foodora-only CLI for checking past orders and status.", apis: ["Foodora"], usage: "ordercli", category: "Misc" },
       ]
     };
 
@@ -2002,7 +2019,7 @@
         <div class="skill-card">
           <div class="skill-card-header">
             <div class="skill-card-title">
-              <span class="emoji">${skill.emoji}</span>
+              <div class="skill-icon active"><i data-lucide="${skill.icon}"></i></div>
               <h3>${skill.name}</h3>
             </div>
             <div style="display: flex; gap: 6px; align-items: center;">
@@ -2036,7 +2053,7 @@
             <div class="skill-card">
               <div class="skill-card-header">
                 <div class="skill-card-title">
-                  <span class="emoji">${skill.emoji}</span>
+                  <div class="skill-icon"><i data-lucide="${skill.icon}"></i></div>
                   <h3>${skill.name}</h3>
                 </div>
                 <span class="skill-card-status available">Available</span>
@@ -2053,6 +2070,9 @@
         });
       });
       document.getElementById('availableSkillsGrid').innerHTML = availableHtml;
+      
+      // Re-initialize Lucide icons for the new content
+      lucide.createIcons();
     }
 
     // Initialize skills count on load
