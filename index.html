@@ -959,6 +959,173 @@
     .skill-card-usage code {
       color: #4ade80;
     }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-content {
+      position: relative;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 12px;
+      width: 400px;
+      max-width: 90%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid #252525;
+    }
+
+    .modal-header h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      margin: 0;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: #666;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      color: #fff;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: #252525;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #5b9bf5;
+    }
+
+    .form-group input[type="range"] {
+      width: calc(100% - 50px);
+      vertical-align: middle;
+    }
+
+    .form-group #editProgressValue {
+      display: inline-block;
+      width: 40px;
+      text-align: right;
+      color: #888;
+      font-size: 13px;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 16px 20px;
+      border-top: 1px solid #252525;
+    }
+
+    .btn-secondary,
+    .btn-primary {
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-secondary {
+      background: #333;
+      color: #999;
+    }
+
+    .btn-secondary:hover {
+      background: #404040;
+    }
+
+    .btn-primary {
+      background: #5b9bf5;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #4a8be5;
+    }
+
+    /* Edit button on project rows */
+    .edit-btn {
+      background: #252525;
+      border: 1px solid #333;
+      border-radius: 4px;
+      padding: 4px 8px;
+      color: #888;
+      font-size: 11px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .table tr:hover .edit-btn {
+      opacity: 1;
+    }
+
+    .edit-btn:hover {
+      background: #333;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -1029,6 +1196,10 @@
       <div class="nav-item" data-filter="files">
         <i data-lucide="file-text"></i> Core Files
         <span class="count" id="navFiles">0</span>
+      </div>
+      <div class="nav-item" data-filter="docs">
+        <i data-lucide="book-open"></i> Docs
+        <span class="count" id="navDocs">0</span>
       </div>
     </nav>
 
@@ -1248,7 +1419,69 @@
       </div>
       <div class="skills-grid" id="availableSkillsGrid"></div>
     </section>
+
+    <!-- Docs Section -->
+    <section class="section" id="docsSection" style="display: none;">
+      <div class="section-header">
+        <span class="section-title"><i data-lucide="book-open"></i> Documents</span>
+      </div>
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 25%">Document</th>
+              <th>Description</th>
+              <th style="width: 15%">Category</th>
+              <th style="width: 12%">Updated</th>
+            </tr>
+          </thead>
+          <tbody id="docsTable"></tbody>
+        </table>
+      </div>
+      <div id="docViewer" style="display: none; margin-top: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h3 id="docViewerTitle" style="color: #fff; font-size: 18px;"></h3>
+          <button onclick="closeDocViewer()" style="background: #333; border: none; color: #999; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Close</button>
+        </div>
+        <div id="docContent" style="background: #1a1a1a; border: 1px solid #252525; border-radius: 8px; padding: 20px; color: #ccc; font-size: 14px; line-height: 1.7; overflow-x: auto; max-height: 600px; overflow-y: auto;"></div>
+      </div>
+    </section>
   </main>
+
+  <!-- Edit Modal -->
+  <div id="editModal" class="modal" style="display: none;">
+    <div class="modal-backdrop" onclick="closeEditModal()"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="editModalTitle">Edit Project</h3>
+        <button class="modal-close" onclick="closeEditModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Status</label>
+          <select id="editStatus">
+            <option value="active">🔄 Active</option>
+            <option value="queue">📋 Queue</option>
+            <option value="done">✅ Complete</option>
+            <option value="archived">📦 Archived</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Progress</label>
+          <input type="range" id="editProgress" min="0" max="100" value="0">
+          <span id="editProgressValue">0%</span>
+        </div>
+        <div class="form-group">
+          <label>Notes</label>
+          <textarea id="editNotes" rows="3" placeholder="Add notes..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeEditModal()">Cancel</button>
+        <button class="btn-primary" onclick="saveEdit()">Save Changes</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     let data = null;
@@ -1565,6 +1798,11 @@
         lucide.createIcons();
       }
 
+      // Docs
+      if (data.docs) {
+        document.getElementById('navDocs').textContent = data.docs.length;
+      }
+
       // Last updated
       document.getElementById('lastUpdated').textContent = 
         new Date(data.lastUpdated).toLocaleString('en-US', { 
@@ -1589,6 +1827,7 @@
           tools: 'Tools & APIs',
           crons: 'Cron Jobs',
           files: 'Core Files',
+          docs: 'Documents',
           'daily-logs': 'Daily Logs',
           'skills': 'Skills'
         };
@@ -1609,6 +1848,7 @@
           document.getElementById('filesSection').style.display = 'none';
           document.getElementById('dailyLogsSection').style.display = 'none';
           document.getElementById('skillsSection').style.display = 'none';
+          document.getElementById('docsSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1621,6 +1861,7 @@
           document.getElementById('filesSection').style.display = 'none';
           document.getElementById('dailyLogsSection').style.display = 'none';
           document.getElementById('skillsSection').style.display = 'none';
+          document.getElementById('docsSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1633,6 +1874,7 @@
           document.getElementById('filesSection').style.display = 'block';
           document.getElementById('dailyLogsSection').style.display = 'none';
           document.getElementById('skillsSection').style.display = 'none';
+          document.getElementById('docsSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1645,6 +1887,7 @@
           document.getElementById('filesSection').style.display = 'none';
           document.getElementById('dailyLogsSection').style.display = 'block';
           document.getElementById('skillsSection').style.display = 'none';
+          document.getElementById('docsSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1657,6 +1900,7 @@
           document.getElementById('filesSection').style.display = 'none';
           document.getElementById('dailyLogsSection').style.display = 'none';
           document.getElementById('skillsSection').style.display = 'block';
+          document.getElementById('docsSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1664,12 +1908,27 @@
           currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           renderSkills();
+        } else if (currentFilter === 'docs') {
+          toolsSection.style.display = 'none';
+          cronsSection.style.display = 'none';
+          document.getElementById('filesSection').style.display = 'none';
+          document.getElementById('dailyLogsSection').style.display = 'none';
+          document.getElementById('skillsSection').style.display = 'none';
+          document.getElementById('docsSection').style.display = 'block';
+          projectsSection.style.display = 'none';
+          document.getElementById('tasksSection').style.display = 'none';
+          activitySection.style.display = 'none';
+          statsRow.style.display = 'none';
+          currentBanner.style.display = 'none';
+          document.getElementById('ideasSection').style.display = 'none';
+          renderDocs();
         } else {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
           document.getElementById('filesSection').style.display = 'none';
           document.getElementById('dailyLogsSection').style.display = 'none';
           document.getElementById('skillsSection').style.display = 'none';
+          document.getElementById('docsSection').style.display = 'none';
           projectsSection.style.display = 'block';
           document.getElementById('tasksSection').style.display = 'block';
           activitySection.style.display = 'block';
@@ -1698,6 +1957,64 @@
 
     function closeFileViewer() {
       document.getElementById('fileViewer').style.display = 'none';
+    }
+
+    // Docs functions
+    function renderDocs() {
+      if (!data || !data.docs) return;
+      const catColors = {
+        'Health': '#4ade80',
+        'Trading': '#f59e0b',
+        'Research': '#3b82f6',
+        'Travel': '#8b5cf6',
+        'Reference': '#ec4899'
+      };
+      document.getElementById('docsTable').innerHTML = data.docs.map(doc => {
+        const color = catColors[doc.category] || '#666';
+        return `
+          <tr class="clickable" onclick="viewDoc('${doc.path}')" style="cursor: pointer;">
+            <td>
+              <div class="title" style="display: flex; align-items: center; gap: 8px;">
+                <i data-lucide="file-text" style="width: 16px; height: 16px; color: ${color};"></i>
+                ${doc.name}
+              </div>
+            </td>
+            <td style="color: #999">${doc.desc}</td>
+            <td><span class="badge" style="background: ${color}22; color: ${color}; font-size: 12px;">${doc.category}</span></td>
+            <td style="color: #666; font-size: 13px;">${doc.updated || '-'}</td>
+          </tr>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    async function viewDoc(docPath) {
+      try {
+        const response = await fetch('docs/' + docPath + '?' + Date.now());
+        const content = await response.text();
+        document.getElementById('docViewerTitle').textContent = docPath.split('/').pop();
+        // Simple markdown-to-html conversion
+        const html = content
+          .replace(/^### (.*$)/gm, '<h4 style="color:#fff;margin:16px 0 8px;">$1</h4>')
+          .replace(/^## (.*$)/gm, '<h3 style="color:#fff;margin:20px 0 10px;">$1</h3>')
+          .replace(/^# (.*$)/gm, '<h2 style="color:#fff;margin:24px 0 12px;">$1</h2>')
+          .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#fff;">$1</strong>')
+          .replace(/\*(.*?)\*/g, '<em>$1</em>')
+          .replace(/^- (.*$)/gm, '<li style="margin-left:20px;">$1</li>')
+          .replace(/^• (.*$)/gm, '<li style="margin-left:20px;">$1</li>')
+          .replace(/\n\n/g, '<br><br>')
+          .replace(/---/g, '<hr style="border:none;border-top:1px solid #333;margin:20px 0;">');
+        document.getElementById('docContent').innerHTML = html;
+        document.getElementById('docViewer').style.display = 'block';
+      } catch (e) {
+        document.getElementById('docViewerTitle').textContent = docPath;
+        document.getElementById('docContent').innerHTML = '⚠️ Could not load document. Make sure docs are synced to the docs/ folder.';
+        document.getElementById('docViewer').style.display = 'block';
+      }
+    }
+
+    function closeDocViewer() {
+      document.getElementById('docViewer').style.display = 'none';
     }
 
     // Search functions
@@ -1780,6 +2097,67 @@
     // Auto-refresh
     setInterval(loadData, 30000);
     loadData();
+
+    // Edit Modal Functions
+    let currentEditId = null;
+    let localEdits = JSON.parse(localStorage.getItem('missionControlEdits') || '{}');
+
+    function openEditModal(id, title, status, progress) {
+      currentEditId = id;
+      document.getElementById('editModalTitle').textContent = 'Edit: ' + title;
+      document.getElementById('editStatus').value = status || 'active';
+      document.getElementById('editProgress').value = progress || 0;
+      document.getElementById('editProgressValue').textContent = (progress || 0) + '%';
+      document.getElementById('editNotes').value = localEdits[id]?.notes || '';
+      document.getElementById('editModal').style.display = 'flex';
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModal').style.display = 'none';
+      currentEditId = null;
+    }
+
+    function saveEdit() {
+      if (!currentEditId) return;
+      
+      const status = document.getElementById('editStatus').value;
+      const progress = parseInt(document.getElementById('editProgress').value);
+      const notes = document.getElementById('editNotes').value;
+      
+      localEdits[currentEditId] = {
+        status: status,
+        progress: progress,
+        notes: notes,
+        updatedAt: new Date().toISOString()
+      };
+      
+      localStorage.setItem('missionControlEdits', JSON.stringify(localEdits));
+      closeEditModal();
+      render();
+      
+      // Show confirmation
+      showToast('Changes saved locally');
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.style.cssText = 'position: fixed; bottom: 20px; right: 20px; background: #1a3d2a; color: #4ade80; padding: 12px 20px; border-radius: 8px; font-size: 14px; z-index: 2000;';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function applyLocalEdits(item) {
+      if (localEdits[item.id]) {
+        return { ...item, ...localEdits[item.id] };
+      }
+      return item;
+    }
+
+    // Update progress slider label
+    document.getElementById('editProgress').addEventListener('input', function() {
+      document.getElementById('editProgressValue').textContent = this.value + '%';
+    });
 
     // Daily Logs
     let dailyLogFiles = [];

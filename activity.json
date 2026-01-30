@@ -391,6 +391,9 @@
     {"name": "HEARTBEAT.md", "desc": "Periodic check tasks", "category": "System"},
     {"name": "NIGHTSHIFT.md", "desc": "Autonomous night work instructions", "category": "System"}
   ],
+  "docs": [
+    {"name": "sebaceous-hyperplasia-treatment.md", "path": "health/sebaceous-hyperplasia-treatment.md", "desc": "Treatment options, clinics in OC & HK, pricing comparison", "category": "Health", "updated": "Jan 29"}
+  ],
   "namLocation": {
     "current": "Hong Kong",
     "timezone": "HKT (UTC+8)",
