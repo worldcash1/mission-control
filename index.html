@@ -299,7 +299,13 @@
     }
 
     .page-header {
-      margin-bottom: 32px;
+      margin-bottom: 24px;
+    }
+
+    .page-header-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
     }
 
     .page-header h2 {
@@ -312,6 +318,29 @@
     .page-header p {
       font-size: 13px;
       color: #666;
+    }
+
+    .tz-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #1a1a1a;
+      border: 1px solid #252525;
+      border-radius: 8px;
+      padding: 8px 12px;
+    }
+
+    .tz-time {
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'SF Mono', Monaco, monospace;
+      color: #fff;
+    }
+
+    .tz-label {
+      font-size: 11px;
+      color: #666;
+      text-transform: uppercase;
     }
 
     /* Stats Row */
@@ -814,66 +843,6 @@
       }
     }
 
-    /* Location Card */
-    .location-card {
-      background: linear-gradient(135deg, #1a2535 0%, #1d2a3a 100%);
-      border: 1px solid #2a3545;
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 20px;
-    }
-
-    .location-main {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .location-card .location-icon {
-      font-size: 28px;
-    }
-
-    .location-details {
-      flex: 1;
-    }
-
-    .location-city {
-      font-size: 18px;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    .location-tz {
-      font-size: 12px;
-      color: #7aa2d4;
-      margin-top: 2px;
-    }
-
-    .location-time {
-      text-align: right;
-    }
-
-    .time-now {
-      font-size: 28px;
-      font-weight: 600;
-      color: #fff;
-      font-family: 'SF Mono', Monaco, monospace;
-    }
-
-    .time-label {
-      font-size: 11px;
-      color: #667799;
-      margin-top: 2px;
-    }
-
-    .location-card .location-next {
-      font-size: 12px;
-      color: #8a9ab0;
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid #2a3545;
-    }
-
     /* Skills Grid */
     .skills-grid {
       display: grid;
@@ -1072,8 +1041,16 @@
   <!-- Main Content -->
   <main class="main">
     <div class="page-header">
-      <h2 id="pageTitle">All Items</h2>
-      <p id="pageDate"></p>
+      <div class="page-header-main">
+        <div>
+          <h2 id="pageTitle">All Items</h2>
+          <p id="pageDate"></p>
+        </div>
+        <div class="tz-indicator" id="tzIndicator">
+          <span class="tz-time" id="localTimeNow">--:--</span>
+          <span class="tz-label" id="locationCity">HKT</span>
+        </div>
+      </div>
     </div>
 
     <!-- Search Box -->
@@ -1088,22 +1065,6 @@
       <div class="dot"></div>
       <span class="text" id="currentText">Loading...</span>
       <span class="time" id="currentTime"></span>
-    </div>
-
-    <!-- Location & Time Card -->
-    <div id="locationCard" class="location-card">
-      <div class="location-main">
-        <span class="location-icon">📍</span>
-        <div class="location-details">
-          <div class="location-city" id="locationCity">Hong Kong</div>
-          <div class="location-tz" id="locationTz">HKT (UTC+8)</div>
-        </div>
-        <div class="location-time">
-          <div class="time-now" id="localTimeNow">--:--</div>
-          <div class="time-label">Local Time</div>
-        </div>
-      </div>
-      <div class="location-next" id="locationNext"></div>
     </div>
 
     <!-- Stats -->
@@ -1353,13 +1314,9 @@
       document.getElementById('statApis').textContent = data.apis ? data.apis.filter(a => a.status === 'active').length : 0;
       document.getElementById('statCrons').textContent = data.crons ? data.crons.filter(c => c.enabled).length : 0;
       
-      // Location card
+      // Timezone indicator (small, top right)
       if (data.namLocation) {
-        document.getElementById('locationCity').textContent = data.namLocation.current;
-        document.getElementById('locationTz').textContent = data.namLocation.timezone;
-        if (data.namLocation.next) {
-          document.getElementById('locationNext').textContent = `✈️ Next: ${data.namLocation.next.city} on ${data.namLocation.next.date} (${data.namLocation.next.timezone})`;
-        }
+        document.getElementById('locationCity').textContent = data.namLocation.timezone.split(' ')[0]; // Just "HKT" not "(UTC+8)"
         updateLocalTime(data.namLocation.timezone);
       }
 
