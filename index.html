@@ -813,6 +813,106 @@
         max-height: 200px;
       }
     }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .skill-card {
+      background: #181818;
+      border: 1px solid #252525;
+      border-radius: 12px;
+      padding: 20px;
+      transition: border-color 0.2s;
+    }
+
+    .skill-card:hover {
+      border-color: #333;
+    }
+
+    .skill-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .skill-card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .skill-card-title .emoji {
+      font-size: 20px;
+    }
+
+    .skill-card-title h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      margin: 0;
+    }
+
+    .skill-card-status {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .skill-card-status.active {
+      background: #1a3d2a;
+      color: #4ade80;
+    }
+
+    .skill-card-status.available {
+      background: #252525;
+      color: #888;
+    }
+
+    .skill-card-desc {
+      font-size: 13px;
+      color: #999;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .skill-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .skill-meta-tag {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: #1e2a3a;
+      color: #7aa2d4;
+    }
+
+    .skill-meta-tag.api {
+      background: #2a1e3a;
+      color: #a585d4;
+    }
+
+    .skill-card-usage {
+      font-size: 12px;
+      color: #666;
+      background: #1a1a1a;
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-family: 'SF Mono', Monaco, monospace;
+    }
+
+    .skill-card-usage code {
+      color: #4ade80;
+    }
   </style>
 </head>
 <body>
@@ -859,6 +959,14 @@
       <div class="nav-item" data-filter="daily-logs">
         <i data-lucide="calendar"></i> Daily Logs
         <span class="count" id="navDailyLogs">0</span>
+      </div>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-label">Capabilities</div>
+      <div class="nav-item" data-filter="skills">
+        <i data-lucide="puzzle"></i> Skills
+        <span class="count" id="navSkills">0</span>
       </div>
     </nav>
 
@@ -1061,6 +1169,19 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section" id="skillsSection" style="display: none;">
+      <div class="section-header">
+        <span class="section-title"><i data-lucide="puzzle"></i> Installed Skills</span>
+      </div>
+      <div class="skills-grid" id="activeSkillsGrid"></div>
+      
+      <div class="section-header" style="margin-top: 32px;">
+        <span class="section-title"><i data-lucide="package"></i> Available Skills</span>
+      </div>
+      <div class="skills-grid" id="availableSkillsGrid"></div>
     </section>
   </main>
 
@@ -1382,7 +1503,8 @@
           tools: 'Tools & APIs',
           crons: 'Cron Jobs',
           files: 'Core Files',
-          'daily-logs': 'Daily Logs'
+          'daily-logs': 'Daily Logs',
+          'skills': 'Skills'
         };
         document.getElementById('pageTitle').textContent = titles[currentFilter];
         
@@ -1400,6 +1522,7 @@
           cronsSection.style.display = 'none';
           document.getElementById('filesSection').style.display = 'none';
           document.getElementById('dailyLogsSection').style.display = 'none';
+          document.getElementById('skillsSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1411,6 +1534,7 @@
           cronsSection.style.display = 'block';
           document.getElementById('filesSection').style.display = 'none';
           document.getElementById('dailyLogsSection').style.display = 'none';
+          document.getElementById('skillsSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1422,6 +1546,7 @@
           cronsSection.style.display = 'none';
           document.getElementById('filesSection').style.display = 'block';
           document.getElementById('dailyLogsSection').style.display = 'none';
+          document.getElementById('skillsSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1433,17 +1558,32 @@
           cronsSection.style.display = 'none';
           document.getElementById('filesSection').style.display = 'none';
           document.getElementById('dailyLogsSection').style.display = 'block';
+          document.getElementById('skillsSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
           statsRow.style.display = 'none';
           currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
+        } else if (currentFilter === 'skills') {
+          toolsSection.style.display = 'none';
+          cronsSection.style.display = 'none';
+          document.getElementById('filesSection').style.display = 'none';
+          document.getElementById('dailyLogsSection').style.display = 'none';
+          document.getElementById('skillsSection').style.display = 'block';
+          projectsSection.style.display = 'none';
+          document.getElementById('tasksSection').style.display = 'none';
+          activitySection.style.display = 'none';
+          statsRow.style.display = 'none';
+          currentBanner.style.display = 'none';
+          document.getElementById('ideasSection').style.display = 'none';
+          renderSkills();
         } else {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
           document.getElementById('filesSection').style.display = 'none';
           document.getElementById('dailyLogsSection').style.display = 'none';
+          document.getElementById('skillsSection').style.display = 'none';
           projectsSection.style.display = 'block';
           document.getElementById('tasksSection').style.display = 'block';
           activitySection.style.display = 'block';
@@ -1664,6 +1804,173 @@
 
       return html;
     }
+
+    // Skills data
+    const skillsData = {
+      active: [
+        {
+          name: "last30days",
+          emoji: "🔍",
+          description: "Research any topic from the last 30 days across Reddit, X, and the web. Surfaces what people are actually discussing, recommending, and debating right now.",
+          apis: ["OpenAI API", "xAI API"],
+          usage: "/last30days [topic] for [tool]",
+          examples: ["AI trading tools", "prompting techniques for ChatGPT"],
+          location: "~/clawd/skills/last30days"
+        },
+        {
+          name: "earnings-scanner",
+          emoji: "📊",
+          description: "Scan upcoming earnings for stocks with weekly options. Shows bid/ask spreads, volume, and open interest. Great for finding liquid options around earnings dates.",
+          apis: ["Schwab API", "Alpha Vantage"],
+          usage: "python3 scripts/scan.py",
+          examples: ["AMC/BMO earnings plays", "weekly options screening"],
+          location: "~/clawd/skills/earnings-scanner"
+        },
+        {
+          name: "marriott-scanner",
+          emoji: "🏨",
+          description: "Generate Marriott booking links with MMP (employee) discount code pre-applied. Covers 80+ hotels across 9 major cities.",
+          apis: ["None (link generator)"],
+          usage: "python3 scripts/scan.py --city 'Hong Kong' --months 'Feb,Mar'",
+          examples: ["Hong Kong hotels", "Tokyo business travel"],
+          location: "~/clawd/skills/marriott-scanner"
+        },
+        {
+          name: "github",
+          emoji: "🐙",
+          description: "Interact with GitHub using the gh CLI. Manage issues, PRs, CI runs, and make API queries.",
+          apis: ["GitHub API (gh CLI)"],
+          usage: "gh issue list, gh pr create",
+          examples: ["Create PR", "Check CI status"],
+          location: "Built-in"
+        },
+        {
+          name: "weather",
+          emoji: "🌤️",
+          description: "Get current weather and forecasts using free services. No API key required.",
+          apis: ["wttr.in (free)"],
+          usage: "Ask about weather anywhere",
+          examples: ["Weather in Hong Kong", "Bay Area forecast"],
+          location: "Built-in"
+        },
+        {
+          name: "gog (Google)",
+          emoji: "🎮",
+          description: "Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs.",
+          apis: ["Google OAuth"],
+          usage: "gog mail, gog cal",
+          examples: ["Check Gmail", "View calendar"],
+          location: "Built-in"
+        },
+        {
+          name: "apple-notes",
+          emoji: "📝",
+          description: "Manage Apple Notes via the memo CLI. Create, view, edit, delete, search, and organize notes.",
+          apis: ["macOS Notes (local)"],
+          usage: "memo notes list, memo notes create",
+          examples: ["Add quick note", "Search notes"],
+          location: "Built-in"
+        }
+      ],
+      available: [
+        {
+          name: "notion",
+          emoji: "📓",
+          description: "Notion API for creating and managing pages, databases, and blocks.",
+          apis: ["Notion API"],
+          usage: "Requires Notion integration setup",
+          location: "Built-in (not configured)"
+        },
+        {
+          name: "slack",
+          emoji: "💬",
+          description: "Control Slack via API. React to messages, pin items, send messages.",
+          apis: ["Slack API"],
+          usage: "Requires Slack app token",
+          location: "Built-in (not configured)"
+        },
+        {
+          name: "1password",
+          emoji: "🔐",
+          description: "Access 1Password vault items via CLI.",
+          apis: ["1Password CLI"],
+          usage: "op item get, op item list",
+          location: "Built-in (not configured)"
+        },
+        {
+          name: "obsidian",
+          emoji: "🗃️",
+          description: "Manage Obsidian vault - create notes, search, link between pages.",
+          apis: ["Local filesystem"],
+          usage: "Direct file operations",
+          location: "Built-in (not configured)"
+        },
+        {
+          name: "caldav-calendar",
+          emoji: "📅",
+          description: "iCloud/Google calendar sync via CalDAV. Read and create events.",
+          apis: ["CalDAV"],
+          usage: "Requires CalDAV credentials",
+          location: "ClawdHub"
+        },
+        {
+          name: "comfyui",
+          emoji: "🎨",
+          description: "AI image generation via ComfyUI workflows.",
+          apis: ["ComfyUI local"],
+          usage: "Requires ComfyUI running locally",
+          location: "ClawdHub"
+        }
+      ]
+    };
+
+    function renderSkills() {
+      const totalSkills = skillsData.active.length + skillsData.available.length;
+      document.getElementById('navSkills').textContent = totalSkills;
+
+      // Render active skills
+      document.getElementById('activeSkillsGrid').innerHTML = skillsData.active.map(skill => `
+        <div class="skill-card">
+          <div class="skill-card-header">
+            <div class="skill-card-title">
+              <span class="emoji">${skill.emoji}</span>
+              <h3>${skill.name}</h3>
+            </div>
+            <span class="skill-card-status active">Active</span>
+          </div>
+          <div class="skill-card-desc">${skill.description}</div>
+          <div class="skill-card-meta">
+            ${skill.apis.map(api => `<span class="skill-meta-tag api">${api}</span>`).join('')}
+          </div>
+          <div class="skill-card-usage">
+            <code>${skill.usage}</code>
+          </div>
+        </div>
+      `).join('');
+
+      // Render available skills
+      document.getElementById('availableSkillsGrid').innerHTML = skillsData.available.map(skill => `
+        <div class="skill-card">
+          <div class="skill-card-header">
+            <div class="skill-card-title">
+              <span class="emoji">${skill.emoji}</span>
+              <h3>${skill.name}</h3>
+            </div>
+            <span class="skill-card-status available">Available</span>
+          </div>
+          <div class="skill-card-desc">${skill.description}</div>
+          <div class="skill-card-meta">
+            ${skill.apis.map(api => `<span class="skill-meta-tag api">${api}</span>`).join('')}
+          </div>
+          <div class="skill-card-usage">
+            <code>${skill.usage}</code>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Initialize skills count on load
+    document.getElementById('navSkills').textContent = skillsData.active.length + skillsData.available.length;
 
     // Initialize daily logs on load
     loadDailyLogManifest();
