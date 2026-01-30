@@ -8,26 +8,23 @@
     "availableSkills": 44,
     "cronJobs": 16,
     "apis": 13,
-    "dailyLogs": 5,
-    "projects": 2,
-    "tasksCompleted": 24,
-    "uptime": "4 days"
+    "dailyLogs": 5
   },
   "items": [
     {
       "id": "sk001",
       "type": "task",
       "title": "Added Skills Section to Mission Control",
-      "description": "Complete skills inventory - 11 active, 44 available, grouped by category",
+      "description": "Complete skills inventory - 11 active, 44 available, grouped by category with Lucide icons",
       "status": "done",
       "created": "2026-01-29T18:38:00",
-      "completed": "2026-01-29T18:45:00"
+      "completed": "2026-01-29T18:54:00"
     },
     {
       "id": "l30d01",
       "type": "task",
       "title": "Installed last30days Skill",
-      "description": "Reddit + X research skill. Configured OpenAI + xAI API keys.",
+      "description": "Reddit + X research skill. Configured OpenAI + xAI API keys. Tested with Clawdbot use cases search.",
       "status": "done",
       "created": "2026-01-29T19:12:00",
       "completed": "2026-01-29T19:23:00"
@@ -36,7 +33,7 @@
       "id": "mcdl01",
       "type": "task",
       "title": "Mission Control: Daily Logs Viewer",
-      "description": "Added Daily Logs section with date picker and markdown rendering.",
+      "description": "Added Daily Logs section with date picker sidebar and markdown rendering. Auto-syncs from memory/.",
       "status": "done",
       "created": "2026-01-29T18:47:00",
       "completed": "2026-01-29T18:52:00"
@@ -45,7 +42,7 @@
       "id": "mcfs01",
       "type": "task",
       "title": "Mission Control: Font/Spacing Tightened",
-      "description": "Reduced font sizes, tightened spacing. Sidebar 240px, nav 14px, tables 14px.",
+      "description": "Reduced font sizes, tightened spacing per Nam's feedback. Sidebar 240px, nav 14px, tables 14px.",
       "status": "done",
       "created": "2026-01-29T18:56:00",
       "completed": "2026-01-29T19:07:00"
@@ -60,10 +57,19 @@
       "completed": "2026-01-29T18:10:00"
     },
     {
+      "id": "cradj01",
+      "type": "task",
+      "title": "Cron Jobs Adjusted to HKT",
+      "description": "Daily summary + transcript archive moved to 11pm HKT (7am PST) while Nam in Hong Kong",
+      "status": "done",
+      "created": "2026-01-29T18:51:00",
+      "completed": "2026-01-29T18:53:00"
+    },
+    {
       "id": "ns001",
       "type": "task",
       "title": "Night Shift: Marriott Scanner Skill",
-      "description": "Built Playwright-based scanner with 80+ hotel database across 9 cities.",
+      "description": "Built Playwright-based scanner with 80+ hotel database across 9 cities. Generates MMP promo links.",
       "status": "done",
       "created": "2026-01-29T07:00:00",
       "completed": "2026-01-29T07:40:00"
@@ -72,37 +78,261 @@
       "id": "ns002",
       "type": "task",
       "title": "Night Shift: Market Research",
-      "description": "Tech selloff analysis: MSFT -12%, VIX +6.8%, commodities up.",
+      "description": "Compiled market analysis: Tech selloff (MSFT -12%), VIX +6.8%, energy/commodities up. Apple earnings tonight.",
       "status": "done",
       "created": "2026-01-29T07:40:00",
       "completed": "2026-01-29T07:50:00"
     },
     {
+      "id": "ns003",
+      "type": "task",
+      "title": "Night Shift: 5 Project Ideas",
+      "description": "Brainstormed 5 ideas: Trade Journal, Sleep-Trading Correlation, Email Scanner, Risk Monitor, Thesis Builder",
+      "status": "done",
+      "created": "2026-01-29T07:50:00",
+      "completed": "2026-01-29T07:55:00"
+    },
+    {
       "id": "mc001",
       "type": "project",
       "title": "Mission Control Dashboard",
-      "description": "Central command for all Alfred activity, skills, APIs, and automation",
+      "description": "Central command for all Alfred activity, skills, APIs, crons, and automation",
       "status": "active",
       "progress": 95,
       "created": "2026-01-29T04:11:00",
-      "updated": "2026-01-30T02:45:00",
+      "updated": "2026-01-30T02:58:00",
       "liveUrl": "https://mission-control-nams-projects-9474d015.vercel.app",
-      "repoUrl": "https://github.com/worldcash1/mission-control"
+      "repoUrl": "https://github.com/worldcash1/mission-control",
+      "subtasks": [
+        {"title": "Basic layout with sidebar", "done": true},
+        {"title": "Projects & Tasks tables", "done": true},
+        {"title": "Tools & APIs page", "done": true},
+        {"title": "Cron Jobs page", "done": true},
+        {"title": "Daily Logs viewer", "done": true},
+        {"title": "Skills section (55 total)", "done": true},
+        {"title": "Timezone indicator", "done": true},
+        {"title": "Lucide icons throughout", "done": true}
+      ]
     },
     {
       "id": "st001",
       "type": "project",
       "title": "Strategy Tracker App",
-      "description": "Trading dashboard with P&L by strategy",
+      "description": "Trading dashboard with P&L by strategy: Earnings, BX-Trender, Premium/Wheels, Ethan's Trades",
       "status": "active",
       "progress": 30,
       "created": "2026-01-28T02:00:00",
       "updated": "2026-01-29T03:40:00",
-      "blocked": "Need VRP and Ethan specs",
-      "repoUrl": "https://github.com/worldcash1/trade-tracker-v2"
+      "blocked": "Need VRP and Ethan specs from Nam",
+      "repoUrl": "https://github.com/worldcash1/trade-tracker-v2",
+      "subtasks": [
+        {"title": "Locate trade-tracker-v2 repo", "done": true},
+        {"title": "Find Magic Patterns UI components", "done": false},
+        {"title": "Build Earnings page", "done": false},
+        {"title": "Build BX-Trender page", "done": false},
+        {"title": "Build Premium/Wheels page", "done": false},
+        {"title": "Connect Schwab API", "done": false}
+      ]
+    },
+    {
+      "id": "mf001",
+      "type": "project",
+      "title": "MandarinFlow / DailyLingo",
+      "description": "Chinese learning app with phrase-based spaced repetition",
+      "status": "queue",
+      "progress": 50,
+      "created": "2026-01-27T10:00:00",
+      "updated": "2026-01-27T12:00:00"
+    },
+    {
+      "id": "ar001",
+      "type": "project",
+      "title": "Alpha Research System",
+      "description": "Chris Camillo method: Thesis vault, trend scanner, idea capture",
+      "status": "queue",
+      "progress": 40,
+      "created": "2026-01-26T18:00:00",
+      "updated": "2026-01-26T20:00:00"
+    },
+    {
+      "id": "sa001",
+      "type": "task",
+      "title": "Schwab Trading Permissions",
+      "description": "Enable trading scope on Schwab developer app to place trades via API",
+      "status": "queue",
+      "created": "2026-01-29T18:00:00",
+      "blocked": "Need to request trading permissions in Schwab Developer Portal"
+    },
+    {
+      "id": "cs001",
+      "type": "task",
+      "title": "Calendar Sync (CalDAV)",
+      "description": "Connect iCloud/Google calendar for morning brief",
+      "status": "queue",
+      "created": "2026-01-28T12:00:00"
+    },
+    {
+      "id": "mb001",
+      "type": "task",
+      "title": "Morning Brief Cron",
+      "description": "Daily 9am HKT briefing with Oura, weather, markets, calendar, email, news",
+      "status": "done",
+      "created": "2026-01-29T03:00:00",
+      "completed": "2026-01-29T03:05:00"
+    },
+    {
+      "id": "te001",
+      "type": "task",
+      "title": "Telegram Export Analysis",
+      "description": "Analyzed 3,642 messages, recovered strategy tracker specs",
+      "status": "done",
+      "created": "2026-01-29T03:20:00",
+      "completed": "2026-01-29T03:40:00"
+    },
+    {
+      "id": "cj001",
+      "type": "task",
+      "title": "15 Cron Jobs Created",
+      "description": "Morning brief, THT analysis (3x daily), Playtech (2x), backups, token refresh",
+      "status": "done",
+      "created": "2026-01-28T18:00:00",
+      "completed": "2026-01-28T20:00:00"
+    },
+    {
+      "id": "tw001",
+      "type": "task",
+      "title": "Twitter/X API Connected",
+      "description": "Read-only access to @Nam_Le account for monitoring",
+      "status": "done",
+      "created": "2026-01-28T17:00:00",
+      "completed": "2026-01-28T17:30:00"
+    },
+    {
+      "id": "sc001",
+      "type": "task",
+      "title": "Schwab Token Auto-Refresh",
+      "description": "Script running every 25 min to keep OAuth alive",
+      "status": "done",
+      "created": "2026-01-28T15:00:00",
+      "completed": "2026-01-28T16:00:00"
+    },
+    {
+      "id": "bs001",
+      "type": "task",
+      "title": "Brave Search API",
+      "description": "Web search capability added",
+      "status": "done",
+      "created": "2026-01-28T14:00:00",
+      "completed": "2026-01-28T14:30:00"
+    },
+    {
+      "id": "av001",
+      "type": "task",
+      "title": "Alpha Vantage API",
+      "description": "Market data API connected",
+      "status": "done",
+      "created": "2026-01-28T14:30:00",
+      "completed": "2026-01-28T15:00:00"
+    },
+    {
+      "id": "pe001",
+      "type": "task",
+      "title": "Proton Email Created",
+      "description": "Backup email: alfred.work.1@proton.me",
+      "status": "done",
+      "created": "2026-01-28T13:00:00",
+      "completed": "2026-01-28T13:30:00"
+    },
+    {
+      "id": "gb001",
+      "type": "task",
+      "title": "GitHub Repos Setup",
+      "description": "alfred-assist-ai/alfred-brain (public), worldcash1/clawd-workspace (private backup)",
+      "status": "done",
+      "created": "2026-01-26T18:00:00",
+      "completed": "2026-01-26T19:00:00"
+    },
+    {
+      "id": "ob001",
+      "type": "task",
+      "title": "Obsidian Vault Setup",
+      "description": "Brain folder with trading docs, workflows, templates",
+      "status": "done",
+      "created": "2026-01-26T20:00:00",
+      "completed": "2026-01-26T21:00:00"
+    },
+    {
+      "id": "or001",
+      "type": "task",
+      "title": "Oura Ring Integration",
+      "description": "Health data API connected - sleep, HRV, readiness",
+      "status": "done",
+      "created": "2026-01-26T15:00:00",
+      "completed": "2026-01-26T16:00:00"
+    },
+    {
+      "id": "pd001",
+      "type": "task",
+      "title": "Peter DiCarlo Strategy Docs",
+      "description": "50 videos summarized, full BX Trender system documented",
+      "status": "done",
+      "created": "2026-01-26T10:00:00",
+      "completed": "2026-01-27T02:00:00"
+    },
+    {
+      "id": "tg001",
+      "type": "task",
+      "title": "Telegram Bot Setup",
+      "description": "Primary communication channel with Nam",
+      "status": "done",
+      "created": "2026-01-25T22:30:00",
+      "completed": "2026-01-25T22:40:00"
+    },
+    {
+      "id": "vrp01",
+      "type": "idea",
+      "title": "VRP Strategy",
+      "description": "Nam mentioned as a trading strategy - need definition. Volatility Risk Premium?",
+      "status": "idea",
+      "created": "2026-01-28T02:13:00"
+    },
+    {
+      "id": "eth01",
+      "type": "idea",
+      "title": "Ethan's Trades",
+      "description": "A trader Nam follows - biotech + mixed. Need to know: who, what platform, trade style",
+      "status": "idea",
+      "created": "2026-01-28T02:13:00"
+    },
+    {
+      "id": "phn01",
+      "type": "idea",
+      "title": "Phone Number Setup",
+      "description": "Ultra Mobile PayGo ($3/mo) or Plivo for 2FA verifications",
+      "status": "idea",
+      "created": "2026-01-26T20:00:00"
+    },
+    {
+      "id": "cmf01",
+      "type": "idea",
+      "title": "ComfyUI Image Generation",
+      "description": "Skill available on ClawdHub for AI image generation",
+      "status": "idea",
+      "created": "2026-01-27T15:00:00"
+    },
+    {
+      "id": "pomp01",
+      "type": "idea",
+      "title": "Pomp's 8-Step Portfolio Optimizer",
+      "description": "Portfolio optimization system from x.com/APompliano",
+      "status": "idea",
+      "created": "2026-01-27T18:00:00"
     }
   ],
   "recentActivity": [
+    {"time": "2026-01-30T02:58:00", "action": "Simplified timezone to small top-right indicator"},
+    {"time": "2026-01-30T02:54:00", "action": "Replaced emojis with Lucide icons in Skills"},
+    {"time": "2026-01-30T02:51:00", "action": "Added location card to main dashboard"},
     {"time": "2026-01-30T02:45:00", "action": "Added complete Skills section (55 total)"},
     {"time": "2026-01-30T02:38:00", "action": "Nam requested comprehensive Mission Control"},
     {"time": "2026-01-30T00:49:00", "action": "Updated activity data for Vercel"},
@@ -114,23 +344,22 @@
     {"time": "2026-01-29T19:07:00", "action": "Pushed font/spacing updates"},
     {"time": "2026-01-29T18:52:00", "action": "Added Daily Logs viewer"},
     {"time": "2026-01-29T07:50:00", "action": "Night Shift: Market research complete"},
-    {"time": "2026-01-29T07:40:00", "action": "Night Shift: Marriott scanner built"},
-    {"time": "2026-01-29T07:00:00", "action": "Night Shift started"}
+    {"time": "2026-01-29T07:40:00", "action": "Night Shift: Marriott scanner built"}
   ],
-  "lastUpdated": "2026-01-30T02:45:00",
+  "lastUpdated": "2026-01-30T02:58:00",
   "apis": [
     {"name": "Schwab", "status": "active", "icon": "📈", "description": "Market data, quotes, options chains", "auth": "OAuth (auto-refresh)", "cost": "Free", "lastUsed": "2026-01-30T02:21:00"},
     {"name": "OpenAI", "status": "active", "icon": "🤖", "description": "GPT models, web search, Reddit research", "auth": "API Key", "cost": "Pay-per-use", "lastUsed": "2026-01-29T19:23:00"},
-    {"name": "xAI", "status": "active", "icon": "🚀", "description": "Grok models, X/Twitter search", "auth": "API Key", "cost": "Pay-per-use (plenty credits)", "lastUsed": "2026-01-29T19:23:00"},
-    {"name": "Oura Ring", "status": "active", "icon": "💍", "description": "Sleep, HRV, readiness, heart rate", "auth": "Bearer Token", "cost": "$6/mo (subscription)", "lastUsed": "2026-01-29T17:00:00"},
-    {"name": "Twitter/X", "status": "active", "icon": "🐦", "description": "@Nam_Le read-only access", "auth": "Bearer Token", "cost": "Free (read-only)", "lastUsed": "2026-01-28T17:30:00"},
-    {"name": "Brave Search", "status": "active", "icon": "🔍", "description": "Web search API", "auth": "API Key", "cost": "$5/mo (2000 queries)", "lastUsed": "2026-01-30T00:06:00"},
+    {"name": "xAI", "status": "active", "icon": "🚀", "description": "Grok models, X/Twitter search", "auth": "API Key", "cost": "Pay-per-use", "lastUsed": "2026-01-29T19:23:00"},
+    {"name": "Oura Ring", "status": "active", "icon": "💍", "description": "Sleep, HRV, readiness, heart rate", "auth": "Bearer Token", "cost": "$6/mo", "lastUsed": "2026-01-29T17:00:00"},
+    {"name": "Twitter/X", "status": "active", "icon": "🐦", "description": "@Nam_Le read-only access", "auth": "Bearer Token", "cost": "Free", "lastUsed": "2026-01-28T17:30:00"},
+    {"name": "Brave Search", "status": "active", "icon": "🔍", "description": "Web search API", "auth": "API Key", "cost": "$5/mo", "lastUsed": "2026-01-30T00:06:00"},
     {"name": "Alpha Vantage", "status": "active", "icon": "📊", "description": "Stock quotes, earnings calendar", "auth": "API Key", "cost": "Free (25/day)", "lastUsed": "2026-01-29T07:00:00"},
     {"name": "AgentMail", "status": "active", "icon": "📧", "description": "alfred-x@agentmail.to", "auth": "API Key", "cost": "Free", "lastUsed": "2026-01-29T17:00:00"},
-    {"name": "GitHub", "status": "active", "icon": "🐙", "description": "worldcash1 repos", "auth": "gh CLI", "cost": "Free", "lastUsed": "2026-01-30T02:45:00"},
-    {"name": "ElevenLabs", "status": "active", "icon": "🔊", "description": "Text-to-speech", "auth": "API Key", "cost": "$5/mo (Starter)", "lastUsed": "2026-01-28T00:00:00"},
-    {"name": "Telegram", "status": "active", "icon": "💬", "description": "Bot API - primary channel", "auth": "Bot Token", "cost": "Free", "lastUsed": "2026-01-30T02:45:00"},
-    {"name": "Vercel", "status": "active", "icon": "▲", "description": "Web hosting, auto-deploy", "auth": "Token", "cost": "Free", "lastUsed": "2026-01-30T02:45:00"},
+    {"name": "GitHub", "status": "active", "icon": "🐙", "description": "worldcash1 repos", "auth": "gh CLI", "cost": "Free", "lastUsed": "2026-01-30T02:58:00"},
+    {"name": "ElevenLabs", "status": "active", "icon": "🔊", "description": "Text-to-speech", "auth": "API Key", "cost": "$5/mo", "lastUsed": "2026-01-28T00:00:00"},
+    {"name": "Telegram", "status": "active", "icon": "💬", "description": "Bot API - primary channel", "auth": "Bot Token", "cost": "Free", "lastUsed": "2026-01-30T02:58:00"},
+    {"name": "Vercel", "status": "active", "icon": "▲", "description": "Web hosting, auto-deploy", "auth": "Token", "cost": "Free", "lastUsed": "2026-01-30T02:58:00"},
     {"name": "Google (gog)", "status": "inactive", "icon": "🎮", "description": "Gmail, Calendar, Drive", "auth": "OAuth needed", "cost": "Free", "lastUsed": null}
   ],
   "crons": [
@@ -152,35 +381,19 @@
     {"name": "Netflix Weekly", "schedule": "0 9 * * 1", "human": "9am Mondays PT", "desc": "New releases", "enabled": true, "lastRun": null, "status": "pending"}
   ],
   "files": [
-    {"name": "SOUL.md", "desc": "Who I am — personality, style, boundaries", "category": "Identity", "lines": 45},
-    {"name": "AGENTS.md", "desc": "Operating rules, memory, safety, heartbeats", "category": "Identity", "lines": 180},
-    {"name": "MEMORY.md", "desc": "Long-term curated memory", "category": "Memory", "lines": 120},
-    {"name": "USER.md", "desc": "About Nam — timezone, preferences", "category": "Identity", "lines": 25},
-    {"name": "TOOLS.md", "desc": "APIs, crons, accounts, workspace", "category": "System", "lines": 200},
-    {"name": "PROJECTS.md", "desc": "Active project specs and status", "category": "Work", "lines": 150},
-    {"name": "IDENTITY.md", "desc": "Quick identity — name, emoji, vibe", "category": "Identity", "lines": 15},
-    {"name": "HEARTBEAT.md", "desc": "Periodic check tasks", "category": "System", "lines": 10},
-    {"name": "NIGHTSHIFT.md", "desc": "Autonomous night work instructions", "category": "System", "lines": 30}
-  ],
-  "tools": [
-    {"name": "Schwab API", "status": "active", "paid": false, "description": "Market data, quotes, options chains. Auto-refreshes OAuth.", "note": "Trading permissions need Developer Portal setup"},
-    {"name": "OpenAI API", "status": "active", "paid": true, "cost": "Pay-per-use", "description": "GPT models for web search and research."},
-    {"name": "xAI API", "status": "active", "paid": true, "cost": "Pay-per-use", "description": "Grok models for X/Twitter search."},
-    {"name": "Oura Ring API", "status": "active", "paid": true, "cost": "$6/mo", "description": "Sleep, HRV, readiness, heart rate."},
-    {"name": "Twitter/X API", "status": "active", "paid": false, "description": "@Nam_Le read-only access."},
-    {"name": "Brave Search API", "status": "active", "paid": true, "cost": "$5/mo", "description": "Web search queries."},
-    {"name": "Alpha Vantage API", "status": "active", "paid": false, "description": "Stock quotes, earnings calendar (25/day)."},
-    {"name": "AgentMail", "status": "active", "paid": false, "description": "alfred-x@agentmail.to"},
-    {"name": "GitHub", "status": "active", "paid": false, "description": "worldcash1 repos via gh CLI."},
-    {"name": "ElevenLabs", "status": "active", "paid": true, "cost": "$5/mo", "description": "Text-to-speech."},
-    {"name": "Telegram Bot", "status": "active", "paid": false, "description": "Primary communication channel."},
-    {"name": "Vercel", "status": "active", "paid": false, "description": "Auto-deploy from GitHub."},
-    {"name": "Google (gog)", "status": "inactive", "paid": false, "description": "Gmail, Calendar, Drive - OAuth needed."}
+    {"name": "SOUL.md", "desc": "Who I am — personality, style, boundaries", "category": "Identity"},
+    {"name": "AGENTS.md", "desc": "Operating rules, memory, safety, heartbeats", "category": "Identity"},
+    {"name": "MEMORY.md", "desc": "Long-term curated memory", "category": "Memory"},
+    {"name": "USER.md", "desc": "About Nam — timezone, preferences", "category": "Identity"},
+    {"name": "TOOLS.md", "desc": "APIs, crons, accounts, workspace", "category": "System"},
+    {"name": "PROJECTS.md", "desc": "Active project specs and status", "category": "Work"},
+    {"name": "IDENTITY.md", "desc": "Quick identity — name, emoji, vibe", "category": "Identity"},
+    {"name": "HEARTBEAT.md", "desc": "Periodic check tasks", "category": "System"},
+    {"name": "NIGHTSHIFT.md", "desc": "Autonomous night work instructions", "category": "System"}
   ],
   "namLocation": {
     "current": "Hong Kong",
     "timezone": "HKT (UTC+8)",
-    "since": "2026-01-25",
-    "next": {"city": "Dubai", "date": "2026-02-05", "timezone": "GST (UTC+4)"}
+    "since": "2026-01-25"
   }
 }
