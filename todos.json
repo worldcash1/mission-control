@@ -1,4 +1,13 @@
 {
-  "lastUpdated": "2026-01-30T21:25:00-08:00",
-  "todos": []
+  "lastUpdated": "2026-01-30T21:50:00-08:00",
+  "todos": [
+    {
+      "id": "1",
+      "text": "Example: Subscription tracker app that alerts before renewals",
+      "priority": "medium",
+      "category": "idea",
+      "completed": false,
+      "created": "2026-01-30"
+    }
+  ]
 }

@@ -964,6 +964,51 @@
       color: #555;
     }
 
+    .todo-filters {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .todo-filter-btn {
+      padding: 8px 16px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 20px;
+      color: #999;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .todo-filter-btn:hover {
+      background: #252525;
+      color: #e5e5e5;
+    }
+
+    .todo-filter-btn.active {
+      background: #2a3a4a;
+      border-color: #5b9bf5;
+      color: #5b9bf5;
+    }
+
+    .todo-category {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .todo-category.idea { background: #7c3aed22; color: #a78bfa; }
+    .todo-category.research { background: #3b82f622; color: #60a5fa; }
+    .todo-category.errand { background: #f59e0b22; color: #fbbf24; }
+    .todo-category.project { background: #10b98122; color: #34d399; }
+    .todo-category.note { background: #6b728022; color: #9ca3af; }
+
     /* Skills Grid */
     .skills-grid {
       display: grid;
@@ -1627,6 +1672,14 @@
       <div class="section-header">
         <span class="section-title"><i data-lucide="check-square"></i> To-Do List</span>
       </div>
+      <div class="todo-filters" id="todoFilters">
+        <button class="todo-filter-btn active" data-category="all">All</button>
+        <button class="todo-filter-btn" data-category="idea">💡 Ideas</button>
+        <button class="todo-filter-btn" data-category="research">🔍 Research</button>
+        <button class="todo-filter-btn" data-category="errand">📞 Errands</button>
+        <button class="todo-filter-btn" data-category="project">🚀 Projects</button>
+        <button class="todo-filter-btn" data-category="note">📝 Notes</button>
+      </div>
       <div class="todos-container" id="todosContainer">
         <div class="todo-empty">No todos yet. Drop tasks in #to-do-list on Discord!</div>
       </div>
@@ -2206,6 +2259,7 @@
 
     // Todos functions
     let todosData = { todos: [] };
+    let currentTodoFilter = 'all';
 
     async function loadTodos() {
       try {
@@ -2218,12 +2272,26 @@
       }
     }
 
-    function renderTodos() {
+    function renderTodos(categoryFilter = currentTodoFilter) {
+      currentTodoFilter = categoryFilter;
       const container = document.getElementById('todosContainer');
-      const todos = todosData.todos || [];
+      let todos = todosData.todos || [];
+      
+      // Apply category filter
+      if (categoryFilter !== 'all') {
+        todos = todos.filter(t => t.category === categoryFilter);
+      }
+      
+      // Update filter button states
+      document.querySelectorAll('.todo-filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.category === categoryFilter);
+      });
       
       if (todos.length === 0) {
-        container.innerHTML = '<div class="todo-empty">No todos yet. Drop tasks in #to-do-list on Discord!</div>';
+        const msg = categoryFilter === 'all' 
+          ? 'No todos yet. Drop tasks in #to-do-list on Discord!'
+          : `No ${categoryFilter} items yet.`;
+        container.innerHTML = `<div class="todo-empty">${msg}</div>`;
         return;
       }
 
@@ -2231,6 +2299,14 @@
       const medium = todos.filter(t => t.priority === 'medium' && !t.completed);
       const low = todos.filter(t => t.priority === 'low' && !t.completed);
       const completed = todos.filter(t => t.completed);
+
+      const categoryLabels = {
+        idea: '💡 Idea',
+        research: '🔍 Research', 
+        errand: '📞 Errand',
+        project: '🚀 Project',
+        note: '📝 Note'
+      };
 
       const renderSection = (items, label, priorityClass) => {
         if (items.length === 0) return '';
@@ -2247,8 +2323,8 @@
                   <div class="todo-content">
                     <div class="todo-text">${item.text}</div>
                     <div class="todo-meta">
+                      ${item.category ? `<span class="todo-category ${item.category}">${categoryLabels[item.category] || item.category}</span>` : ''}
                       ${item.due ? `<span class="todo-due">Due: ${item.due}</span>` : ''}
-                      ${item.project ? `<span class="todo-project">#${item.project}</span>` : ''}
                     </div>
                   </div>
                 </div>
@@ -2266,6 +2342,13 @@
       
       lucide.createIcons();
     }
+
+    // Todo filter click handlers
+    document.querySelectorAll('.todo-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        renderTodos(btn.dataset.category);
+      });
+    });
 
     // Docs functions
     function renderDocs() {
