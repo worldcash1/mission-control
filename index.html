@@ -843,6 +843,105 @@
       }
     }
 
+    /* To-Do List */
+    .todos-container {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .todo-priority-section {
+      background: #181818;
+      border: 1px solid #252525;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .todo-priority-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #252525;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .todo-priority-header.high { color: #f87171; }
+    .todo-priority-header.medium { color: #fbbf24; }
+    .todo-priority-header.low { color: #4ade80; }
+    .todo-priority-header.completed { color: #666; }
+
+    .todo-list {
+      padding: 8px;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .todo-item:hover {
+      background: #1f1f1f;
+    }
+
+    .todo-checkbox {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #444;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .todo-item.completed .todo-checkbox {
+      background: #4ade80;
+      border-color: #4ade80;
+    }
+
+    .todo-content {
+      flex: 1;
+    }
+
+    .todo-text {
+      color: #e5e5e5;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .todo-item.completed .todo-text {
+      color: #666;
+      text-decoration: line-through;
+    }
+
+    .todo-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 6px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .todo-due {
+      color: #f87171;
+    }
+
+    .todo-project {
+      color: #5b9bf5;
+    }
+
+    .todo-empty {
+      padding: 40px;
+      text-align: center;
+      color: #555;
+    }
+
     /* Skills Grid */
     .skills-grid {
       display: grid;
@@ -1261,6 +1360,10 @@
         <i data-lucide="layout-grid"></i> All Items
         <span class="count" id="navAll">0</span>
       </div>
+      <div class="nav-item" data-filter="todos">
+        <i data-lucide="check-square"></i> To-Do
+        <span class="count" id="navTodos">0</span>
+      </div>
       <div class="nav-item" data-filter="active">
         <i data-lucide="play-circle"></i> Active
         <span class="count" id="navActive">0</span>
@@ -1492,6 +1595,16 @@
             <p style="color: #666; padding: 40px; text-align: center;">← Choose a date from the list to view that day's log</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Todos Section -->
+    <section class="section" id="todosSection" style="display: none;">
+      <div class="section-header">
+        <span class="section-title"><i data-lucide="check-square"></i> To-Do List</span>
+      </div>
+      <div class="todos-container" id="todosContainer">
+        <div class="todo-empty">No todos yet. Drop tasks in #to-do-list on Discord!</div>
       </div>
     </section>
 
@@ -1914,7 +2027,8 @@
           files: 'Core Files',
           docs: 'Documents',
           'daily-logs': 'Daily Logs',
-          'skills': 'Skills'
+          'skills': 'Skills',
+          'todos': 'To-Do List'
         };
         document.getElementById('pageTitle').textContent = titles[currentFilter];
         
@@ -1934,6 +2048,7 @@
           document.getElementById('dailyLogsSection').style.display = 'none';
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
+          document.getElementById('todosSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1947,6 +2062,7 @@
           document.getElementById('dailyLogsSection').style.display = 'none';
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
+          document.getElementById('todosSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1960,6 +2076,7 @@
           document.getElementById('dailyLogsSection').style.display = 'none';
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
+          document.getElementById('todosSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1973,6 +2090,7 @@
           document.getElementById('dailyLogsSection').style.display = 'block';
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
+          document.getElementById('todosSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1986,6 +2104,7 @@
           document.getElementById('dailyLogsSection').style.display = 'none';
           document.getElementById('skillsSection').style.display = 'block';
           document.getElementById('docsSection').style.display = 'none';
+          document.getElementById('todosSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -1993,6 +2112,21 @@
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           renderSkills();
+        } else if (currentFilter === 'todos') {
+          toolsSection.style.display = 'none';
+          cronsSection.style.display = 'none';
+          document.getElementById('filesSection').style.display = 'none';
+          document.getElementById('dailyLogsSection').style.display = 'none';
+          document.getElementById('skillsSection').style.display = 'none';
+          document.getElementById('docsSection').style.display = 'none';
+          document.getElementById('todosSection').style.display = 'block';
+          projectsSection.style.display = 'none';
+          document.getElementById('tasksSection').style.display = 'none';
+          activitySection.style.display = 'none';
+          statsRow.style.display = 'none';
+          if (currentBanner) currentBanner.style.display = 'none';
+          document.getElementById('ideasSection').style.display = 'none';
+          renderTodos();
         } else if (currentFilter === 'docs') {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
@@ -2000,6 +2134,7 @@
           document.getElementById('dailyLogsSection').style.display = 'none';
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'block';
+          document.getElementById('todosSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2014,6 +2149,7 @@
           document.getElementById('dailyLogsSection').style.display = 'none';
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
+          document.getElementById('todosSection').style.display = 'none';
           projectsSection.style.display = 'block';
           document.getElementById('tasksSection').style.display = 'block';
           activitySection.style.display = 'block';
@@ -2042,6 +2178,69 @@
 
     function closeFileViewer() {
       document.getElementById('fileViewer').style.display = 'none';
+    }
+
+    // Todos functions
+    let todosData = { todos: [] };
+
+    async function loadTodos() {
+      try {
+        const response = await fetch('todos.json?' + Date.now());
+        todosData = await response.json();
+        document.getElementById('navTodos').textContent = todosData.todos.filter(t => !t.completed).length;
+      } catch (e) {
+        console.log('No todos.json found');
+        todosData = { todos: [] };
+      }
+    }
+
+    function renderTodos() {
+      const container = document.getElementById('todosContainer');
+      const todos = todosData.todos || [];
+      
+      if (todos.length === 0) {
+        container.innerHTML = '<div class="todo-empty">No todos yet. Drop tasks in #to-do-list on Discord!</div>';
+        return;
+      }
+
+      const high = todos.filter(t => t.priority === 'high' && !t.completed);
+      const medium = todos.filter(t => t.priority === 'medium' && !t.completed);
+      const low = todos.filter(t => t.priority === 'low' && !t.completed);
+      const completed = todos.filter(t => t.completed);
+
+      const renderSection = (items, label, priorityClass) => {
+        if (items.length === 0) return '';
+        return `
+          <div class="todo-priority-section">
+            <div class="todo-priority-header ${priorityClass}">
+              <i data-lucide="${priorityClass === 'completed' ? 'check-circle' : 'circle'}"></i>
+              ${label} (${items.length})
+            </div>
+            <div class="todo-list">
+              ${items.map(item => `
+                <div class="todo-item ${item.completed ? 'completed' : ''}">
+                  <div class="todo-checkbox"></div>
+                  <div class="todo-content">
+                    <div class="todo-text">${item.text}</div>
+                    <div class="todo-meta">
+                      ${item.due ? `<span class="todo-due">Due: ${item.due}</span>` : ''}
+                      ${item.project ? `<span class="todo-project">#${item.project}</span>` : ''}
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      };
+
+      container.innerHTML = 
+        renderSection(high, '🔴 High Priority', 'high') +
+        renderSection(medium, '🟡 Medium Priority', 'medium') +
+        renderSection(low, '🟢 Low Priority', 'low') +
+        renderSection(completed, '✅ Completed', 'completed');
+      
+      lucide.createIcons();
     }
 
     // Docs functions
@@ -2197,7 +2396,9 @@
 
     // Auto-refresh
     setInterval(loadData, 30000);
+    setInterval(loadTodos, 30000);
     loadData();
+    loadTodos();
 
     // Edit Modal Functions
     let currentEditId = null;
