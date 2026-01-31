@@ -1324,7 +1324,7 @@
     </nav>
 
     <div class="sidebar-footer">
-      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v1.2.0</div>
+      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v1.3.0</div>
       Last updated<br>
       <span id="lastUpdated">-</span>
     </div>
@@ -1352,14 +1352,7 @@
       <div class="search-results" id="searchResults"></div>
     </div>
 
-    <!-- Current Task Banner -->
-    <div class="current-banner" id="currentBanner">
-      <div class="dot"></div>
-      <span class="text" id="currentText">Loading...</span>
-      <span class="time" id="currentTime"></span>
-    </div>
-
-    <!-- Stats removed for cleaner look - counts are in sidebar -->
+    <!-- Current task banner + stats removed for cleaner look -->
 
     <!-- Projects Section -->
     <section class="section" id="projectsSection">
@@ -1629,11 +1622,7 @@
       document.getElementById('pageDate').textContent = 
         new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
 
-      // Current task
-      if (data.currentTask) {
-        document.getElementById('currentText').textContent = data.currentTask.title;
-        document.getElementById('currentTime').textContent = timeAgo(data.currentTask.startedAt);
-      }
+      // Current task banner removed
 
       // Stats
       const active = data.items.filter(i => i.status === 'active').length;
@@ -1934,7 +1923,7 @@
         const projectsSection = document.getElementById('projectsSection');
         const activitySection = document.getElementById('activitySection');
         const statsRow = document.querySelector('.stats-row');
-        const currentBanner = document.getElementById('currentBanner');
+        const currentBanner = document.getElementById('currentBanner'); // may be null (removed)
         
         const cronsSection = document.getElementById('cronsSection');
         
@@ -1949,7 +1938,7 @@
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
           statsRow.style.display = 'none';
-          currentBanner.style.display = 'none';
+          if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
         } else if (currentFilter === 'crons') {
           toolsSection.style.display = 'none';
@@ -1962,7 +1951,7 @@
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
           statsRow.style.display = 'none';
-          currentBanner.style.display = 'none';
+          if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
         } else if (currentFilter === 'files') {
           toolsSection.style.display = 'none';
@@ -1975,7 +1964,7 @@
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
           statsRow.style.display = 'none';
-          currentBanner.style.display = 'none';
+          if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
         } else if (currentFilter === 'daily-logs') {
           toolsSection.style.display = 'none';
@@ -1988,7 +1977,7 @@
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
           statsRow.style.display = 'none';
-          currentBanner.style.display = 'none';
+          if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
         } else if (currentFilter === 'skills') {
           toolsSection.style.display = 'none';
@@ -2001,7 +1990,7 @@
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
           statsRow.style.display = 'none';
-          currentBanner.style.display = 'none';
+          if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           renderSkills();
         } else if (currentFilter === 'docs') {
@@ -2015,7 +2004,7 @@
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
           statsRow.style.display = 'none';
-          currentBanner.style.display = 'none';
+          if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           renderDocs();
         } else {
@@ -2029,7 +2018,7 @@
           document.getElementById('tasksSection').style.display = 'block';
           activitySection.style.display = 'block';
           statsRow.style.display = 'flex';
-          currentBanner.style.display = 'flex';
+          if (currentBanner) currentBanner.style.display = 'flex';
           render();
           return;
         }
