@@ -6,6 +6,7 @@
   <title>Mission Control</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/convex@1.17.4/dist/browser.bundle.js"></script>
   <style>
     * {
       margin: 0;
@@ -1451,7 +1452,7 @@
     </div>
 
     <div class="sidebar-footer">
-      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v1.5.0</div>
+      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v2.0.0</div>
       Last updated<br>
       <span id="lastUpdated">-</span>
     </div>
@@ -1717,14 +1718,96 @@
   <script>
     let data = null;
     let currentFilter = 'all';
+    
+    // Convex client setup
+    const CONVEX_URL = "https://reminiscent-avocet-969.convex.cloud";
+    const convexClient = new convex.ConvexHttpClient(CONVEX_URL);
 
     async function loadData() {
       try {
-        const response = await fetch('activity.json?' + Date.now());
-        data = await response.json();
+        // Fetch from Convex
+        const dashboardData = await convexClient.query("dashboard:getData");
+        
+        // Transform Convex data to match existing format
+        const items = [];
+        
+        // Add projects
+        dashboardData.projects.all.forEach(p => {
+          items.push({
+            id: p._id,
+            type: 'project',
+            title: p.title,
+            description: p.description,
+            status: p.status,
+            progress: p.progress,
+            liveUrl: p.liveUrl,
+            repoUrl: p.repoUrl,
+            links: { live: p.liveUrl, repo: p.repoUrl },
+            created: new Date(p.createdAt).toISOString(),
+            updated: new Date(p.updatedAt).toISOString(),
+          });
+        });
+        
+        // Add todos as tasks
+        dashboardData.todos.active.forEach(t => {
+          items.push({
+            id: t._id,
+            type: 'task',
+            title: t.title,
+            description: t.description,
+            status: 'active',
+            created: new Date(t.createdAt).toISOString(),
+          });
+        });
+        
+        dashboardData.todos.completed.forEach(t => {
+          items.push({
+            id: t._id,
+            type: 'task',
+            title: t.title,
+            description: t.description,
+            status: 'done',
+            created: new Date(t.createdAt).toISOString(),
+            completed: t.completedAt ? new Date(t.completedAt).toISOString() : null,
+          });
+        });
+        
+        // Add ideas
+        dashboardData.ideas.all.forEach(i => {
+          items.push({
+            id: i._id,
+            type: 'idea',
+            title: i.title,
+            description: i.description,
+            status: 'idea',
+            created: new Date(i.createdAt).toISOString(),
+          });
+        });
+        
+        // Build data object matching old format
+        data = {
+          items,
+          todos: dashboardData.todos.active,
+          activity: dashboardData.activity.map(a => ({
+            time: new Date(a.timestamp).toISOString(),
+            text: a.text
+          })),
+          namLocation: { city: "Hong Kong", timezone: "HKT (UTC+8)" },
+          stats: dashboardData.stats,
+        };
+        
         render();
+        console.log('✓ Loaded from Convex:', dashboardData.stats);
       } catch (e) {
-        console.error('Failed to load:', e);
+        console.error('Convex failed, falling back to JSON:', e);
+        // Fallback to static JSON
+        try {
+          const response = await fetch('activity.json?' + Date.now());
+          data = await response.json();
+          render();
+        } catch (e2) {
+          console.error('Failed to load:', e2);
+        }
       }
     }
 
