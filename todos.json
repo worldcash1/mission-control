@@ -1,4 +1,11 @@
 {
-  "lastUpdated": "2026-01-30T21:54:00-08:00",
-  "todos": []
+  "lastUpdated": "2026-01-30T22:21:00-08:00",
+  "todos": [
+    {
+      "id": "1",
+      "text": "Look into buying Hyatt vouchers ($100 each) — good for suite upgrades or $100 flat hotel nights",
+      "completed": false,
+      "created": "2026-01-30"
+    }
+  ]
 }
