@@ -1641,12 +1641,7 @@
       const done = data.items.filter(i => i.status === 'done').length;
       const ideas = data.items.filter(i => i.status === 'idea').length;
 
-      document.getElementById('statActive').textContent = active;
-      document.getElementById('statQueue').textContent = queue;
-      document.getElementById('statDone').textContent = done;
-      document.getElementById('statSkills').textContent = skillsData.active.length;
-      document.getElementById('statApis').textContent = data.apis ? data.apis.filter(a => a.status === 'active').length : 0;
-      document.getElementById('statCrons').textContent = data.crons ? data.crons.filter(c => c.enabled).length : 0;
+      // Stat boxes removed - counts shown in sidebar only
       
       // Timezone indicator (small, top right)
       if (data.namLocation) {
