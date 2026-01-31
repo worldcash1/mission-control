@@ -960,6 +960,126 @@
       color: #4ade80;
     }
 
+    /* View Toggle */
+    .view-toggle {
+      display: flex;
+      gap: 4px;
+      background: #1a1a1a;
+      padding: 4px;
+      border-radius: 8px;
+    }
+
+    .view-btn {
+      background: transparent;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #666;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .view-btn:hover {
+      color: #999;
+    }
+
+    .view-btn.active {
+      background: #252525;
+      color: #4ade80;
+    }
+
+    .view-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Skills List View */
+    .skills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .skill-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 16px;
+      background: #181818;
+      border: 1px solid #252525;
+      border-radius: 8px;
+      transition: border-color 0.2s;
+    }
+
+    .skill-row:hover {
+      border-color: #333;
+    }
+
+    .skill-row-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #252525;
+      border-radius: 6px;
+      color: #888;
+      flex-shrink: 0;
+    }
+
+    .skill-row-icon.active {
+      background: linear-gradient(135deg, #1a3d2a 0%, #1a2a3d 100%);
+      color: #4ade80;
+    }
+
+    .skill-row-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .skill-row-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      min-width: 140px;
+    }
+
+    .skill-row-desc {
+      font-size: 13px;
+      color: #888;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .skill-row-tags {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .skill-row-status {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .skill-row-status.active {
+      background: #1a3d2a;
+      color: #4ade80;
+    }
+
+    .skill-row-status.available {
+      background: #252525;
+      color: #888;
+    }
+
     /* Modal */
     .modal {
       position: fixed;
@@ -1204,7 +1324,7 @@
     </nav>
 
     <div class="sidebar-footer">
-      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v1.1.0</div>
+      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v1.2.0</div>
       Last updated<br>
       <span id="lastUpdated">-</span>
     </div>
@@ -1239,33 +1359,7 @@
       <span class="time" id="currentTime"></span>
     </div>
 
-    <!-- Stats -->
-    <div class="stats-row">
-      <div class="stat-box">
-        <div class="value" id="statActive">0</div>
-        <div class="label">Active</div>
-      </div>
-      <div class="stat-box">
-        <div class="value" id="statQueue">0</div>
-        <div class="label">Queue</div>
-      </div>
-      <div class="stat-box">
-        <div class="value" id="statDone">0</div>
-        <div class="label">Completed</div>
-      </div>
-      <div class="stat-box">
-        <div class="value" id="statSkills">0</div>
-        <div class="label">Skills</div>
-      </div>
-      <div class="stat-box">
-        <div class="value" id="statApis">0</div>
-        <div class="label">APIs</div>
-      </div>
-      <div class="stat-box">
-        <div class="value" id="statCrons">0</div>
-        <div class="label">Crons</div>
-      </div>
-    </div>
+    <!-- Stats removed for cleaner look - counts are in sidebar -->
 
     <!-- Projects Section -->
     <section class="section" id="projectsSection">
@@ -1412,13 +1506,19 @@
     <section class="section" id="skillsSection" style="display: none;">
       <div class="section-header">
         <span class="section-title"><i data-lucide="puzzle"></i> Installed Skills</span>
+        <div class="view-toggle">
+          <button class="view-btn active" id="gridViewBtn" onclick="setSkillsView('grid')"><i data-lucide="layout-grid"></i></button>
+          <button class="view-btn" id="listViewBtn" onclick="setSkillsView('list')"><i data-lucide="list"></i></button>
+        </div>
       </div>
       <div class="skills-grid" id="activeSkillsGrid"></div>
+      <div class="skills-list" id="activeSkillsList" style="display: none;"></div>
       
       <div class="section-header" style="margin-top: 32px;">
         <span class="section-title"><i data-lucide="package"></i> Available Skills</span>
       </div>
       <div class="skills-grid" id="availableSkillsGrid"></div>
+      <div class="skills-list" id="availableSkillsList" style="display: none;"></div>
     </section>
 
     <!-- Docs Section -->
@@ -2422,8 +2522,68 @@
         });
       });
       document.getElementById('availableSkillsGrid').innerHTML = availableHtml;
+
+      // Render active skills list view
+      document.getElementById('activeSkillsList').innerHTML = skillsData.active.map(skill => `
+        <div class="skill-row">
+          <div class="skill-row-icon active"><i data-lucide="${skill.icon}"></i></div>
+          <span class="skill-row-name">${skill.name}</span>
+          <span class="skill-row-desc">${skill.description}</span>
+          <div class="skill-row-tags">
+            ${skill.apis.map(api => `<span class="skill-meta-tag api">${api}</span>`).join('')}
+          </div>
+          <span class="skill-row-status active">Active</span>
+        </div>
+      `).join('');
+
+      // Render available skills list view
+      let availableListHtml = '';
+      Object.keys(categories).sort().forEach(cat => {
+        availableListHtml += `<div style="margin-top: 16px; margin-bottom: 8px;"><span style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">${cat}</span></div>`;
+        categories[cat].forEach(skill => {
+          availableListHtml += `
+            <div class="skill-row">
+              <div class="skill-row-icon"><i data-lucide="${skill.icon}"></i></div>
+              <span class="skill-row-name">${skill.name}</span>
+              <span class="skill-row-desc">${skill.description}</span>
+              <div class="skill-row-tags">
+                ${skill.apis.map(api => `<span class="skill-meta-tag api">${api}</span>`).join('')}
+              </div>
+              <span class="skill-row-status available">Available</span>
+            </div>
+          `;
+        });
+      });
+      document.getElementById('availableSkillsList').innerHTML = availableListHtml;
       
       // Re-initialize Lucide icons for the new content
+      lucide.createIcons();
+    }
+
+    // Toggle skills view between grid and list
+    function setSkillsView(view) {
+      const gridBtn = document.getElementById('gridViewBtn');
+      const listBtn = document.getElementById('listViewBtn');
+      const activeGrid = document.getElementById('activeSkillsGrid');
+      const activeList = document.getElementById('activeSkillsList');
+      const availableGrid = document.getElementById('availableSkillsGrid');
+      const availableList = document.getElementById('availableSkillsList');
+
+      if (view === 'grid') {
+        gridBtn.classList.add('active');
+        listBtn.classList.remove('active');
+        activeGrid.style.display = 'grid';
+        activeList.style.display = 'none';
+        availableGrid.style.display = 'grid';
+        availableList.style.display = 'none';
+      } else {
+        gridBtn.classList.remove('active');
+        listBtn.classList.add('active');
+        activeGrid.style.display = 'none';
+        activeList.style.display = 'flex';
+        availableGrid.style.display = 'none';
+        availableList.style.display = 'flex';
+      }
       lucide.createIcons();
     }
 
