@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-30T22:46:00-08:00",
+  "lastUpdated": "2026-01-30T23:31:00-08:00",
   "todos": [
     {
       "id": "1",
@@ -10,6 +10,12 @@
     {
       "id": "2",
       "text": "Set up remote control to Apple iMac — find the best solution",
+      "completed": false,
+      "created": "2026-01-30"
+    },
+    {
+      "id": "3",
+      "text": "Buy IREN options (Feb 6 catalyst — Amazon deal, potential +20%)",
       "completed": false,
       "created": "2026-01-30"
     }
