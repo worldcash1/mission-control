@@ -35,4 +35,18 @@ export default defineSchema({
     text: v.string(),
     timestamp: v.number(),
   }),
+  
+  tools: defineTable({
+    name: v.string(),
+    type: v.string(), // "api", "web", "cli", "account", "skill"
+    category: v.string(), // "AI", "Finance", "Communication", "Development", "Productivity", etc.
+    description: v.string(),
+    accessMethod: v.optional(v.string()), // "API Key", "OAuth", "Browser", "CLI", "Bot Token"
+    capabilities: v.optional(v.array(v.string())), // What can be done with this tool
+    status: v.string(), // "active", "inactive", "limited"
+    icon: v.optional(v.string()),
+    url: v.optional(v.string()), // Link to service
+    notes: v.optional(v.string()), // Any special notes
+    addedAt: v.number(),
+  }),
 });

@@ -1791,24 +1791,21 @@
           action: a.text // render uses 'action' field
         }));
         
-        // Static data for APIs and Crons (not in Convex yet)
-        const apis = [
-          { name: "OpenAI", status: "active", cost: "$20/mo cap", icon: "🤖", auth: "API Key" },
-          { name: "Anthropic", status: "active", cost: "Usage-based", icon: "🧠", auth: "API Key" },
-          { name: "Schwab", status: "active", cost: "Free", icon: "📈", auth: "OAuth" },
-          { name: "Alpha Vantage", status: "active", cost: "Free tier", icon: "📊", auth: "API Key" },
-          { name: "Brave Search", status: "active", cost: "Free tier", icon: "🔍", auth: "API Key" },
-          { name: "Twitter/X", status: "active", cost: "Free (read-only)", icon: "🐦", auth: "OAuth" },
-          { name: "Google OAuth", status: "active", cost: "Free", icon: "🔐", auth: "OAuth" },
-          { name: "ElevenLabs", status: "active", cost: "Free tier", icon: "🎙️", auth: "API Key" },
-          { name: "Oura", status: "active", cost: "Free", icon: "💍", auth: "API Key" },
-          { name: "Discord", status: "active", cost: "Free", icon: "💬", auth: "Bot Token" },
-          { name: "Telegram", status: "active", cost: "Free", icon: "✈️", auth: "Bot Token" },
-          { name: "Convex", status: "active", cost: "Free tier", icon: "⚡", auth: "API Key" },
-          { name: "Vercel", status: "active", cost: "Free tier", icon: "▲", auth: "Token" },
-          { name: "AgentMail", status: "active", cost: "Free", icon: "📧", auth: "API Key" }
-        ];
+        // Tools from Convex - transform to match frontend format
+        const tools = dashboardData.tools.all.map(t => ({
+          name: t.name,
+          type: t.type,
+          category: t.category,
+          description: t.description,
+          status: t.status,
+          icon: t.icon || '🔧',
+          auth: t.accessMethod,
+          capabilities: t.capabilities || [],
+          url: t.url,
+          notes: t.notes,
+        }));
         
+        // Crons still static for now (could add to Convex later)
         const crons = [
           { name: "Morning Brief", schedule: "9am HKT", enabled: true },
           { name: "Dubai Tickets Reminder", schedule: "9am daily", enabled: true },
@@ -1830,8 +1827,11 @@
           activity: activityMapped,
           recentActivity: activityMapped, // render() expects this
           namLocation: { city: "Hong Kong", timezone: "HKT (UTC+8)" },
-          stats: dashboardData.stats,
-          apis: apis,
+          stats: { ...dashboardData.stats, tools: dashboardData.tools.total },
+          tools: tools,
+          toolsByCategory: dashboardData.tools.byCategory,
+          toolsByType: dashboardData.tools.byType,
+          apis: tools, // backwards compat
           crons: crons,
         };
         
@@ -2053,47 +2053,93 @@
         </div>
       `).join('');
 
-      // APIs - show comprehensive data
-      if (data.apis) {
-        document.getElementById('navTools').textContent = data.apis.length;
+      // Tools - grouped by category
+      if (data.tools) {
+        document.getElementById('navTools').textContent = data.tools.length;
         
-        // Sort: active first, then inactive
-        const sortedApis = [...data.apis].sort((a, b) => {
-          if (a.status !== b.status) return a.status === 'active' ? -1 : 1;
-          return a.name.localeCompare(b.name);
+        // Group by category
+        const byCategory = {};
+        data.tools.forEach(t => {
+          if (!byCategory[t.category]) byCategory[t.category] = [];
+          byCategory[t.category].push(t);
         });
         
-        document.getElementById('toolsTable').innerHTML = sortedApis.map(api => {
-          const statusBadge = api.status === 'active'
-            ? `<span class="badge badge-done">✓ Active</span>`
-            : `<span class="badge badge-queue">Inactive</span>`;
+        // Category order and colors
+        const categoryOrder = ['AI', 'Finance', 'Communication', 'Development', 'Search', 'Social', 'Health', 'Productivity', 'Media', 'Travel', 'Account', 'Utilities'];
+        const categoryColors = {
+          'AI': '#8b5cf6',
+          'Finance': '#22c55e',
+          'Communication': '#3b82f6',
+          'Development': '#f59e0b',
+          'Search': '#06b6d4',
+          'Social': '#ec4899',
+          'Health': '#ef4444',
+          'Productivity': '#84cc16',
+          'Media': '#f97316',
+          'Travel': '#14b8a6',
+          'Account': '#6366f1',
+          'Utilities': '#64748b',
+        };
+        
+        // Type icons
+        const typeIcons = {
+          'api': '🔌',
+          'web': '🌐',
+          'cli': '⌨️',
+          'skill': '🧩',
+          'account': '🔑',
+        };
+        
+        let html = '';
+        categoryOrder.forEach(category => {
+          if (!byCategory[category]) return;
+          const tools = byCategory[category];
+          const color = categoryColors[category] || '#666';
           
-          const costBadge = api.cost && api.cost !== 'Free'
-            ? `<span style="color: #f5a623; font-size: 11px;">💵 ${api.cost}</span>`
-            : `<span style="color: #4ade80; font-size: 11px;">Free</span>`;
-          
-          const lastUsed = api.lastUsed 
-            ? timeAgo(api.lastUsed)
-            : '<span style="color: #555">Never</span>';
-          
-          return `
+          html += `
             <tr>
-              <td>
-                <div class="title" style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 16px;">${api.icon || '🔌'}</span>
-                  ${api.name}
-                </div>
-                <div style="color: #666; font-size: 12px; margin-top: 4px;">${api.auth || ''}</div>
+              <td colspan="4" style="padding: 16px 0 8px 0; border-bottom: none;">
+                <span style="color: ${color}; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                  ${category} (${tools.length})
+                </span>
               </td>
-              <td>
-                <div style="color: #999">${api.description}</div>
-              </td>
-              <td style="text-align: center;">${costBadge}</td>
-              <td style="color: #666; font-size: 12px;">${lastUsed}</td>
-              <td>${statusBadge}</td>
             </tr>
           `;
-        }).join('');
+          
+          tools.forEach(tool => {
+            const statusBadge = tool.status === 'active'
+              ? `<span class="badge badge-done">✓ Active</span>`
+              : `<span class="badge badge-queue">Inactive</span>`;
+            
+            const typeIcon = typeIcons[tool.type] || '🔧';
+            const capsList = tool.capabilities && tool.capabilities.length > 0
+              ? `<div style="margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px;">
+                  ${tool.capabilities.slice(0, 4).map(c => `<span style="background: #1a1a2e; color: #888; padding: 2px 6px; border-radius: 4px; font-size: 10px;">${c}</span>`).join('')}
+                  ${tool.capabilities.length > 4 ? `<span style="color: #555; font-size: 10px;">+${tool.capabilities.length - 4} more</span>` : ''}
+                </div>`
+              : '';
+            
+            html += `
+              <tr>
+                <td style="width: 250px;">
+                  <div class="title" style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 16px;">${tool.icon || typeIcon}</span>
+                    ${tool.url ? `<a href="${tool.url}" target="_blank" style="color: inherit; text-decoration: none;">${tool.name}</a>` : tool.name}
+                    <span style="font-size: 10px; color: #555; background: #222; padding: 1px 5px; border-radius: 3px;">${tool.type}</span>
+                  </div>
+                  <div style="color: #555; font-size: 11px; margin-top: 2px;">${tool.auth || ''}</div>
+                </td>
+                <td>
+                  <div style="color: #888; font-size: 13px;">${tool.description}</div>
+                  ${capsList}
+                </td>
+                <td style="width: 100px;">${statusBadge}</td>
+              </tr>
+            `;
+          });
+        });
+        
+        document.getElementById('toolsTable').innerHTML = html;
       }
 
       // Crons
