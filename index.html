@@ -31,6 +31,28 @@
       flex-direction: column;
       height: 100vh;
       position: fixed;
+      overflow: hidden;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      margin-right: -14px;
+      padding-right: 14px;
+    }
+
+    .sidebar-nav::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .sidebar-nav::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sidebar-nav::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 2px;
     }
 
     .sidebar-header {
@@ -1354,80 +1376,82 @@
       <h1><i data-lucide="rocket" style="width:26px;height:26px;vertical-align:-5px;margin-right:10px;"></i>Mission Control</h1>
     </div>
 
-    <nav class="nav-section">
-      <div class="nav-label">Overview</div>
-      <div class="nav-item active" data-filter="all">
-        <i data-lucide="layout-grid"></i> All Items
-        <span class="count" id="navAll">0</span>
-      </div>
-      <div class="nav-item" data-filter="todos">
-        <i data-lucide="check-square"></i> To-Do
-        <span class="count" id="navTodos">0</span>
-      </div>
-      <div class="nav-item" data-filter="active">
-        <i data-lucide="play-circle"></i> Active
-        <span class="count" id="navActive">0</span>
-      </div>
-      <div class="nav-item" data-filter="queue">
-        <i data-lucide="list"></i> Queue
-        <span class="count" id="navQueue">0</span>
-      </div>
-    </nav>
+    <div class="sidebar-nav">
+      <nav class="nav-section">
+        <div class="nav-label">Overview</div>
+        <div class="nav-item active" data-filter="all">
+          <i data-lucide="layout-grid"></i> All Items
+          <span class="count" id="navAll">0</span>
+        </div>
+        <div class="nav-item" data-filter="todos">
+          <i data-lucide="check-square"></i> To-Do
+          <span class="count" id="navTodos">0</span>
+        </div>
+        <div class="nav-item" data-filter="active">
+          <i data-lucide="play-circle"></i> Active
+          <span class="count" id="navActive">0</span>
+        </div>
+        <div class="nav-item" data-filter="queue">
+          <i data-lucide="list"></i> Queue
+          <span class="count" id="navQueue">0</span>
+        </div>
+      </nav>
 
-    <nav class="nav-section">
-      <div class="nav-label">Status</div>
-      <div class="nav-item" data-filter="done">
-        <i data-lucide="check-circle"></i> Completed
-        <span class="count" id="navDone">0</span>
-      </div>
-      <div class="nav-item" data-filter="idea">
-        <i data-lucide="lightbulb"></i> Ideas
-        <span class="count" id="navIdeas">0</span>
-      </div>
-      <div class="nav-item" data-filter="archived">
-        <i data-lucide="archive"></i> Archived
-        <span class="count">0</span>
-      </div>
-    </nav>
+      <nav class="nav-section">
+        <div class="nav-label">Status</div>
+        <div class="nav-item" data-filter="done">
+          <i data-lucide="check-circle"></i> Completed
+          <span class="count" id="navDone">0</span>
+        </div>
+        <div class="nav-item" data-filter="idea">
+          <i data-lucide="lightbulb"></i> Ideas
+          <span class="count" id="navIdeas">0</span>
+        </div>
+        <div class="nav-item" data-filter="archived">
+          <i data-lucide="archive"></i> Archived
+          <span class="count">0</span>
+        </div>
+      </nav>
 
-    <nav class="nav-section">
-      <div class="nav-label">History</div>
-      <div class="nav-item" data-filter="daily-logs">
-        <i data-lucide="calendar"></i> Daily Logs
-        <span class="count" id="navDailyLogs">0</span>
-      </div>
-    </nav>
+      <nav class="nav-section">
+        <div class="nav-label">History</div>
+        <div class="nav-item" data-filter="daily-logs">
+          <i data-lucide="calendar"></i> Daily Logs
+          <span class="count" id="navDailyLogs">0</span>
+        </div>
+      </nav>
 
-    <nav class="nav-section">
-      <div class="nav-label">Capabilities</div>
-      <div class="nav-item" data-filter="skills">
-        <i data-lucide="puzzle"></i> Skills
-        <span class="count" id="navSkills">0</span>
-      </div>
-    </nav>
+      <nav class="nav-section">
+        <div class="nav-label">Capabilities</div>
+        <div class="nav-item" data-filter="skills">
+          <i data-lucide="puzzle"></i> Skills
+          <span class="count" id="navSkills">0</span>
+        </div>
+      </nav>
 
-    <nav class="nav-section">
-      <div class="nav-label">System</div>
-      <div class="nav-item" data-filter="tools">
-        <i data-lucide="wrench"></i> Tools & APIs
-        <span class="count" id="navTools">0</span>
-      </div>
-      <div class="nav-item" data-filter="crons">
-        <i data-lucide="clock"></i> Cron Jobs
-        <span class="count" id="navCrons">0</span>
-      </div>
-      <div class="nav-item" data-filter="files">
-        <i data-lucide="file-text"></i> Core Files
-        <span class="count" id="navFiles">0</span>
-      </div>
-      <div class="nav-item" data-filter="docs">
-        <i data-lucide="book-open"></i> Docs
-        <span class="count" id="navDocs">0</span>
-      </div>
-    </nav>
+      <nav class="nav-section">
+        <div class="nav-label">System</div>
+        <div class="nav-item" data-filter="tools">
+          <i data-lucide="wrench"></i> Tools & APIs
+          <span class="count" id="navTools">0</span>
+        </div>
+        <div class="nav-item" data-filter="crons">
+          <i data-lucide="clock"></i> Cron Jobs
+          <span class="count" id="navCrons">0</span>
+        </div>
+        <div class="nav-item" data-filter="files">
+          <i data-lucide="file-text"></i> Core Files
+          <span class="count" id="navFiles">0</span>
+        </div>
+        <div class="nav-item" data-filter="docs">
+          <i data-lucide="book-open"></i> Docs
+          <span class="count" id="navDocs">0</span>
+        </div>
+      </nav>
+    </div>
 
     <div class="sidebar-footer">
-      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v1.3.0</div>
+      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v1.4.0</div>
       Last updated<br>
       <span id="lastUpdated">-</span>
     </div>
