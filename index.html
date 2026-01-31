@@ -1791,6 +1791,39 @@
           action: a.text // render uses 'action' field
         }));
         
+        // Static data for APIs and Crons (not in Convex yet)
+        const apis = [
+          { name: "OpenAI", status: "active", cost: "$20/mo cap", icon: "🤖", auth: "API Key" },
+          { name: "Anthropic", status: "active", cost: "Usage-based", icon: "🧠", auth: "API Key" },
+          { name: "Schwab", status: "active", cost: "Free", icon: "📈", auth: "OAuth" },
+          { name: "Alpha Vantage", status: "active", cost: "Free tier", icon: "📊", auth: "API Key" },
+          { name: "Brave Search", status: "active", cost: "Free tier", icon: "🔍", auth: "API Key" },
+          { name: "Twitter/X", status: "active", cost: "Free (read-only)", icon: "🐦", auth: "OAuth" },
+          { name: "Google OAuth", status: "active", cost: "Free", icon: "🔐", auth: "OAuth" },
+          { name: "ElevenLabs", status: "active", cost: "Free tier", icon: "🎙️", auth: "API Key" },
+          { name: "Oura", status: "active", cost: "Free", icon: "💍", auth: "API Key" },
+          { name: "Discord", status: "active", cost: "Free", icon: "💬", auth: "Bot Token" },
+          { name: "Telegram", status: "active", cost: "Free", icon: "✈️", auth: "Bot Token" },
+          { name: "Convex", status: "active", cost: "Free tier", icon: "⚡", auth: "API Key" },
+          { name: "Vercel", status: "active", cost: "Free tier", icon: "▲", auth: "Token" },
+          { name: "AgentMail", status: "active", cost: "Free", icon: "📧", auth: "API Key" }
+        ];
+        
+        const crons = [
+          { name: "Morning Brief", schedule: "9am HKT", enabled: true },
+          { name: "Dubai Tickets Reminder", schedule: "9am daily", enabled: true },
+          { name: "Jessica Hotel Reminder", schedule: "Sat 12pm", enabled: true },
+          { name: "IREN Options Reminder", schedule: "Feb 4 9am", enabled: true },
+          { name: "THT Pre-Market", schedule: "6:30am M-F", enabled: true },
+          { name: "THT Mid-Day", schedule: "12pm M-F", enabled: true },
+          { name: "THT Evening Recap", schedule: "6pm M-F", enabled: true },
+          { name: "Schwab Token Refresh", schedule: "Every 25 min", enabled: true },
+          { name: "Workspace Backup", schedule: "Every hour", enabled: true },
+          { name: "Daily Summary", schedule: "11pm HKT", enabled: true },
+          { name: "Transcript Archive", schedule: "11pm HKT", enabled: true },
+          { name: "MMP Daily Scan", schedule: "10am daily", enabled: true }
+        ];
+        
         data = {
           items,
           todos: dashboardData.todos.active,
@@ -1798,6 +1831,8 @@
           recentActivity: activityMapped, // render() expects this
           namLocation: { city: "Hong Kong", timezone: "HKT (UTC+8)" },
           stats: dashboardData.stats,
+          apis: apis,
+          crons: crons,
         };
         
         render();
