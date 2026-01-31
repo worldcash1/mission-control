@@ -2287,31 +2287,32 @@
       document.getElementById('fileViewer').style.display = 'none';
     }
 
-    // Todos functions
-    let todosData = { todos: [] };
+    // Todos functions - now uses Convex
+    let todosData = { active: [], completed: [] };
 
     async function loadTodos() {
       try {
-        const response = await fetch('todos.json?' + Date.now());
-        todosData = await response.json();
-        document.getElementById('navTodos').textContent = todosData.todos.filter(t => !t.completed).length;
+        const result = await convexClient.query("todos:list");
+        todosData = {
+          active: result.filter(t => t.status === 'active'),
+          completed: result.filter(t => t.status === 'done')
+        };
+        document.getElementById('navTodos').textContent = todosData.active.length;
+        console.log('✓ Loaded todos from Convex:', todosData.active.length, 'active');
       } catch (e) {
-        console.log('No todos.json found');
-        todosData = { todos: [] };
+        console.error('Failed to load todos from Convex:', e);
+        todosData = { active: [], completed: [] };
       }
     }
 
     function renderTodos() {
       const container = document.getElementById('todosContainer');
-      const todos = todosData.todos || [];
+      const { active, completed } = todosData;
       
-      if (todos.length === 0) {
+      if (active.length === 0 && completed.length === 0) {
         container.innerHTML = '<div class="todo-empty">No todos yet. Drop tasks in #to-do-list on Discord!</div>';
         return;
       }
-
-      const active = todos.filter(t => !t.completed);
-      const completed = todos.filter(t => t.completed);
 
       let html = '';
       
@@ -2328,9 +2329,11 @@
                 <div class="todo-item">
                   <div class="todo-checkbox"></div>
                   <div class="todo-content">
-                    <div class="todo-text">${item.text}</div>
+                    <div class="todo-text">${item.title}</div>
                     <div class="todo-meta">
-                      <span style="color: #555;">${item.created || ''}</span>
+                      ${item.description ? `<span style="color: #666;">${item.description}</span>` : ''}
+                      ${item.dueDate ? `<span class="todo-due">📅 ${item.dueDate}</span>` : ''}
+                      ${item.reminder ? `<span style="color: #f59e0b; margin-left: 8px;">🔔 ${item.reminder}</span>` : ''}
                     </div>
                   </div>
                 </div>
@@ -2353,7 +2356,7 @@
                 <div class="todo-item completed">
                   <div class="todo-checkbox"></div>
                   <div class="todo-content">
-                    <div class="todo-text">${item.text}</div>
+                    <div class="todo-text">${item.title}</div>
                   </div>
                 </div>
               `).join('')}
