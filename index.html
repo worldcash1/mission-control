@@ -1785,13 +1785,17 @@
         });
         
         // Build data object matching old format
+        const activityMapped = dashboardData.activity.map(a => ({
+          time: new Date(a.timestamp).toISOString(),
+          text: a.text,
+          action: a.text // render uses 'action' field
+        }));
+        
         data = {
           items,
           todos: dashboardData.todos.active,
-          activity: dashboardData.activity.map(a => ({
-            time: new Date(a.timestamp).toISOString(),
-            text: a.text
-          })),
+          activity: activityMapped,
+          recentActivity: activityMapped, // render() expects this
           namLocation: { city: "Hong Kong", timezone: "HKT (UTC+8)" },
           stats: dashboardData.stats,
         };
