@@ -1890,6 +1890,10 @@
           <i data-lucide="calendar"></i> Daily Logs
           <span class="count" id="navDailyLogs">0</span>
         </div>
+        <div class="nav-item" data-filter="trading-notes">
+          <i data-lucide="notebook-pen"></i> Trading Notes
+          <span class="count" id="navTradingNotes">0</span>
+        </div>
       </nav>
 
       <nav class="nav-section">
@@ -2163,6 +2167,24 @@
           </div>
           <div class="daily-log-body" id="dailyLogBody">
             <p style="color: #666; padding: 40px; text-align: center;">← Choose a date from the list to view that day's log</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trading Notes Section -->
+    <section class="section" id="tradingNotesSection" style="display: none;">
+      <div class="section-header">
+        <span class="section-title"><i data-lucide="notebook-pen"></i> Trading Notes</span>
+      </div>
+      <div class="daily-logs-container">
+        <div class="daily-logs-sidebar" id="tradingNotesList"></div>
+        <div class="daily-logs-content">
+          <div class="daily-log-header" id="tradingNoteHeader">
+            <span class="daily-log-date">Select a ticker</span>
+          </div>
+          <div class="daily-log-body" id="tradingNoteBody">
+            <p style="color: #666; padding: 40px; text-align: center;">← Choose a ticker to view notes</p>
           </div>
         </div>
       </div>
@@ -2877,6 +2899,7 @@
           files: 'Core Files',
           docs: 'Documents',
           'daily-logs': 'Daily Logs',
+          'trading-notes': 'Trading Notes',
           'skills': 'Skills',
           'todos': 'To-Do List',
           'org-chart': 'Org Chart'
@@ -2901,6 +2924,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
+          document.getElementById('tradingNotesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2917,6 +2941,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
+          document.getElementById('tradingNotesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2933,6 +2958,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
+          document.getElementById('tradingNotesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2949,6 +2975,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
+          document.getElementById('tradingNotesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2956,6 +2983,27 @@
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
+          document.getElementById('tradingNotesSection').style.display = 'none';
+          renderDailyLogs();
+        } else if (currentFilter === 'trading-notes') {
+          toolsSection.style.display = 'none';
+          cronsSection.style.display = 'none';
+          document.getElementById('filesSection').style.display = 'none';
+          document.getElementById('dailyLogsSection').style.display = 'none';
+          document.getElementById('skillsSection').style.display = 'none';
+          document.getElementById('docsSection').style.display = 'none';
+          document.getElementById('todosSection').style.display = 'none';
+          document.getElementById('orgChartSection').style.display = 'none';
+          document.getElementById('tradingNotesSection').style.display = 'none';
+          document.getElementById('tradingNotesSection').style.display = 'block';
+          projectsSection.style.display = 'none';
+          document.getElementById('tasksSection').style.display = 'none';
+          activitySection.style.display = 'none';
+          if (statsRow) statsRow.style.display = 'none';
+          if (currentBanner) currentBanner.style.display = 'none';
+          document.getElementById('ideasSection').style.display = 'none';
+          document.getElementById('commandCenter').style.display = 'none';
+          renderTradingNotes();
         } else if (currentFilter === 'skills') {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
@@ -2965,6 +3013,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
+          document.getElementById('tradingNotesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2982,6 +3031,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'block';
           document.getElementById('orgChartSection').style.display = 'none';
+          document.getElementById('tradingNotesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2999,6 +3049,7 @@
           document.getElementById('docsSection').style.display = 'block';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
+          document.getElementById('tradingNotesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -3033,6 +3084,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
+          document.getElementById('tradingNotesSection').style.display = 'none';
           projectsSection.style.display = 'block';
           document.getElementById('tasksSection').style.display = 'block';
           activitySection.style.display = 'block';
@@ -3386,6 +3438,49 @@
         day: days[date.getDay()],
         full: `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
       };
+    }
+
+    // Trading Notes
+    async function renderTradingNotes() {
+      try {
+        const resp = await fetch('notes/manifest.txt?' + Date.now());
+        const text = await resp.text();
+        const tickers = text.trim().split('\n').filter(Boolean);
+        document.getElementById('navTradingNotes').textContent = tickers.length;
+        
+        document.getElementById('tradingNotesList').innerHTML = tickers.map(t => 
+          `<div class="daily-log-item" onclick="loadTradingNote('${t}')" style="cursor:pointer;padding:10px 12px;border-bottom:1px solid #1a1a1a;font-family:'SF Mono',monospace;font-size:13px;color:#ccc;transition:background .2s;" onmouseover="this.style.background='#1a1a1a'" onmouseout="this.style.background='transparent'">
+            <span style="color:#4ade80;margin-right:6px;">$</span>${t}
+          </div>`
+        ).join('');
+      } catch(e) {
+        document.getElementById('tradingNotesList').innerHTML = '<p style="color:#666;padding:16px;">No notes found</p>';
+      }
+    }
+
+    async function loadTradingNote(ticker) {
+      try {
+        const resp = await fetch(`notes/${ticker}.md?` + Date.now());
+        const md = await resp.text();
+        document.getElementById('tradingNoteHeader').innerHTML = `<span class="daily-log-date" style="color:#4ade80;">$${ticker}</span>`;
+        // Simple markdown rendering
+        let html = md
+          .replace(/^### (.*$)/gm, '<h3 style="color:#eee;margin:16px 0 8px;">$1</h3>')
+          .replace(/^## (.*$)/gm, '<h2 style="color:#fff;margin:20px 0 10px;border-bottom:1px solid #232323;padding-bottom:6px;">$1</h2>')
+          .replace(/^# (.*$)/gm, '<h1 style="color:#fff;margin:0 0 16px;">$1</h1>')
+          .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#eee;">$1</strong>')
+          .replace(/\*(.*?)\*/g, '<em>$1</em>')
+          .replace(/^- (.*$)/gm, '<div style="padding:2px 0 2px 16px;color:#bbb;">• $1</div>')
+          .replace(/\n\n/g, '<br><br>')
+          .replace(/`(.*?)`/g, '<code style="background:#1a1a1a;padding:1px 5px;border-radius:3px;font-size:12px;">$1</code>');
+        document.getElementById('tradingNoteBody').innerHTML = `<div style="padding:20px;line-height:1.7;color:#999;">${html}</div>`;
+        
+        // Highlight active item
+        document.querySelectorAll('#tradingNotesList .daily-log-item').forEach(el => el.style.background = 'transparent');
+        event.currentTarget.style.background = '#1a1a1a';
+      } catch(e) {
+        document.getElementById('tradingNoteBody').innerHTML = '<p style="color:#666;padding:40px;text-align:center;">Could not load note</p>';
+      }
     }
 
     function renderDailyLogsList() {
