@@ -4210,7 +4210,7 @@
     async function renderProjectsHub() {
       // Load projects from Convex
       try {
-        allProjects = await convexClient.query("projects:list", {});
+        allProjects = await convexClient.query("projects:list");
         const hubCount = document.getElementById('navProjectsHub');
         if (hubCount) hubCount.textContent = allProjects.length;
       } catch (error) {
