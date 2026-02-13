@@ -1844,7 +1844,7 @@
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-header">
-      <h1><i data-lucide="rocket" style="width:26px;height:26px;vertical-align:-5px;margin-right:10px;"></i>Mission Control <span style="font-size:12px;color:#4ade80;font-weight:400;vertical-align:middle;">v4.0.0</span></h1>
+      <h1><i data-lucide="rocket" style="width:26px;height:26px;vertical-align:-5px;margin-right:10px;"></i>Mission Control <span style="font-size:12px;color:#4ade80;font-weight:400;vertical-align:middle;">v3.3.0</span></h1>
     </div>
 
     <div class="sidebar-nav">
@@ -1897,14 +1897,6 @@
       </nav>
 
       <nav class="nav-section">
-        <div class="nav-label">Projects</div>
-        <div class="nav-item" data-filter="projects-hub">
-          <i data-lucide="folder-kanban"></i> Projects Hub
-          <span class="count" id="navProjectsHub">19</span>
-        </div>
-      </nav>
-
-      <nav class="nav-section">
         <div class="nav-label">Capabilities</div>
         <div class="nav-item" data-filter="skills">
           <i data-lucide="puzzle"></i> Skills
@@ -1938,7 +1930,7 @@
     </div>
 
     <div class="sidebar-footer">
-      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v4.0.0</div>
+      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v3.3.0</div>
       Last updated<br>
       <span id="lastUpdated">-</span>
     </div>
@@ -2228,12 +2220,11 @@
         <div style="display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;">
           <select id="projectStatusFilter" style="background: #1a1a1a; border: 1px solid #2a2a2a; color: #ccc; padding: 8px 12px; border-radius: 6px; font-size: 13px; cursor: pointer;">
             <option value="">All Statuses</option>
-            <option value="live">✅ Live</option>
-            <option value="building">🚧 Building</option>
-            <option value="planning">📐 Planning</option>
-            <option value="research">🔬 Research</option>
-            <option value="paused">⏸️ Paused</option>
-            <option value="archived">📦 Archived</option>
+            <option value="live">Live</option>
+            <option value="building">Building</option>
+            <option value="paused">Paused</option>
+            <option value="research">Research</option>
+            <option value="archived">Archived</option>
           </select>
           
           <select id="projectTagFilter" style="background: #1a1a1a; border: 1px solid #2a2a2a; color: #ccc; padding: 8px 12px; border-radius: 6px; font-size: 13px; cursor: pointer;">
@@ -2967,8 +2958,7 @@
           'skills': 'Skills',
           'todos': 'To-Do List',
           'projects': 'Projects',
-          'org-chart': 'Org Chart',
-          'projects-hub': 'Projects Hub'
+          'org-chart': 'Org Chart'
         };
         document.getElementById('pageTitle').textContent = titles[currentFilter];
         
@@ -2989,7 +2979,6 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
-          document.getElementById('projectsHubSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
           document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
@@ -3007,7 +2996,6 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
-          document.getElementById('projectsHubSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
           document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
@@ -3025,7 +3013,6 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
-          document.getElementById('projectsHubSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
           document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
@@ -3043,7 +3030,6 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
-          document.getElementById('projectsHubSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
           document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
@@ -3062,7 +3048,6 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
-          document.getElementById('projectsHubSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
           document.getElementById('notesSection').style.display = 'block';
           projectsSection.style.display = 'none';
@@ -3081,7 +3066,6 @@
           document.getElementById('skillsSection').style.display = 'block';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
-          document.getElementById('projectsHubSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
           document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
@@ -3118,7 +3102,6 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'block';
           document.getElementById('todosSection').style.display = 'none';
-          document.getElementById('projectsHubSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
           document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
@@ -3137,7 +3120,6 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
-          document.getElementById('projectsHubSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
           document.getElementById('notesSection').style.display = 'none';
           document.getElementById('projectsHubSection').style.display = 'block';
@@ -3157,7 +3139,6 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
-          document.getElementById('projectsHubSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'block';
           document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
@@ -3176,7 +3157,6 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
-          document.getElementById('projectsHubSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
           document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'block';
@@ -4202,345 +4182,6 @@
       `;
       
       document.getElementById('notesBody').innerHTML = html;
-    }
-
-    // Projects Hub System
-    let allProjects = [];
-    let currentProject = null;
-    
-    async function renderProjectsHub() {
-      // Load projects from Convex
-      try {
-        allProjects = await convexClient.query(api.projects.list, {});
-        const hubCount = document.getElementById('navProjectsHub');
-        if (hubCount) hubCount.textContent = allProjects.length;
-      } catch (error) {
-        console.error('Failed to load projects:', error);
-        allProjects = [];
-      }
-      
-      // Reset to list view
-      document.getElementById('projectsListView').style.display = 'block';
-      document.getElementById('projectDetailView').style.display = 'none';
-      
-      // Populate tag filter
-      const allTags = new Set();
-      allProjects.forEach(p => {
-        if (p.tags) p.tags.forEach(tag => allTags.add(tag));
-      });
-      
-      const tagFilter = document.getElementById('projectTagFilter');
-      tagFilter.innerHTML = '<option value="">All Tags</option>' + 
-        Array.from(allTags).sort().map(tag => `<option value="${tag}">${tag}</option>`).join('');
-      
-      // Setup event listeners
-      document.getElementById('projectStatusFilter').addEventListener('change', filterProjects);
-      document.getElementById('projectTagFilter').addEventListener('change', filterProjects);
-      document.getElementById('projectSearchInput').addEventListener('input', filterProjects);
-      document.getElementById('backToProjectsList').addEventListener('click', () => {
-        document.getElementById('projectsListView').style.display = 'block';
-        document.getElementById('projectDetailView').style.display = 'none';
-      });
-      
-      // Render initial list
-      renderProjectsList(allProjects);
-    }
-    
-    function filterProjects() {
-      const statusFilter = document.getElementById('projectStatusFilter').value;
-      const tagFilter = document.getElementById('projectTagFilter').value;
-      const searchQuery = document.getElementById('projectSearchInput').value.toLowerCase();
-      
-      let filtered = allProjects;
-      
-      if (statusFilter) {
-        filtered = filtered.filter(p => p.status === statusFilter);
-      }
-      
-      if (tagFilter) {
-        filtered = filtered.filter(p => p.tags && p.tags.includes(tagFilter));
-      }
-      
-      if (searchQuery) {
-        filtered = filtered.filter(p => 
-          p.title.toLowerCase().includes(searchQuery) ||
-          (p.description && p.description.toLowerCase().includes(searchQuery))
-        );
-      }
-      
-      renderProjectsList(filtered);
-    }
-    
-    function renderProjectsList(projects) {
-      const grid = document.getElementById('projectsGrid');
-      
-      if (projects.length === 0) {
-        grid.innerHTML = '<div style="grid-column: 1 / -1; padding: 40px; text-align: center; color: #666;">No projects found</div>';
-        return;
-      }
-      
-      // Sort: live → building → planning → research → paused → archived
-      const statusOrder = { live: 0, building: 1, planning: 2, research: 3, paused: 4, archived: 5 };
-      projects = [...projects].sort((a, b) => (statusOrder[a.status] ?? 9) - (statusOrder[b.status] ?? 9));
-      
-      const statusColors = {
-        live: '#4ade80',
-        building: '#f59e0b',
-        planning: '#3b82f6',
-        paused: '#6b7280',
-        research: '#a78bfa',
-        archived: '#555'
-      };
-      
-      grid.innerHTML = projects.map(project => {
-        const statusColor = statusColors[project.status] || '#666';
-        const tagHtml = project.tags ? project.tags.slice(0, 3).map(tag => 
-          `<span style="background: #1a1a1a; color: #999; padding: 2px 8px; border-radius: 4px; font-size: 11px;">${tag}</span>`
-        ).join('') : '';
-        
-        return `
-          <div onclick="showProjectDetail('${project._id}')" style="background: #161616; border: 1px solid #232323; border-radius: 10px; padding: 20px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#333'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='#232323'; this.style.transform='translateY(0)';">
-            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
-              <h3 style="color: #fff; font-size: 16px; font-weight: 600; margin: 0;">${project.title}</h3>
-              <span style="padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 500; background: ${statusColor}22; color: ${statusColor}; text-transform: uppercase; white-space: nowrap;">${project.status}</span>
-            </div>
-            
-            ${project.description ? `<p style="color: #999; font-size: 13px; line-height: 1.5; margin-bottom: 12px;">${project.description.substring(0, 100)}${project.description.length > 100 ? '...' : ''}</p>` : ''}
-            
-            <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;">
-              ${tagHtml}
-            </div>
-            
-            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid #1a1a1a;">
-              ${project.agent ? `<span style="color: #666; font-size: 12px;"><i data-lucide="user" style="width: 12px; height: 12px;"></i> ${project.agent}</span>` : '<span></span>'}
-              ${project.progress !== undefined ? `<span style="color: #666; font-size: 12px;">${project.progress}% complete</span>` : ''}
-            </div>
-          </div>
-        `;
-      }).join('');
-      
-      lucide.createIcons();
-    }
-    
-    async function showProjectDetail(projectId) {
-      const project = allProjects.find(p => p._id === projectId);
-      if (!project) return;
-      
-      currentProject = project;
-      
-      const statusColors = {
-        live: '#4ade80',
-        building: '#f59e0b',
-        planning: '#3b82f6',
-        paused: '#6b7280',
-        research: '#a78bfa',
-        archived: '#555'
-      };
-      const statusColor = statusColors[project.status] || '#666';
-      
-      const tagHtml = project.tags ? project.tags.map(tag => 
-        `<span style="background: #1a1a1a; color: #999; padding: 4px 12px; border-radius: 4px; font-size: 12px;">${tag}</span>`
-      ).join('') : '';
-      
-      const linksHtml = `
-        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-          ${project.githubUrl ? `<a href="${project.githubUrl}" target="_blank" style="display: flex; align-items: center; gap: 6px; background: #2a2a3d; color: #8b8bf5; padding: 8px 14px; border-radius: 6px; text-decoration: none; font-size: 13px;"><i data-lucide="github" style="width: 16px; height: 16px;"></i> GitHub</a>` : ''}
-          ${project.vercelUrl ? `<a href="${project.vercelUrl}" target="_blank" style="display: flex; align-items: center; gap: 6px; background: #1a3d2a; color: #4ade80; padding: 8px 14px; border-radius: 6px; text-decoration: none; font-size: 13px;"><i data-lucide="external-link" style="width: 16px; height: 16px;"></i> Live Site</a>` : ''}
-          ${project.discordChannelId ? `<a href="https://discord.com/channels/1466625923578331291/${project.discordChannelId}" target="_blank" style="display: flex; align-items: center; gap: 6px; background: #3d2a3d; color: #c77dff; padding: 8px 14px; border-radius: 6px; text-decoration: none; font-size: 13px;"><i data-lucide="message-square" style="width: 16px; height: 16px;"></i> Discord</a>` : ''}
-        </div>
-      `;
-      
-      const html = `
-        <div style="background: #161616; border: 1px solid #232323; border-radius: 10px; padding: 28px;">
-          <!-- Header -->
-          <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 24px;">
-            <div>
-              <h2 style="color: #fff; font-size: 24px; font-weight: 600; margin: 0 0 8px 0;">${project.title}</h2>
-              <div style="display: flex; gap: 8px; align-items: center;">
-                <span style="padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 500; background: ${statusColor}22; color: ${statusColor}; text-transform: uppercase;">${project.status}</span>
-                ${project.agent ? `<span style="color: #666; font-size: 14px;">• Managed by <span style="color: ${statusColor};">${project.agent}</span></span>` : ''}
-              </div>
-            </div>
-            ${project.progress !== undefined ? `
-              <div style="text-align: right;">
-                <div style="color: #666; font-size: 12px; margin-bottom: 4px;">Progress</div>
-                <div style="font-size: 24px; font-weight: 600; color: ${statusColor};">${project.progress}%</div>
-              </div>
-            ` : ''}
-          </div>
-          
-          <!-- Description -->
-          ${project.description ? `
-            <div style="margin-bottom: 24px;">
-              <p style="color: #ccc; font-size: 14px; line-height: 1.6;">${project.description}</p>
-            </div>
-          ` : ''}
-          
-          <!-- Links -->
-          ${linksHtml ? `
-            <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #1a1a1a;">
-              <h4 style="color: #999; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">Links</h4>
-              ${linksHtml}
-            </div>
-          ` : ''}
-          
-          <!-- Tags -->
-          ${project.tags && project.tags.length > 0 ? `
-            <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #1a1a1a;">
-              <h4 style="color: #999; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">Tags</h4>
-              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                ${tagHtml}
-              </div>
-            </div>
-          ` : ''}
-          
-          <!-- Tech Stack -->
-          ${project.techStack && project.techStack.length > 0 ? `
-            <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #1a1a1a;">
-              <h4 style="color: #999; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">Tech Stack</h4>
-              <div style="color: #ccc; font-size: 13px;">${project.techStack.join(' • ')}</div>
-            </div>
-          ` : ''}
-          
-          <!-- Features -->
-          ${project.features && project.features.length > 0 ? `
-            <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #1a1a1a;">
-              <h4 style="color: #999; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">Features</h4>
-              <ul style="list-style: none; padding: 0; margin: 0;">
-                ${project.features.map(f => `<li style="color: #ccc; font-size: 13px; padding: 4px 0; padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: #4ade80;">✓</span>${f}</li>`).join('')}
-              </ul>
-            </div>
-          ` : ''}
-          
-          <!-- APIs -->
-          ${project.apis && project.apis.length > 0 ? `
-            <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #1a1a1a;">
-              <h4 style="color: #999; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">APIs Used</h4>
-              <div style="color: #ccc; font-size: 13px;">${project.apis.join(' • ')}</div>
-            </div>
-          ` : ''}
-          
-          <!-- Documents -->
-          ${project.brainFolder ? `
-            <div id="projectDocuments">
-              <h4 style="color: #999; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">Documents</h4>
-              <div id="projectFilesBreadcrumb" style="color: #666; font-size: 12px; margin-bottom: 12px;"></div>
-              <div id="projectFilesList" style="background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 6px; padding: 12px;">
-                <div style="color: #666; text-align: center; padding: 20px;">Loading...</div>
-              </div>
-              <div id="projectFileViewer" style="display: none; margin-top: 16px; background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 6px; padding: 20px;"></div>
-            </div>
-          ` : ''}
-        </div>
-      `;
-      
-      document.getElementById('projectDetailContent').innerHTML = html;
-      document.getElementById('projectsListView').style.display = 'none';
-      document.getElementById('projectDetailView').style.display = 'block';
-      
-      lucide.createIcons();
-      
-      // Load documents if brainFolder exists
-      if (project.brainFolder) {
-        loadProjectFiles(project.brainFolder);
-      }
-    }
-    
-    const FILE_API = 'http://localhost:3847';
-    const FILE_TOKEN = '2f78dad1dad370ceed79b53620c59cbb7620d2818e53dc54';
-    
-    async function loadProjectFiles(folderPath, currentPath = '') {
-      const fullPath = currentPath ? `${folderPath}/${currentPath}` : folderPath;
-      
-      // Build breadcrumb
-      const parts = fullPath.split('/').filter(Boolean);
-      let breadcrumb = `<span style="cursor:pointer;color:#4ade80;" onclick="loadProjectFiles('${folderPath}')">📁 ${folderPath}</span>`;
-      if (currentPath) {
-        const crumbs = currentPath.split('/').filter(Boolean);
-        let accumulated = '';
-        crumbs.forEach((part, i) => {
-          accumulated += (accumulated ? '/' : '') + part;
-          breadcrumb += ` / <span style="cursor:pointer;color:#4ade80;" onclick="loadProjectFiles('${folderPath}','${accumulated}')">${part}</span>`;
-        });
-      }
-      document.getElementById('projectFilesBreadcrumb').innerHTML = breadcrumb;
-      document.getElementById('projectFileViewer').style.display = 'none';
-      
-      try {
-        const resp = await fetch(`${FILE_API}/api/files?path=${encodeURIComponent(fullPath)}`, {
-          headers: { 'Authorization': `Bearer ${FILE_TOKEN}` }
-        });
-        if (!resp.ok) throw new Error('API error');
-        const data = await resp.json();
-        
-        if (data.files.length === 0) {
-          document.getElementById('projectFilesList').innerHTML = '<div style="color:#666;text-align:center;padding:20px;">Empty folder</div>';
-          return;
-        }
-        
-        document.getElementById('projectFilesList').innerHTML = data.files.map(f => {
-          const icon = f.type === 'dir' ? 'folder' : 'file-text';
-          const color = f.type === 'dir' ? '#f59e0b' : '#666';
-          const size = f.type === 'file' ? `<span style="color:#555;font-size:11px;margin-left:auto;">${formatFileSize(f.size)}</span>` : '';
-          const modified = `<span style="color:#444;font-size:11px;">${new Date(f.modified).toLocaleDateString()}</span>`;
-          const onclick = f.type === 'dir' 
-            ? `loadProjectFiles('${folderPath}','${currentPath ? currentPath + '/' : ''}${f.name}')`
-            : `viewProjectFile('${folderPath}','${currentPath ? currentPath + '/' : ''}${f.name}')`;
-          return `<div onclick="${onclick}" style="display:flex;align-items:center;gap:10px;padding:8px 12px;cursor:pointer;border-bottom:1px solid #1a1a1a;transition:background .15s;" onmouseover="this.style.background='#151515'" onmouseout="this.style.background='transparent'">
-            <i data-lucide="${icon}" style="width:16px;height:16px;color:${color};flex-shrink:0;"></i>
-            <span style="color:#ccc;font-size:13px;">${f.name}</span>
-            ${size}
-            ${modified}
-          </div>`;
-        }).join('');
-        lucide.createIcons();
-      } catch (e) {
-        document.getElementById('projectFilesList').innerHTML = `
-          <div style="color:#666;text-align:center;padding:20px;">
-            <p>File browser API not connected</p>
-            <p style="font-size:12px;margin-top:8px;color:#555;">Start: cd ~/projects/mission-control/server && npm start</p>
-          </div>`;
-      }
-    }
-    
-    async function viewProjectFile(folderPath, filePath) {
-      const fullPath = folderPath + '/' + filePath;
-      const ext = filePath.split('.').pop().toLowerCase();
-      const viewer = document.getElementById('projectFileViewer');
-      
-      if (!['md','txt','json','yaml','yml','js','ts','py','sh','css','html','csv','toml','env'].includes(ext)) {
-        viewer.innerHTML = `<div style="color:#666;text-align:center;padding:20px;">Preview not available for .${ext} files</div>`;
-        viewer.style.display = 'block';
-        return;
-      }
-      
-      try {
-        const resp = await fetch(`${FILE_API}/api/file?path=${encodeURIComponent(fullPath)}`, {
-          headers: { 'Authorization': `Bearer ${FILE_TOKEN}` }
-        });
-        if (!resp.ok) throw new Error('API error');
-        const data = await resp.json();
-        
-        if (ext === 'md') {
-          viewer.innerHTML = `<div style="color:#ccc;font-size:14px;line-height:1.7;">${renderMarkdown(data.content)}</div>`;
-        } else {
-          viewer.innerHTML = `<pre style="color:#ccc;font-size:13px;font-family:'SF Mono',Monaco,monospace;white-space:pre-wrap;word-break:break-all;margin:0;">${escapeHtml(data.content)}</pre>`;
-        }
-        viewer.style.display = 'block';
-      } catch (e) {
-        viewer.innerHTML = '<div style="color:#666;text-align:center;padding:20px;">Could not load file</div>';
-        viewer.style.display = 'block';
-      }
-    }
-    
-    function formatFileSize(bytes) {
-      if (bytes < 1024) return bytes + ' B';
-      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-      return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
-    }
-    
-    function escapeHtml(str) {
-      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
     // Initialize daily logs on load

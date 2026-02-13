@@ -1,14 +1,30 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 
-// Get all projects
 export const list = query({
-  handler: async (ctx) => {
-    return await ctx.db.query("projects").order("desc").collect();
+  args: {
+    tag: v.optional(v.string()),
+    status: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    let projects = await ctx.db.query("projects").order("desc").collect();
+    if (args.tag) {
+      projects = projects.filter(p => p.tags && p.tags.includes(args.tag));
+    }
+    if (args.status) {
+      projects = projects.filter(p => p.status === args.status);
+    }
+    return projects;
   },
 });
 
-// Add a new project
+export const get = query({
+  args: { id: v.id("projects") },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.id);
+  },
+});
+
 export const add = mutation({
   args: {
     title: v.string(),
@@ -17,23 +33,28 @@ export const add = mutation({
     progress: v.optional(v.number()),
     liveUrl: v.optional(v.string()),
     repoUrl: v.optional(v.string()),
+    tags: v.optional(v.array(v.string())),
+    discordChannelId: v.optional(v.string()),
+    githubUrl: v.optional(v.string()),
+    vercelUrl: v.optional(v.string()),
+    convexUrl: v.optional(v.string()),
+    brainFolder: v.optional(v.string()),
+    features: v.optional(v.array(v.string())),
+    apis: v.optional(v.array(v.string())),
+    techStack: v.optional(v.array(v.string())),
+    agent: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const now = Date.now();
     return await ctx.db.insert("projects", {
-      title: args.title,
-      description: args.description,
-      status: args.status || "queue",
-      progress: args.progress || 0,
-      liveUrl: args.liveUrl,
-      repoUrl: args.repoUrl,
+      ...args,
+      status: args.status || "research",
       createdAt: now,
       updatedAt: now,
     });
   },
 });
 
-// Update project
 export const update = mutation({
   args: {
     id: v.id("projects"),
@@ -43,6 +64,16 @@ export const update = mutation({
     progress: v.optional(v.number()),
     liveUrl: v.optional(v.string()),
     repoUrl: v.optional(v.string()),
+    tags: v.optional(v.array(v.string())),
+    discordChannelId: v.optional(v.string()),
+    githubUrl: v.optional(v.string()),
+    vercelUrl: v.optional(v.string()),
+    convexUrl: v.optional(v.string()),
+    brainFolder: v.optional(v.string()),
+    features: v.optional(v.array(v.string())),
+    apis: v.optional(v.array(v.string())),
+    techStack: v.optional(v.array(v.string())),
+    agent: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const { id, ...updates } = args;
@@ -50,5 +81,12 @@ export const update = mutation({
       ...updates,
       updatedAt: Date.now(),
     });
+  },
+});
+
+export const remove = mutation({
+  args: { id: v.id("projects") },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.id);
   },
 });
