@@ -1554,13 +1554,297 @@
     .status-dot.disabled {
       background: #ef4444;
     }
+
+    /* Org Chart Styles */
+    #orgChartContainer {
+      padding: 40px 20px;
+      background: #181818;
+      border: 1px solid #252525;
+      border-radius: 12px;
+      overflow-x: auto;
+      min-height: 600px;
+    }
+
+    .org-tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      min-width: 800px;
+    }
+
+    .org-node {
+      position: relative;
+      margin: 20px 0;
+    }
+
+    .org-card {
+      background: #161616;
+      border: 1px solid #232323;
+      border-radius: 8px;
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 280px;
+      position: relative;
+    }
+
+    .org-card:hover {
+      transform: translateY(-2px);
+      border-color: #333;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .org-card.ceo {
+      border-color: #fbbf24;
+      background: linear-gradient(135deg, #1a1a0a 0%, #2a2a1a 100%);
+    }
+
+    .org-card.active {
+      border-color: #4ade80;
+      background: linear-gradient(135deg, #0a1a0a 0%, #1a2a1a 100%);
+    }
+
+    .org-card.active::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 8px;
+      height: 8px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .org-card.planned {
+      border: 2px dashed #fbbf24;
+      background: linear-gradient(135deg, #1a1a0a 0%, #2a2a1a 100%);
+      opacity: 0.8;
+    }
+
+    .org-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .org-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      color: #888;
+    }
+
+    .org-card.ceo .org-icon {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      color: #1a1a1a;
+    }
+
+    .org-card.active .org-icon {
+      background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+      color: #1a1a1a;
+    }
+
+    .org-card.planned .org-icon {
+      background: #252525;
+      color: #fbbf24;
+    }
+
+    .org-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .org-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      flex: 1;
+    }
+
+    .org-title {
+      font-size: 14px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .org-status {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .org-status.active {
+      background: #1a3d2a;
+      color: #4ade80;
+    }
+
+    .org-status.planned {
+      background: #2a1a1a;
+      color: #fbbf24;
+    }
+
+    .org-model {
+      font-size: 10px;
+      background: #1e2a3a;
+      color: #7aa2d4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-left: 8px;
+    }
+
+    .org-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #232323;
+    }
+
+    .org-card.expanded .org-details {
+      max-height: 300px;
+    }
+
+    .org-detail-row {
+      display: flex;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+
+    .org-detail-label {
+      width: 80px;
+      color: #666;
+      flex-shrink: 0;
+    }
+
+    .org-detail-value {
+      color: #bbb;
+      flex: 1;
+    }
+
+    .org-crons {
+      color: #4ade80;
+      font-weight: 500;
+    }
+
+    .org-children {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+      position: relative;
+    }
+
+    .org-children::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 20px;
+      background: #333;
+    }
+
+    .org-children .org-card::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 20px;
+      background: #333;
+    }
+
+    .org-children::after {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #333;
+    }
+
+    .hire-btn {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: #fbbf24;
+      color: #1a1a1a;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .hire-btn:hover {
+      background: #f59e0b;
+      transform: scale(1.05);
+    }
+
+    .hire-tooltip {
+      position: absolute;
+      bottom: 35px;
+      right: 0;
+      background: #1a1a1a;
+      color: #ccc;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      border: 1px solid #333;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .hire-btn:hover .hire-tooltip {
+      opacity: 1;
+    }
+
+    /* Mobile responsive for org chart */
+    @media (max-width: 768px) {
+      #orgChartContainer {
+        padding: 20px 10px;
+      }
+
+      .org-tree {
+        min-width: auto;
+      }
+
+      .org-children {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .org-card {
+        min-width: 260px;
+      }
+
+      .org-children::after {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-header">
-      <h1><i data-lucide="rocket" style="width:26px;height:26px;vertical-align:-5px;margin-right:10px;"></i>Mission Control <span style="font-size:12px;color:#4ade80;font-weight:400;vertical-align:middle;">v3.1.0</span></h1>
+      <h1><i data-lucide="rocket" style="width:26px;height:26px;vertical-align:-5px;margin-right:10px;"></i>Mission Control <span style="font-size:12px;color:#4ade80;font-weight:400;vertical-align:middle;">v3.2.0</span></h1>
     </div>
 
     <div class="sidebar-nav">
@@ -1634,11 +1918,15 @@
           <i data-lucide="book-open"></i> Docs
           <span class="count" id="navDocs">0</span>
         </div>
+        <div class="nav-item" data-filter="org-chart">
+          <i data-lucide="network"></i> Org Chart
+          <span class="count">5</span>
+        </div>
       </nav>
     </div>
 
     <div class="sidebar-footer">
-      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v3.1.0</div>
+      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v3.2.0</div>
       Last updated<br>
       <span id="lastUpdated">-</span>
     </div>
@@ -1927,6 +2215,16 @@
           <button onclick="closeDocViewer()" style="background: #252525; border: 1px solid #333; color: #999; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 13px; transition: all 0.15s;" onmouseover="this.style.background='#333';this.style.color='#fff'" onmouseout="this.style.background='#252525';this.style.color='#999'">Close</button>
         </div>
         <div id="docContent" style="background: #161616; border: 1px solid #252525; border-radius: 10px; padding: 28px 32px; color: #b5b5b5; font-size: 14px; line-height: 1.65; overflow-x: auto; max-height: 70vh; overflow-y: auto;"></div>
+      </div>
+    </section>
+
+    <!-- Org Chart Section -->
+    <section class="section" id="orgChartSection" style="display: none;">
+      <div class="section-header">
+        <span class="section-title"><i data-lucide="network"></i> Organization Chart</span>
+      </div>
+      <div id="orgChartContainer">
+        <!-- Org chart will be rendered here -->
       </div>
     </section>
   </main>
@@ -2539,7 +2837,8 @@
           docs: 'Documents',
           'daily-logs': 'Daily Logs',
           'skills': 'Skills',
-          'todos': 'To-Do List'
+          'todos': 'To-Do List',
+          'org-chart': 'Org Chart'
         };
         document.getElementById('pageTitle').textContent = titles[currentFilter];
         
@@ -2560,6 +2859,7 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
+          document.getElementById('orgChartSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2575,6 +2875,7 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
+          document.getElementById('orgChartSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2590,6 +2891,7 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
+          document.getElementById('orgChartSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2605,6 +2907,7 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
+          document.getElementById('orgChartSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2620,6 +2923,7 @@
           document.getElementById('skillsSection').style.display = 'block';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
+          document.getElementById('orgChartSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2636,6 +2940,7 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'block';
+          document.getElementById('orgChartSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2652,6 +2957,7 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'block';
           document.getElementById('todosSection').style.display = 'none';
+          document.getElementById('orgChartSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2660,6 +2966,23 @@
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
           renderDocs();
+        } else if (currentFilter === 'org-chart') {
+          toolsSection.style.display = 'none';
+          cronsSection.style.display = 'none';
+          document.getElementById('filesSection').style.display = 'none';
+          document.getElementById('dailyLogsSection').style.display = 'none';
+          document.getElementById('skillsSection').style.display = 'none';
+          document.getElementById('docsSection').style.display = 'none';
+          document.getElementById('todosSection').style.display = 'none';
+          document.getElementById('orgChartSection').style.display = 'block';
+          projectsSection.style.display = 'none';
+          document.getElementById('tasksSection').style.display = 'none';
+          activitySection.style.display = 'none';
+          if (statsRow) statsRow.style.display = 'none';
+          if (currentBanner) currentBanner.style.display = 'none';
+          document.getElementById('ideasSection').style.display = 'none';
+          document.getElementById('commandCenter').style.display = 'none';
+          renderOrgChart();
         } else {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
@@ -2668,6 +2991,7 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
+          document.getElementById('orgChartSection').style.display = 'none';
           projectsSection.style.display = 'block';
           document.getElementById('tasksSection').style.display = 'block';
           activitySection.style.display = 'block';
@@ -3315,6 +3639,157 @@
 
     // Initialize skills count on load
     document.getElementById('navSkills').textContent = skillsData.active.length + skillsData.available.length;
+
+    // Org Chart Functions
+    function renderOrgChart() {
+      const orgData = {
+        ceo: {
+          name: 'Nam',
+          title: 'CEO & Founder',
+          icon: 'user-circle',
+          status: 'ceo',
+          model: null,
+          role: 'Visionary leader and strategic direction'
+        },
+        team: [
+          {
+            name: 'Alfred',
+            title: 'COO (Operations & Intelligence)',
+            icon: 'bot',
+            status: 'active',
+            model: 'Claude Opus 4.6',
+            role: 'Ops orchestration, health monitoring, daily briefs, memory management, system maintenance',
+            owns: '22 cron jobs',
+            key: 'Oura briefings, email, night shift, daily ideas, thread archiver'
+          },
+          {
+            name: 'Sentinel',
+            title: 'CTO Trading (Market Intelligence)',
+            icon: 'target',
+            status: 'active',
+            model: 'Claude Opus 4.6',
+            role: 'Trading analysis, earnings pipeline, sentiment, market scans',
+            owns: '26 cron jobs',
+            key: 'Earnings scanner, spread rankings, social arb, EOD recaps'
+          },
+          {
+            name: 'Concierge',
+            title: 'Chief of Staff (Lifestyle & Travel)',
+            icon: 'concierge-bell',
+            status: 'planned',
+            model: null,
+            role: 'Travel booking, restaurants, hotels, personal logistics',
+            owns: 'Marriott scanner, flight tracking, hotel reminders'
+          },
+          {
+            name: 'Builder',
+            title: 'CTO Engineering (Apps & Infrastructure)',
+            icon: 'hammer',
+            status: 'planned',
+            model: null,
+            role: 'Build and maintain all apps, CLI tools, deployments',
+            owns: 'Mission Control, Earnings Tracker, Convex, Vercel'
+          },
+          {
+            name: 'Analyst',
+            title: 'VP Research (Deep Dives & Due Diligence)',
+            icon: 'search',
+            status: 'planned',
+            model: null,
+            role: 'Earnings research, company analysis, macro trends, thesis validation',
+            owns: 'Earnings research skill, YouTube transcripts, sentiment deep dives'
+          }
+        ]
+      };
+
+      const container = document.getElementById('orgChartContainer');
+      
+      const ceoCard = createOrgCard(orgData.ceo, true);
+      
+      const teamCards = orgData.team.map(member => createOrgCard(member, false)).join('');
+      
+      container.innerHTML = `
+        <div class="org-tree">
+          <div class="org-node">
+            ${ceoCard}
+          </div>
+          <div class="org-children">
+            ${orgData.team.map(member => `
+              <div class="org-node">
+                ${createOrgCard(member, false)}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      
+      // Add click handlers for expand/collapse
+      container.querySelectorAll('.org-card').forEach(card => {
+        card.addEventListener('click', () => {
+          card.classList.toggle('expanded');
+        });
+      });
+      
+      // Re-initialize Lucide icons
+      lucide.createIcons();
+    }
+
+    function createOrgCard(member, isCEO) {
+      const statusBadge = member.status === 'active' 
+        ? `<span class="org-status active">🟢 Active</span>`
+        : member.status === 'planned'
+        ? `<span class="org-status planned">🔮 Planned</span>`
+        : '';
+      
+      const modelBadge = member.model 
+        ? `<span class="org-model">${member.model}</span>`
+        : '';
+      
+      const hireButton = member.status === 'planned' 
+        ? `<button class="hire-btn" onclick="event.stopPropagation()">
+             Hire
+             <div class="hire-tooltip">Coming soon</div>
+           </button>`
+        : '';
+      
+      return `
+        <div class="org-card ${member.status}" onclick="toggleOrgCard(this)">
+          <div class="org-card-header">
+            <div class="org-icon">
+              <i data-lucide="${member.icon}"></i>
+            </div>
+            <div style="flex: 1;">
+              <div class="org-name">${member.name}${modelBadge}</div>
+              <div class="org-title">${member.title}</div>
+            </div>
+            ${statusBadge}
+          </div>
+          <div class="org-details">
+            <div class="org-detail-row">
+              <span class="org-detail-label">Role:</span>
+              <span class="org-detail-value">${member.role}</span>
+            </div>
+            ${member.owns ? `
+              <div class="org-detail-row">
+                <span class="org-detail-label">Owns:</span>
+                <span class="org-detail-value org-crons">${member.owns}</span>
+              </div>
+            ` : ''}
+            ${member.key ? `
+              <div class="org-detail-row">
+                <span class="org-detail-label">Key:</span>
+                <span class="org-detail-value">${member.key}</span>
+              </div>
+            ` : ''}
+          </div>
+          ${hireButton}
+        </div>
+      `;
+    }
+
+    function toggleOrgCard(card) {
+      card.classList.toggle('expanded');
+    }
 
     // Update local time for Nam's location
     function updateLocalTime(tz) {
