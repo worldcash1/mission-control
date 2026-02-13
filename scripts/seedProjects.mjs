@@ -3,7 +3,7 @@ import { api } from "../convex/_generated/api.js";
 import { readFileSync } from "fs";
 
 const envContent = readFileSync(".env.local", "utf8");
-const CONVEX_URL = envContent.match(/VITE_CONVEX_URL=(.*)/)[1];
+const CONVEX_URL = envContent.match(/CONVEX_URL=(.*)/)[1].trim();
 
 const client = new ConvexHttpClient(CONVEX_URL);
 
@@ -208,21 +208,21 @@ const projects = [
 async function seed() {
   console.log("Seeding projects...");
   
-  // Clear existing projects
+  // List existing projects
   const existing = await client.query(api.projects.list, {});
-  console.log(`Clearing ${existing.length} existing projects...`);
-  
-  for (const project of existing) {
-    await client.mutation(api.projects.remove, { id: project._id });
-  }
+  console.log(`Found ${existing.length} existing projects`);
   
   // Insert new projects
   for (const project of projects) {
-    await client.mutation(api.projects.add, project);
-    console.log(`✓ Added: ${project.title}`);
+    try {
+      await client.mutation(api.projects.add, project);
+      console.log(`✓ Added: ${project.title}`);
+    } catch (error) {
+      console.error(`✗ Failed to add ${project.title}:`, error.message);
+    }
   }
   
-  console.log(`\n✅ Successfully seeded ${projects.length} projects!`);
+  console.log(`\n✅ Seeding complete!`);
 }
 
 seed().catch(console.error);
