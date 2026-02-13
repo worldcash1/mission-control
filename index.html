@@ -1844,7 +1844,7 @@
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-header">
-      <h1><i data-lucide="rocket" style="width:26px;height:26px;vertical-align:-5px;margin-right:10px;"></i>Mission Control <span style="font-size:12px;color:#4ade80;font-weight:400;vertical-align:middle;">v3.2.0</span></h1>
+      <h1><i data-lucide="rocket" style="width:26px;height:26px;vertical-align:-5px;margin-right:10px;"></i>Mission Control <span style="font-size:12px;color:#4ade80;font-weight:400;vertical-align:middle;">v3.3.0</span></h1>
     </div>
 
     <div class="sidebar-nav">
@@ -1874,10 +1874,6 @@
           <i data-lucide="check-circle"></i> Completed
           <span class="count" id="navDone">0</span>
         </div>
-        <div class="nav-item" data-filter="idea">
-          <i data-lucide="lightbulb"></i> Ideas
-          <span class="count" id="navIdeas">0</span>
-        </div>
         <div class="nav-item" data-filter="archived">
           <i data-lucide="archive"></i> Archived
           <span class="count">0</span>
@@ -1890,9 +1886,9 @@
           <i data-lucide="calendar"></i> Daily Logs
           <span class="count" id="navDailyLogs">0</span>
         </div>
-        <div class="nav-item" data-filter="trading-notes">
-          <i data-lucide="notebook-pen"></i> Trading Notes
-          <span class="count" id="navTradingNotes">0</span>
+        <div class="nav-item" data-filter="notes">
+          <i data-lucide="notebook-pen"></i> Notes
+          <span class="count" id="navNotes">0</span>
         </div>
       </nav>
 
@@ -1930,7 +1926,7 @@
     </div>
 
     <div class="sidebar-footer">
-      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v3.2.0</div>
+      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v3.3.0</div>
       Last updated<br>
       <span id="lastUpdated">-</span>
     </div>
@@ -2172,19 +2168,27 @@
       </div>
     </section>
 
-    <!-- Trading Notes Section -->
-    <section class="section" id="tradingNotesSection" style="display: none;">
+    <!-- Notes Section -->
+    <section class="section" id="notesSection" style="display: none;">
       <div class="section-header">
-        <span class="section-title"><i data-lucide="notebook-pen"></i> Trading Notes</span>
+        <span class="section-title"><i data-lucide="notebook-pen"></i> Notes</span>
+      </div>
+      <div style="margin-bottom: 16px;">
+        <div id="notesTabBar" style="display: flex; gap: 4px; background: #1a1a1a; padding: 4px; border-radius: 8px; width: fit-content;">
+          <button class="notes-tab-btn active" data-tab="general" style="padding: 6px 12px; border-radius: 6px; border: none; background: #232323; color: #ccc; cursor: pointer; font-size: 12px; transition: all .2s; display: flex; align-items: center; gap: 6px;">📝 General</button>
+          <button class="notes-tab-btn" data-tab="trading" style="padding: 6px 12px; border-radius: 6px; border: none; background: transparent; color: #888; cursor: pointer; font-size: 12px; transition: all .2s; display: flex; align-items: center; gap: 6px;">📈 Trading</button>
+          <button class="notes-tab-btn" data-tab="reminders" style="padding: 6px 12px; border-radius: 6px; border: none; background: transparent; color: #888; cursor: pointer; font-size: 12px; transition: all .2s; display: flex; align-items: center; gap: 6px;">⏰ Reminders</button>
+          <button class="notes-tab-btn" data-tab="ideas" style="padding: 6px 12px; border-radius: 6px; border: none; background: transparent; color: #888; cursor: pointer; font-size: 12px; transition: all .2s; display: flex; align-items: center; gap: 6px;">💡 Ideas</button>
+        </div>
       </div>
       <div class="daily-logs-container">
-        <div class="daily-logs-sidebar" id="tradingNotesList"></div>
+        <div class="daily-logs-sidebar" id="notesList"></div>
         <div class="daily-logs-content">
-          <div class="daily-log-header" id="tradingNoteHeader">
-            <span class="daily-log-date">Select a ticker</span>
+          <div class="daily-log-header" id="notesHeader">
+            <span class="daily-log-date">Select an item</span>
           </div>
-          <div class="daily-log-body" id="tradingNoteBody">
-            <p style="color: #666; padding: 40px; text-align: center;">← Choose a ticker to view notes</p>
+          <div class="daily-log-body" id="notesBody">
+            <p style="color: #666; padding: 40px; text-align: center;">← Choose an item to view content</p>
           </div>
         </div>
       </div>
@@ -2574,7 +2578,13 @@
       document.getElementById('navActive').textContent = active;
       document.getElementById('navQueue').textContent = queue;
       document.getElementById('navDone').textContent = done;
-      document.getElementById('navIdeas').textContent = ideas;
+      
+      // Notes count: trading notes + general notes + reminders + ideas
+      let notesCount = 0;
+      if (data.crons) notesCount += data.crons.filter(c => ['jessica-hotel-reminder', 'estimize-trial-reminder', 'estimize-cancel-reminder', 'xapi-cancel-reminder', 'ortex-cancel-reminder', 'amzn-buy-reminder', 'duol-earnings-decision', 'flight-cancel-check', 'schwab-re-auth-reminder', 'subscription-review-monthly'].includes(c.name)).length;
+      notesCount += ideas; // Ideas count
+      // Add general notes and trading notes counts when available
+      document.getElementById('navNotes').textContent = notesCount;
 
       // Filter items
       let items = data.items;
@@ -2892,14 +2902,13 @@
           active: 'Active',
           queue: 'Queue',
           done: 'Completed',
-          idea: 'Ideas',
           archived: 'Archived',
           tools: 'Tools & APIs',
           crons: 'Cron Jobs',
           files: 'Core Files',
           docs: 'Documents',
           'daily-logs': 'Daily Logs',
-          'trading-notes': 'Trading Notes',
+          'notes': 'Notes',
           'skills': 'Skills',
           'todos': 'To-Do List',
           'org-chart': 'Org Chart'
@@ -2924,7 +2933,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
-          document.getElementById('tradingNotesSection').style.display = 'none';
+          document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2941,7 +2950,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
-          document.getElementById('tradingNotesSection').style.display = 'none';
+          document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2958,7 +2967,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
-          document.getElementById('tradingNotesSection').style.display = 'none';
+          document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2975,7 +2984,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
-          document.getElementById('tradingNotesSection').style.display = 'none';
+          document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -2983,9 +2992,8 @@
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
-          document.getElementById('tradingNotesSection').style.display = 'none';
           renderDailyLogs();
-        } else if (currentFilter === 'trading-notes') {
+        } else if (currentFilter === 'notes') {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
           document.getElementById('filesSection').style.display = 'none';
@@ -2994,8 +3002,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
-          document.getElementById('tradingNotesSection').style.display = 'none';
-          document.getElementById('tradingNotesSection').style.display = 'block';
+          document.getElementById('notesSection').style.display = 'block';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -3003,7 +3010,7 @@
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
-          renderTradingNotes();
+          renderNotes();
         } else if (currentFilter === 'skills') {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
@@ -3013,7 +3020,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
-          document.getElementById('tradingNotesSection').style.display = 'none';
+          document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -3031,7 +3038,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'block';
           document.getElementById('orgChartSection').style.display = 'none';
-          document.getElementById('tradingNotesSection').style.display = 'none';
+          document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -3049,7 +3056,7 @@
           document.getElementById('docsSection').style.display = 'block';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
-          document.getElementById('tradingNotesSection').style.display = 'none';
+          document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -3067,6 +3074,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'block';
+          document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -3084,7 +3092,7 @@
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
-          document.getElementById('tradingNotesSection').style.display = 'none';
+          document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'block';
           document.getElementById('tasksSection').style.display = 'block';
           activitySection.style.display = 'block';
@@ -3440,48 +3448,7 @@
       };
     }
 
-    // Trading Notes
-    async function renderTradingNotes() {
-      try {
-        const resp = await fetch('notes/manifest.txt?' + Date.now());
-        const text = await resp.text();
-        const tickers = text.trim().split('\n').filter(Boolean);
-        document.getElementById('navTradingNotes').textContent = tickers.length;
-        
-        document.getElementById('tradingNotesList').innerHTML = tickers.map(t => 
-          `<div class="daily-log-item" onclick="loadTradingNote('${t}')" style="cursor:pointer;padding:10px 12px;border-bottom:1px solid #1a1a1a;font-family:'SF Mono',monospace;font-size:13px;color:#ccc;transition:background .2s;" onmouseover="this.style.background='#1a1a1a'" onmouseout="this.style.background='transparent'">
-            <span style="color:#4ade80;margin-right:6px;">$</span>${t}
-          </div>`
-        ).join('');
-      } catch(e) {
-        document.getElementById('tradingNotesList').innerHTML = '<p style="color:#666;padding:16px;">No notes found</p>';
-      }
-    }
-
-    async function loadTradingNote(ticker) {
-      try {
-        const resp = await fetch(`notes/${ticker}.md?` + Date.now());
-        const md = await resp.text();
-        document.getElementById('tradingNoteHeader').innerHTML = `<span class="daily-log-date" style="color:#4ade80;">$${ticker}</span>`;
-        // Simple markdown rendering
-        let html = md
-          .replace(/^### (.*$)/gm, '<h3 style="color:#eee;margin:16px 0 8px;">$1</h3>')
-          .replace(/^## (.*$)/gm, '<h2 style="color:#fff;margin:20px 0 10px;border-bottom:1px solid #232323;padding-bottom:6px;">$1</h2>')
-          .replace(/^# (.*$)/gm, '<h1 style="color:#fff;margin:0 0 16px;">$1</h1>')
-          .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#eee;">$1</strong>')
-          .replace(/\*(.*?)\*/g, '<em>$1</em>')
-          .replace(/^- (.*$)/gm, '<div style="padding:2px 0 2px 16px;color:#bbb;">• $1</div>')
-          .replace(/\n\n/g, '<br><br>')
-          .replace(/`(.*?)`/g, '<code style="background:#1a1a1a;padding:1px 5px;border-radius:3px;font-size:12px;">$1</code>');
-        document.getElementById('tradingNoteBody').innerHTML = `<div style="padding:20px;line-height:1.7;color:#999;">${html}</div>`;
-        
-        // Highlight active item
-        document.querySelectorAll('#tradingNotesList .daily-log-item').forEach(el => el.style.background = 'transparent');
-        event.currentTarget.style.background = '#1a1a1a';
-      } catch(e) {
-        document.getElementById('tradingNoteBody').innerHTML = '<p style="color:#666;padding:40px;text-align:center;">Could not load note</p>';
-      }
-    }
+    // Trading Notes functionality moved to unified Notes system
 
     function renderDailyLogsList() {
       document.getElementById('navDailyLogs').textContent = dailyLogFiles.length;
@@ -3947,6 +3914,208 @@
       
       tick();
       setInterval(tick, 1000);
+    }
+
+    // Notes System
+    let currentNotesTab = 'general';
+    let generalNotesFiles = [];
+    let tradingNotesFiles = [];
+    
+    async function renderNotes() {
+      // Initialize tab buttons
+      document.querySelectorAll('.notes-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchNotesTab(btn.dataset.tab));
+      });
+      
+      // Load initial data and render
+      await loadNotesData();
+      switchNotesTab('general');
+    }
+    
+    async function loadNotesData() {
+      // Load general notes
+      try {
+        const resp = await fetch('notes/general/manifest.txt?' + Date.now());
+        const text = await resp.text();
+        generalNotesFiles = text.trim().split('\n').filter(Boolean);
+      } catch(e) {
+        generalNotesFiles = [];
+      }
+      
+      // Load trading notes
+      try {
+        const resp = await fetch('notes/manifest.txt?' + Date.now());
+        const text = await resp.text();
+        tradingNotesFiles = text.trim().split('\n').filter(Boolean);
+      } catch(e) {
+        tradingNotesFiles = [];
+      }
+    }
+    
+    function switchNotesTab(tab) {
+      currentNotesTab = tab;
+      
+      // Update tab buttons
+      document.querySelectorAll('.notes-tab-btn').forEach(btn => {
+        if (btn.dataset.tab === tab) {
+          btn.style.background = '#232323';
+          btn.style.color = '#ccc';
+        } else {
+          btn.style.background = 'transparent';
+          btn.style.color = '#888';
+        }
+      });
+      
+      // Render content based on tab
+      switch(tab) {
+        case 'general':
+          renderGeneralNotes();
+          break;
+        case 'trading':
+          renderTradingNotesTab();
+          break;
+        case 'reminders':
+          renderReminders();
+          break;
+        case 'ideas':
+          renderIdeasTab();
+          break;
+      }
+    }
+    
+    function renderGeneralNotes() {
+      document.getElementById('notesHeader').innerHTML = `<span class="daily-log-date">📝 General Notes</span>`;
+      
+      if (generalNotesFiles.length === 0) {
+        document.getElementById('notesList').innerHTML = '<p style="color:#666;padding:16px;">No notes found</p>';
+        document.getElementById('notesBody').innerHTML = '<p style="color: #666; padding: 40px; text-align: center;">No general notes available</p>';
+        return;
+      }
+      
+      document.getElementById('notesList').innerHTML = generalNotesFiles.map(f => 
+        `<div class="daily-log-item" onclick="loadGeneralNote('${f}')" style="cursor:pointer;padding:10px 12px;border-bottom:1px solid #1a1a1a;font-size:13px;color:#ccc;transition:background .2s;" onmouseover="this.style.background='#1a1a1a'" onmouseout="this.style.background='transparent'">
+          <span style="color:#4ade80;margin-right:6px;">📝</span>${f.replace(/-/g, ' ')}
+        </div>`
+      ).join('');
+      
+      // Load first note by default
+      if (generalNotesFiles.length > 0) {
+        loadGeneralNote(generalNotesFiles[0]);
+      }
+    }
+    
+    async function loadGeneralNote(noteFile) {
+      try {
+        const resp = await fetch(`notes/general/${noteFile}.md?` + Date.now());
+        const md = await resp.text();
+        document.getElementById('notesHeader').innerHTML = `<span class="daily-log-date">📝 ${noteFile.replace(/-/g, ' ')}</span>`;
+        document.getElementById('notesBody').innerHTML = renderMarkdown(md);
+        
+        // Highlight active item
+        document.querySelectorAll('#notesList .daily-log-item').forEach(el => el.style.background = 'transparent');
+        event.currentTarget.style.background = '#1a1a1a';
+      } catch(e) {
+        document.getElementById('notesBody').innerHTML = '<p style="color:#666;padding:40px;text-align:center;">Could not load note</p>';
+      }
+    }
+    
+    function renderTradingNotesTab() {
+      document.getElementById('notesHeader').innerHTML = `<span class="daily-log-date">📈 Trading Notes</span>`;
+      
+      if (tradingNotesFiles.length === 0) {
+        document.getElementById('notesList').innerHTML = '<p style="color:#666;padding:16px;">No trading notes found</p>';
+        document.getElementById('notesBody').innerHTML = '<p style="color: #666; padding: 40px; text-align: center;">No trading notes available</p>';
+        return;
+      }
+      
+      document.getElementById('notesList').innerHTML = tradingNotesFiles.map(t => 
+        `<div class="daily-log-item" onclick="loadTradingNoteInTab('${t}')" style="cursor:pointer;padding:10px 12px;border-bottom:1px solid #1a1a1a;font-family:'SF Mono',monospace;font-size:13px;color:#ccc;transition:background .2s;" onmouseover="this.style.background='#1a1a1a'" onmouseout="this.style.background='transparent'">
+          <span style="color:#4ade80;margin-right:6px;">$</span>${t}
+        </div>`
+      ).join('');
+      
+      document.getElementById('notesBody').innerHTML = '<p style="color: #666; padding: 40px; text-align: center;">← Choose a ticker to view notes</p>';
+    }
+    
+    async function loadTradingNoteInTab(ticker) {
+      try {
+        const resp = await fetch(`notes/${ticker}.md?` + Date.now());
+        const md = await resp.text();
+        document.getElementById('notesHeader').innerHTML = `<span class="daily-log-date" style="color:#4ade80;">$${ticker}</span>`;
+        document.getElementById('notesBody').innerHTML = renderMarkdown(md);
+        
+        // Highlight active item
+        document.querySelectorAll('#notesList .daily-log-item').forEach(el => el.style.background = 'transparent');
+        event.currentTarget.style.background = '#1a1a1a';
+      } catch(e) {
+        document.getElementById('notesBody').innerHTML = '<p style="color:#666;padding:40px;text-align:center;">Could not load note</p>';
+      }
+    }
+    
+    function renderReminders() {
+      document.getElementById('notesHeader').innerHTML = `<span class="daily-log-date">⏰ Reminders</span>`;
+      document.getElementById('notesList').innerHTML = '';
+      
+      if (!data.crons) {
+        document.getElementById('notesBody').innerHTML = '<p style="color: #666; padding: 40px; text-align: center;">No crons data available</p>';
+        return;
+      }
+      
+      const reminderCrons = ['jessica-hotel-reminder', 'estimize-trial-reminder', 'estimize-cancel-reminder', 'xapi-cancel-reminder', 'ortex-cancel-reminder', 'amzn-buy-reminder', 'duol-earnings-decision', 'flight-cancel-check', 'schwab-re-auth-reminder', 'subscription-review-monthly'];
+      const reminders = data.crons.filter(c => reminderCrons.includes(c.name));
+      
+      if (reminders.length === 0) {
+        document.getElementById('notesBody').innerHTML = '<p style="color: #666; padding: 40px; text-align: center;">No reminders found</p>';
+        return;
+      }
+      
+      const html = `
+        <div style="padding: 20px;">
+          <h3 style="color: #fff; margin-bottom: 16px;">Personal Reminders</h3>
+          ${reminders.map(r => `
+            <div style="padding: 12px 0; border-bottom: 1px solid #232323;">
+              <div style="font-weight: 600; color: #e5e5e5; margin-bottom: 4px;">${r.name}</div>
+              <div style="color: #999; font-size: 13px; margin-bottom: 6px;">${r.desc || 'No description'}</div>
+              <div style="color: #666; font-size: 12px; font-family: monospace;">${r.schedule}</div>
+              <div style="margin-top: 6px;">
+                <span style="padding: 2px 8px; border-radius: 4px; font-size: 11px; ${r.enabled !== false ? 'background: #1a3d2a; color: #4ade80;' : 'background: #3d1a1a; color: #f87171;'}">${r.enabled !== false ? '✓ Active' : '✗ Disabled'}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      
+      document.getElementById('notesBody').innerHTML = html;
+    }
+    
+    function renderIdeasTab() {
+      document.getElementById('notesHeader').innerHTML = `<span class="daily-log-date">💡 Ideas</span>`;
+      document.getElementById('notesList').innerHTML = '';
+      
+      const ideaItems = data.items.filter(i => i.status === 'idea');
+      
+      if (ideaItems.length === 0) {
+        document.getElementById('notesBody').innerHTML = '<p style="color: #666; padding: 40px; text-align: center;">No ideas found</p>';
+        return;
+      }
+      
+      const html = `
+        <div style="padding: 20px;">
+          <h3 style="color: #fff; margin-bottom: 16px;">Ideas & Suggestions</h3>
+          ${ideaItems.map(item => `
+            <div style="padding: 16px; background: #161616; border: 1px solid #232323; border-radius: 8px; margin-bottom: 12px;">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                <span style="color: #a585d4;">💡</span>
+                <div style="font-weight: 600; color: #e5e5e5;">${item.title}</div>
+              </div>
+              <div style="color: #999; line-height: 1.5; margin-bottom: 8px;">${item.description}</div>
+              <div style="color: #666; font-size: 12px;">${formatDate(item.created)}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      
+      document.getElementById('notesBody').innerHTML = html;
     }
 
     // Initialize daily logs on load
