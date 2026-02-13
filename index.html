@@ -1368,6 +1368,192 @@
       background: #333;
       color: #fff;
     }
+    /* Command Center Widgets */
+    .command-center {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .widget {
+      background: #161616;
+      border: 1px solid #232323;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .widget-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .widget-content {
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .agent-item, .api-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #232323;
+    }
+
+    .agent-item:last-child, .api-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .agent-info {
+      flex: 1;
+    }
+
+    .agent-name {
+      font-weight: 500;
+      color: #e5e5e5;
+    }
+
+    .agent-role, .api-status {
+      font-size: 12px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .agent-model {
+      font-size: 11px;
+      background: #1e2a3a;
+      color: #7aa2d4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-left: 8px;
+    }
+
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+    }
+
+    .status-indicator.error {
+      background: #ef4444;
+    }
+
+    .cron-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      text-align: center;
+    }
+
+    .cron-stat {
+      padding: 8px;
+      background: #111111;
+      border-radius: 6px;
+    }
+
+    .cron-stat-number {
+      font-size: 18px;
+      font-weight: 600;
+      color: #4ade80;
+    }
+
+    .cron-stat-label {
+      font-size: 11px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    .api-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+    }
+
+    .api-status-card {
+      background: #111111;
+      border-radius: 6px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .api-name {
+      font-weight: 500;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .api-cost {
+      font-size: 10px;
+      color: #888;
+    }
+
+    .oura-placeholders {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .oura-metric {
+      text-align: center;
+      padding: 8px;
+      background: #111111;
+      border-radius: 6px;
+    }
+
+    .oura-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #888;
+    }
+
+    .oura-label {
+      font-size: 11px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    /* Enhanced Cron Jobs Table */
+    .agent-badge {
+      display: inline-block;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .agent-badge.alfred {
+      background: #1e2a3a;
+      color: #7aa2d4;
+    }
+
+    .agent-badge.sentinel {
+      background: #2a1e3a;
+      color: #a585d4;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+    }
+
+    .status-dot.enabled {
+      background: #4ade80;
+    }
+
+    .status-dot.disabled {
+      background: #ef4444;
+    }
   </style>
 </head>
 <body>
@@ -1452,7 +1638,7 @@
     </div>
 
     <div class="sidebar-footer">
-      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v2.1.0</div>
+      <div style="margin-bottom: 8px; color: #4ade80; font-weight: 500;">v3.0.0</div>
       Last updated<br>
       <span id="lastUpdated">-</span>
     </div>
@@ -1481,6 +1667,70 @@
     </div>
 
     <!-- Current task banner + stats removed for cleaner look -->
+
+    <!-- Command Center Widgets (v3.0.0) -->
+    <div class="command-center" id="commandCenter">
+      <!-- Agent Status Widget -->
+      <div class="widget">
+        <div class="widget-header">
+          <i data-lucide="bot"></i>
+          Agent Status
+        </div>
+        <div class="widget-content" id="agentStatus">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Cron Health Widget -->
+      <div class="widget">
+        <div class="widget-header">
+          <i data-lucide="zap"></i>
+          Cron Health
+        </div>
+        <div class="widget-content">
+          <div class="cron-stats" id="cronStats">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- API Health Widget -->
+      <div class="widget">
+        <div class="widget-header">
+          <i data-lucide="radio"></i>
+          API Health
+        </div>
+        <div class="widget-content">
+          <div class="api-grid" id="apiGrid">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Oura Widget -->
+      <div class="widget">
+        <div class="widget-header">
+          <i data-lucide="moon"></i>
+          Oura Health
+        </div>
+        <div class="widget-content">
+          <div class="oura-placeholders">
+            <div class="oura-metric">
+              <div class="oura-value">--</div>
+              <div class="oura-label">Sleep</div>
+            </div>
+            <div class="oura-metric">
+              <div class="oura-value">--</div>
+              <div class="oura-label">Readiness</div>
+            </div>
+            <div class="oura-metric">
+              <div class="oura-value">--</div>
+              <div class="oura-label">HRV</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Projects Section -->
     <section class="section" id="projectsSection">
@@ -1567,11 +1817,12 @@
         <table class="table">
           <thead>
             <tr>
-              <th style="width: 22%">Job</th>
+              <th style="width: 20%">Job</th>
               <th>Description</th>
-              <th style="width: 18%">Schedule</th>
+              <th style="width: 15%">Schedule</th>
+              <th style="width: 10%">Agent</th>
               <th style="width: 12%">Last Run</th>
-              <th style="width: 8%">Status</th>
+              <th style="width: 10%">Status</th>
             </tr>
           </thead>
           <tbody id="cronsTable"></tbody>
@@ -1876,10 +2127,80 @@
       return Math.floor(diff / 1440) + 'd ago';
     }
 
+    // Command Center Widget Rendering Functions
+    function renderAgentStatus() {
+      if (!data.agents) return;
+      
+      const agentStatusEl = document.getElementById('agentStatus');
+      agentStatusEl.innerHTML = data.agents.map(agent => `
+        <div class="agent-item">
+          <div class="agent-info">
+            <div class="agent-name">${agent.name}<span class="agent-model">${agent.model}</span></div>
+            <div class="agent-role">${agent.role}</div>
+          </div>
+          <div class="status-indicator"></div>
+        </div>
+      `).join('');
+    }
+
+    function renderCronStats() {
+      if (!data.crons) return;
+      
+      const totalJobs = data.crons.length;
+      const enabledJobs = data.crons.filter(c => c.enabled).length;
+      const healthyJobs = data.crons.filter(c => c.enabled && c.status !== 'error').length;
+      const errorJobs = enabledJobs - healthyJobs;
+      
+      const cronStatsEl = document.getElementById('cronStats');
+      cronStatsEl.innerHTML = `
+        <div class="cron-stat">
+          <div class="cron-stat-number">${totalJobs}</div>
+          <div class="cron-stat-label">Total</div>
+        </div>
+        <div class="cron-stat">
+          <div class="cron-stat-number">${healthyJobs}</div>
+          <div class="cron-stat-label">Healthy</div>
+        </div>
+        <div class="cron-stat">
+          <div class="cron-stat-number" style="color: ${errorJobs > 0 ? '#ef4444' : '#4ade80'}">${errorJobs}</div>
+          <div class="cron-stat-label">Errors</div>
+        </div>
+      `;
+    }
+
+    function renderApiGrid() {
+      if (!data.apis) return;
+      
+      const apiGridEl = document.getElementById('apiGrid');
+      apiGridEl.innerHTML = data.apis.map(api => `
+        <div class="api-status-card">
+          <div class="api-name">${api.name}</div>
+          <div class="status-indicator ${api.status === 'active' ? '' : 'error'}"></div>
+          <div class="api-cost">${api.cost}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderCommandCenter() {
+      // Only show Command Center on "All Items" view
+      const commandCenterEl = document.getElementById('commandCenter');
+      if (currentFilter === 'all') {
+        commandCenterEl.style.display = 'grid';
+        renderAgentStatus();
+        renderCronStats();
+        renderApiGrid();
+      } else {
+        commandCenterEl.style.display = 'none';
+      }
+    }
+
     function render() {
       // Page date
       document.getElementById('pageDate').textContent = 
         new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+      // Render Command Center widgets
+      renderCommandCenter();
 
       // Current task banner removed
 
@@ -2148,14 +2469,18 @@
         document.getElementById('cronsTable').innerHTML = data.crons.map(cron => {
           const statusIcon = cron.status === 'ok' ? '✅' : cron.status === 'pending' ? '⏳' : '❌';
           const lastRun = cron.lastRun ? timeAgo(cron.lastRun) : '<span style="color: #555">Not yet</span>';
+          const agentBadge = `<span class="agent-badge ${cron.agent}">${cron.agent}</span>`;
+          const statusDot = `<span class="status-dot ${cron.enabled ? 'enabled' : 'disabled'}"></span>`;
+          const enabledText = cron.enabled ? 'Enabled' : 'Disabled';
           
           return `
             <tr>
               <td><div class="title">${cron.name}</div></td>
-              <td style="color: #999">${cron.desc}</td>
-              <td style="color: #888; font-family: 'SF Mono', monospace; font-size: 12px;">${cron.human || cron.schedule}</td>
+              <td style="color: #999">${cron.desc || 'No description'}</td>
+              <td style="color: #888; font-family: 'SF Mono', monospace; font-size: 12px;">${cron.schedule}</td>
+              <td>${agentBadge}</td>
               <td style="color: #666; font-size: 12px;">${lastRun}</td>
-              <td style="text-align: center;">${statusIcon}</td>
+              <td style="font-size: 12px;">${statusDot}${enabledText}</td>
             </tr>
           `;
         }).join('');
@@ -2247,6 +2572,7 @@
           statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
+          document.getElementById('commandCenter').style.display = 'none';
         } else if (currentFilter === 'crons') {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'block';
@@ -2261,6 +2587,7 @@
           statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
+          document.getElementById('commandCenter').style.display = 'none';
         } else if (currentFilter === 'files') {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
@@ -2275,6 +2602,7 @@
           statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
+          document.getElementById('commandCenter').style.display = 'none';
         } else if (currentFilter === 'daily-logs') {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
@@ -2289,6 +2617,7 @@
           statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
+          document.getElementById('commandCenter').style.display = 'none';
         } else if (currentFilter === 'skills') {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
@@ -2303,6 +2632,7 @@
           statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
+          document.getElementById('commandCenter').style.display = 'none';
           renderSkills();
         } else if (currentFilter === 'todos') {
           toolsSection.style.display = 'none';
@@ -2318,6 +2648,7 @@
           statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
+          document.getElementById('commandCenter').style.display = 'none';
           renderTodos();
         } else if (currentFilter === 'docs') {
           toolsSection.style.display = 'none';
@@ -2333,6 +2664,7 @@
           statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
+          document.getElementById('commandCenter').style.display = 'none';
           renderDocs();
         } else {
           toolsSection.style.display = 'none';
@@ -2346,6 +2678,7 @@
           document.getElementById('tasksSection').style.display = 'block';
           activitySection.style.display = 'block';
           statsRow.style.display = 'flex';
+          document.getElementById('commandCenter').style.display = 'grid';
           if (currentBanner) currentBanner.style.display = 'flex';
           render();
           return;
