@@ -4,16 +4,16 @@ import { v } from "convex/values";
 // Get all dashboard data in one query
 export const getData = query({
   handler: async (ctx) => {
-    const todos = await ctx.db.query("todos").order("desc").collect();
+    const tasks = await ctx.db.query("tasks").order("desc").collect();
     const projects = await ctx.db.query("projects").order("desc").collect();
     const ideas = await ctx.db.query("ideas").order("desc").collect();
     const activity = await ctx.db.query("activity").order("desc").take(20);
     const tools = await ctx.db.query("tools").order("asc").collect();
 
-    const activeTodos = todos.filter((t) => t.status === "active");
-    const completedTodos = todos.filter((t) => t.status === "done");
-    const activeProjects = projects.filter((p) => p.status === "active");
-    const queuedProjects = projects.filter((p) => p.status === "queue");
+    const activeTasks = tasks.filter((t) => t.status !== "done");
+    const completedTasks = tasks.filter((t) => t.status === "done");
+    const activeProjects = projects.filter((p) => p.status === "active" || p.status === "building");
+    const queuedProjects = projects.filter((p) => p.status === "queue" || p.status === "planning");
     const activeTools = tools.filter((t) => t.status === "active");
     
     // Group tools by category
@@ -30,11 +30,29 @@ export const getData = query({
       toolsByType[t.type].push(t);
     });
 
+    // Calculate due today and this week
+    const now = new Date();
+    const today = now.toISOString().split('T')[0];
+    const weekEnd = new Date(now);
+    weekEnd.setDate(weekEnd.getDate() + 7);
+    const weekEndStr = weekEnd.toISOString().split('T')[0];
+    
+    const dueToday = activeTasks.filter(t => t.dueDate === today).length;
+    const dueThisWeek = activeTasks.filter(t => t.dueDate && t.dueDate >= today && t.dueDate <= weekEndStr).length;
+
     return {
+      tasks: {
+        active: activeTasks,
+        completed: completedTasks,
+        total: tasks.length,
+        dueToday,
+        dueThisWeek,
+      },
+      // Legacy compatibility - map tasks to todos structure
       todos: {
-        active: activeTodos,
-        completed: completedTodos,
-        total: todos.length,
+        active: activeTasks,
+        completed: completedTasks,
+        total: tasks.length,
       },
       projects: {
         active: activeProjects,
@@ -55,8 +73,13 @@ export const getData = query({
       },
       activity,
       stats: {
-        activeTodos: activeTodos.length,
-        completedTodos: completedTodos.length,
+        activeTasks: activeTasks.length,
+        completedTasks: completedTasks.length,
+        dueToday,
+        dueThisWeek,
+        // Legacy
+        activeTodos: activeTasks.length,
+        completedTodos: completedTasks.length,
         activeProjects: activeProjects.length,
         queuedProjects: queuedProjects.length,
         ideas: ideas.length,

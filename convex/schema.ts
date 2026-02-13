@@ -2,13 +2,21 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
-  todos: defineTable({
+  tasks: defineTable({
     title: v.string(),
     description: v.optional(v.string()),
-    status: v.string(),
-    priority: v.optional(v.string()),
+    status: v.string(), // "backlog" | "active" | "in-progress" | "blocked" | "done"
+    priority: v.string(), // "low" | "medium" | "high"
+    type: v.string(), // "personal" | "project"
+    projectId: v.optional(v.id("projects")),
+    assignee: v.optional(v.string()), // "nam" | "alfred" | "sentinel"
+    category: v.optional(v.string()), // "finance" | "health" | "travel" | "family" | "work"
     dueDate: v.optional(v.string()),
-    reminder: v.optional(v.string()),
+    reminder: v.optional(v.object({
+      at: v.string(), // ISO datetime
+      repeat: v.optional(v.string()), // "never" | "daily" | "weekly" | "monthly"
+      fired: v.optional(v.boolean()),
+    })),
     createdAt: v.number(),
     completedAt: v.optional(v.number()),
   }),

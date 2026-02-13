@@ -965,6 +965,550 @@
       color: #555;
     }
 
+    /* Tasks System Styles */
+    .tasks-stats-bar {
+      display: flex;
+      gap: 24px;
+      padding: 16px 0;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #1a1a2e;
+    }
+
+    .tasks-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .tasks-stat-value {
+      font-size: 20px;
+      font-weight: 600;
+      color: #e0e0e0;
+    }
+
+    .tasks-stat-label {
+      font-size: 11px;
+      color: #555;
+    }
+
+    .tasks-reminders-strip {
+      background: #f472b608;
+      border: 1px solid #f472b615;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+    }
+
+    .tasks-reminders-strip-header {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #f472b6;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tasks-reminder-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 0;
+      font-size: 12px;
+    }
+
+    .tasks-reminder-time {
+      color: #f472b6;
+      font-weight: 500;
+      min-width: 80px;
+    }
+
+    .tasks-reminder-text {
+      color: #999;
+    }
+
+    .tasks-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 0;
+      margin-bottom: 16px;
+    }
+
+    .tasks-filter-tabs {
+      display: flex;
+      gap: 2px;
+      background: #111119;
+      border-radius: 8px;
+      padding: 3px;
+    }
+
+    .tasks-filter-tab {
+      padding: 6px 14px;
+      font-size: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #666;
+      transition: all 0.15s;
+      border: none;
+      background: none;
+    }
+
+    .tasks-filter-tab.active {
+      background: #1e1e30;
+      color: #e0e0e0;
+    }
+
+    .tasks-filter-tab:hover:not(.active) {
+      color: #999;
+    }
+
+    .tasks-filter-tab .dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+
+    .tasks-filter-tab .dot.all { background: #818cf8; }
+    .tasks-filter-tab .dot.personal { background: #f59e0b; }
+    .tasks-filter-tab .dot.project { background: #10b981; }
+    .tasks-filter-tab .dot.reminder { background: #f472b6; }
+
+    .tasks-toolbar-right {
+      margin-left: auto;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .tasks-search-box {
+      background: #111119;
+      border: 1px solid #1a1a2e;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 12px;
+      color: #e0e0e0;
+      width: 200px;
+      outline: none;
+    }
+
+    .tasks-search-box:focus {
+      border-color: #333;
+    }
+
+    .tasks-search-box::placeholder {
+      color: #444;
+    }
+
+    .tasks-btn-add {
+      background: #818cf8;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .tasks-btn-add:hover {
+      background: #6366f1;
+    }
+
+    .tasks-group {
+      margin: 20px 0;
+    }
+
+    .tasks-group-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #555;
+      cursor: pointer;
+    }
+
+    .tasks-group-header .group-count {
+      color: #444;
+      font-size: 10px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin: 2px 0;
+      transition: all 0.15s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .task-item:hover {
+      background: #ffffff06;
+    }
+
+    .task-item:hover .task-actions {
+      opacity: 1;
+    }
+
+    .task-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid #333;
+      flex-shrink: 0;
+      margin-top: 1px;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .task-check:hover {
+      border-color: #818cf8;
+    }
+
+    .task-check.checked {
+      background: #818cf8;
+      border-color: #818cf8;
+    }
+
+    .task-check.checked::after {
+      content: '✓';
+      color: white;
+      font-size: 11px;
+    }
+
+    .task-check.high { border-color: #f87171; }
+    .task-check.medium { border-color: #fbbf24; }
+    .task-check.low { border-color: #4ade80; }
+
+    .task-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .task-title {
+      font-size: 13.5px;
+      color: #e0e0e0;
+      line-height: 1.4;
+    }
+
+    .task-item.done .task-title {
+      color: #555;
+      text-decoration: line-through;
+    }
+
+    .task-desc {
+      font-size: 12px;
+      color: #555;
+      margin-top: 2px;
+    }
+
+    .task-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .task-tag {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .tag-project { background: #10b98115; color: #10b981; }
+    .tag-personal { background: #f59e0b15; color: #f59e0b; }
+    .tag-category { background: #ffffff08; color: #666; }
+    .tag-assignee { background: #818cf815; color: #818cf8; }
+
+    .task-due {
+      font-size: 11px;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .task-due.overdue { color: #f87171; }
+    .task-due.today { color: #fbbf24; }
+    .task-due.upcoming { color: #555; }
+
+    .task-reminder-badge {
+      font-size: 11px;
+      color: #f472b6;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .task-actions {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      display: flex;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .task-action-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: none;
+      background: #1a1a2e;
+      color: #888;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .task-action-btn:hover {
+      background: #252540;
+      color: #e0e0e0;
+    }
+
+    .task-action-btn.delete:hover {
+      background: #3b1111;
+      color: #f87171;
+    }
+
+    .add-task-inline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      margin: 2px 0;
+      border: 1px dashed #1a1a2e;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .add-task-inline:hover {
+      border-color: #333;
+      background: #ffffff03;
+    }
+
+    .add-task-inline span {
+      color: #444;
+      font-size: 13px;
+    }
+
+    /* Task Modal */
+    .task-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: #00000080;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1001;
+      backdrop-filter: blur(4px);
+    }
+
+    .task-modal-overlay.active {
+      display: flex;
+    }
+
+    .task-modal {
+      background: #13131f;
+      border: 1px solid #1a1a2e;
+      border-radius: 16px;
+      width: 520px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .task-modal-header {
+      padding: 20px 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .task-modal-header h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .task-modal-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: none;
+      background: none;
+      color: #666;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .task-modal-close:hover {
+      background: #ffffff0a;
+      color: #e0e0e0;
+    }
+
+    .task-modal-body {
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .task-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .task-form-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #555;
+    }
+
+    .task-form-input {
+      background: #0a0a0f;
+      border: 1px solid #1a1a2e;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      color: #e0e0e0;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .task-form-input:focus {
+      border-color: #818cf8;
+    }
+
+    .task-form-input::placeholder {
+      color: #333;
+    }
+
+    .task-form-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .task-form-row .task-form-group {
+      flex: 1;
+    }
+
+    .task-form-select {
+      background: #0a0a0f;
+      border: 1px solid #1a1a2e;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      color: #e0e0e0;
+      outline: none;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .task-form-select:focus {
+      border-color: #818cf8;
+    }
+
+    .task-modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #1a1a2e;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .task-btn-cancel {
+      background: none;
+      border: 1px solid #1a1a2e;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 12px;
+      color: #888;
+      cursor: pointer;
+    }
+
+    .task-btn-cancel:hover {
+      border-color: #333;
+      color: #e0e0e0;
+    }
+
+    .task-btn-save {
+      background: #818cf8;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 20px;
+      font-size: 12px;
+      font-weight: 500;
+      color: white;
+      cursor: pointer;
+    }
+
+    .task-btn-save:hover {
+      background: #6366f1;
+    }
+
+    .task-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .task-toggle {
+      width: 36px;
+      height: 20px;
+      background: #1a1a2e;
+      border-radius: 10px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .task-toggle.on {
+      background: #818cf8;
+    }
+
+    .task-toggle::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: all 0.2s;
+    }
+
+    .task-toggle.on::after {
+      left: 18px;
+    }
+
     /* Skills Grid */
     .skills-grid {
       display: grid;
@@ -1854,9 +2398,9 @@
           <i data-lucide="layout-grid"></i> All Items
           <span class="count" id="navAll">0</span>
         </div>
-        <div class="nav-item" data-filter="todos">
-          <i data-lucide="check-square"></i> To-Do
-          <span class="count" id="navTodos">0</span>
+        <div class="nav-item" data-filter="tasks">
+          <i data-lucide="check-square"></i> Tasks
+          <span class="count" id="navTasks">0</span>
         </div>
         <div class="nav-item" data-filter="projects">
           <i data-lucide="folder-kanban"></i> Projects
@@ -2206,15 +2750,151 @@
       </div>
     </section>
 
-    <!-- Todos Section -->
-    <section class="section" id="todosSection" style="display: none;">
+    <!-- Tasks Section -->
+    <section class="section" id="tasksSection" style="display: none;">
       <div class="section-header">
-        <span class="section-title"><i data-lucide="check-square"></i> To-Do List</span>
+        <span class="section-title"><i data-lucide="check-square"></i> Tasks</span>
       </div>
-      <div class="todos-container" id="todosContainer">
-        <div class="todo-empty">No todos yet. Drop tasks in #to-do-list on Discord!</div>
+      
+      <!-- Stats Bar -->
+      <div class="tasks-stats-bar" id="tasksStatsBar">
+        <div class="tasks-stat"><span class="tasks-stat-value" id="tasksStatActive">0</span><span class="tasks-stat-label">Active</span></div>
+        <div class="tasks-stat"><span class="tasks-stat-value" id="tasksStatDueToday">0</span><span class="tasks-stat-label">Due Today</span></div>
+        <div class="tasks-stat"><span class="tasks-stat-value" id="tasksStatThisWeek">0</span><span class="tasks-stat-label">This Week</span></div>
+        <div class="tasks-stat"><span class="tasks-stat-value" id="tasksStatCompleted">0</span><span class="tasks-stat-label">Completed</span></div>
+      </div>
+      
+      <!-- Upcoming Reminders Strip -->
+      <div class="tasks-reminders-strip" id="tasksRemindersStrip" style="display: none;">
+        <div class="tasks-reminders-strip-header">
+          <i data-lucide="bell" style="width: 12px; height: 12px;"></i>
+          Upcoming Reminders
+        </div>
+        <div id="tasksRemindersList"></div>
+      </div>
+      
+      <!-- Toolbar -->
+      <div class="tasks-toolbar">
+        <div class="tasks-filter-tabs">
+          <button class="tasks-filter-tab active" data-filter="all"><span class="dot all"></span>All</button>
+          <button class="tasks-filter-tab" data-filter="personal"><span class="dot personal"></span>Personal</button>
+          <button class="tasks-filter-tab" data-filter="project"><span class="dot project"></span>Project</button>
+          <button class="tasks-filter-tab" data-filter="reminders"><span class="dot reminder"></span>Reminders</button>
+        </div>
+        <div class="tasks-toolbar-right">
+          <input type="text" class="tasks-search-box" id="tasksSearchInput" placeholder="Search tasks...">
+          <button class="tasks-btn-add" onclick="openTaskModal()">
+            <i data-lucide="plus" style="width: 14px; height: 14px;"></i>
+            New Task
+          </button>
+        </div>
+      </div>
+      
+      <!-- Task Groups Container -->
+      <div id="tasksGroupsContainer">
+        <div class="todo-empty">Loading tasks...</div>
       </div>
     </section>
+    
+    <!-- Task Modal -->
+    <div class="task-modal-overlay" id="taskModalOverlay">
+      <div class="task-modal">
+        <div class="task-modal-header">
+          <h2 id="taskModalTitle">New Task</h2>
+          <button class="task-modal-close" onclick="closeTaskModal()">✕</button>
+        </div>
+        <div class="task-modal-body">
+          <input type="hidden" id="taskEditId">
+          <div class="task-form-group">
+            <label class="task-form-label">Title</label>
+            <input class="task-form-input" id="taskFormTitle" placeholder="What needs to be done?">
+          </div>
+          <div class="task-form-group">
+            <label class="task-form-label">Description</label>
+            <textarea class="task-form-input" id="taskFormDesc" rows="2" placeholder="Optional details..."></textarea>
+          </div>
+          <div class="task-form-row">
+            <div class="task-form-group">
+              <label class="task-form-label">Type</label>
+              <select class="task-form-select" id="taskFormType">
+                <option value="personal">Personal</option>
+                <option value="project">Project Task</option>
+              </select>
+            </div>
+            <div class="task-form-group">
+              <label class="task-form-label">Priority</label>
+              <select class="task-form-select" id="taskFormPriority">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+          </div>
+          <div class="task-form-row">
+            <div class="task-form-group">
+              <label class="task-form-label">Project</label>
+              <select class="task-form-select" id="taskFormProject">
+                <option value="">None (Personal)</option>
+              </select>
+            </div>
+            <div class="task-form-group">
+              <label class="task-form-label">Assign To</label>
+              <select class="task-form-select" id="taskFormAssignee">
+                <option value="">Unassigned</option>
+                <option value="nam">Nam</option>
+                <option value="alfred">Alfred</option>
+                <option value="sentinel">Sentinel</option>
+              </select>
+            </div>
+          </div>
+          <div class="task-form-row">
+            <div class="task-form-group">
+              <label class="task-form-label">Due Date</label>
+              <input class="task-form-input" type="date" id="taskFormDueDate">
+            </div>
+            <div class="task-form-group">
+              <label class="task-form-label">Category</label>
+              <select class="task-form-select" id="taskFormCategory">
+                <option value="">None</option>
+                <option value="finance">Finance</option>
+                <option value="health">Health</option>
+                <option value="travel">Travel</option>
+                <option value="family">Family</option>
+                <option value="work">Work</option>
+              </select>
+            </div>
+          </div>
+          <div class="task-form-group">
+            <div class="task-toggle-row">
+              <div>
+                <label class="task-form-label" style="margin-bottom: 2px;">Reminder</label>
+                <div style="font-size: 11px; color: #444;">Get pinged on Discord/Telegram</div>
+              </div>
+              <div class="task-toggle" id="taskFormReminderToggle" onclick="this.classList.toggle('on'); toggleReminderFields()"></div>
+            </div>
+          </div>
+          <div class="task-form-row" id="taskReminderFields" style="display: none;">
+            <div class="task-form-group">
+              <label class="task-form-label">Remind At</label>
+              <input class="task-form-input" type="datetime-local" id="taskFormReminderAt">
+            </div>
+            <div class="task-form-group">
+              <label class="task-form-label">Repeat</label>
+              <select class="task-form-select" id="taskFormReminderRepeat">
+                <option value="never">Never</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="task-modal-footer">
+          <button class="task-btn-cancel" onclick="closeTaskModal()">Cancel</button>
+          <button class="task-btn-save" onclick="saveTask()">Create Task</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Projects Section -->
     <section class="section" id="projectsHubSection" style="display: none;">
@@ -2964,7 +3644,7 @@
           'daily-logs': 'Daily Logs',
           'notes': 'Notes',
           'skills': 'Skills',
-          'todos': 'To-Do List',
+          'tasks': 'Tasks',
           'projects': 'Projects',
           'org-chart': 'Org Chart',
           'projects-hub': 'Projects Hub'
@@ -3091,24 +3771,24 @@
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
           renderSkills();
-        } else if (currentFilter === 'todos') {
+        } else if (currentFilter === 'tasks') {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
           document.getElementById('filesSection').style.display = 'none';
           document.getElementById('dailyLogsSection').style.display = 'none';
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
-          document.getElementById('todosSection').style.display = 'block';
+          document.getElementById('tasksSection').style.display = 'block';
           document.getElementById('orgChartSection').style.display = 'none';
           document.getElementById('notesSection').style.display = 'none';
           projectsSection.style.display = 'none';
-          document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
           if (statsRow) statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
-          renderTodos();
+          document.getElementById('projectsHubSection').style.display = 'none';
+          renderTasks();
         } else if (currentFilter === 'docs') {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
@@ -3208,86 +3888,417 @@
       document.getElementById('fileViewer').style.display = 'none';
     }
 
-    // Todos functions - now uses Convex
-    let todosData = { active: [], completed: [] };
+    // Tasks System
+    let tasksData = [];
+    let allProjectsForTasks = [];
+    let currentTasksFilter = 'all';
+    let tasksSearchQuery = '';
 
-    async function loadTodos() {
+    async function loadTasks() {
       try {
-        const result = await convexClient.query("todos:list");
-        todosData = {
-          active: result.filter(t => t.status === 'active'),
-          completed: result.filter(t => t.status === 'done')
-        };
-        document.getElementById('navTodos').textContent = todosData.active.length;
-        console.log('✓ Loaded todos from Convex:', todosData.active.length, 'active');
+        // Load tasks
+        tasksData = await convexClient.query("tasks:list", {});
+        
+        // Load projects for dropdown
+        allProjectsForTasks = await convexClient.query("projects:list");
+        
+        // Update nav count
+        const activeCount = tasksData.filter(t => t.status !== 'done').length;
+        document.getElementById('navTasks').textContent = activeCount;
+        
+        console.log('✓ Loaded tasks from Convex:', activeCount, 'active');
       } catch (e) {
-        console.error('Failed to load todos from Convex:', e);
-        todosData = { active: [], completed: [] };
+        console.error('Failed to load tasks from Convex:', e);
+        tasksData = [];
       }
     }
 
-    function renderTodos() {
-      const container = document.getElementById('todosContainer');
-      const { active, completed } = todosData;
+    function renderTasks() {
+      // Populate project dropdown
+      const projectSelect = document.getElementById('taskFormProject');
+      projectSelect.innerHTML = '<option value="">None (Personal)</option>' + 
+        allProjectsForTasks.map(p => `<option value="${p._id}">${p.title}</option>`).join('');
       
-      if (active.length === 0 && completed.length === 0) {
-        container.innerHTML = '<div class="todo-empty">No todos yet. Drop tasks in #to-do-list on Discord!</div>';
+      // Calculate stats
+      const now = new Date();
+      const today = now.toISOString().split('T')[0];
+      const weekEnd = new Date(now);
+      weekEnd.setDate(weekEnd.getDate() + 7);
+      const weekEndStr = weekEnd.toISOString().split('T')[0];
+      
+      const activeTasks = tasksData.filter(t => t.status !== 'done');
+      const completedTasks = tasksData.filter(t => t.status === 'done');
+      const dueToday = activeTasks.filter(t => t.dueDate === today).length;
+      const dueThisWeek = activeTasks.filter(t => t.dueDate && t.dueDate >= today && t.dueDate <= weekEndStr).length;
+      
+      document.getElementById('tasksStatActive').textContent = activeTasks.length;
+      document.getElementById('tasksStatDueToday').textContent = dueToday;
+      document.getElementById('tasksStatThisWeek').textContent = dueThisWeek;
+      document.getElementById('tasksStatCompleted').textContent = completedTasks.length;
+      
+      // Upcoming reminders
+      const upcomingReminders = activeTasks
+        .filter(t => t.reminder && !t.reminder.fired)
+        .sort((a, b) => new Date(a.reminder.at) - new Date(b.reminder.at))
+        .slice(0, 3);
+      
+      const remindersStrip = document.getElementById('tasksRemindersStrip');
+      if (upcomingReminders.length > 0) {
+        remindersStrip.style.display = 'block';
+        document.getElementById('tasksRemindersList').innerHTML = upcomingReminders.map(t => {
+          const reminderDate = new Date(t.reminder.at);
+          const isToday = reminderDate.toDateString() === now.toDateString();
+          const timeStr = isToday 
+            ? `Today ${reminderDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`
+            : reminderDate.toLocaleDateString('en-US', { weekday: 'short', hour: 'numeric', minute: '2-digit' });
+          return `<div class="tasks-reminder-item">
+            <span class="tasks-reminder-time">${timeStr}</span>
+            <span class="tasks-reminder-text">${t.title}</span>
+          </div>`;
+        }).join('');
+      } else {
+        remindersStrip.style.display = 'none';
+      }
+      
+      // Setup filter tabs
+      document.querySelectorAll('.tasks-filter-tab').forEach(tab => {
+        tab.onclick = () => {
+          document.querySelectorAll('.tasks-filter-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          currentTasksFilter = tab.dataset.filter;
+          renderTasksGroups();
+        };
+      });
+      
+      // Setup search
+      document.getElementById('tasksSearchInput').oninput = (e) => {
+        tasksSearchQuery = e.target.value.toLowerCase();
+        renderTasksGroups();
+      };
+      
+      renderTasksGroups();
+    }
+
+    function renderTasksGroups() {
+      const container = document.getElementById('tasksGroupsContainer');
+      const now = new Date();
+      const today = now.toISOString().split('T')[0];
+      const weekEnd = new Date(now);
+      weekEnd.setDate(weekEnd.getDate() + 7);
+      const weekEndStr = weekEnd.toISOString().split('T')[0];
+      
+      // Filter tasks
+      let tasks = [...tasksData];
+      
+      // Apply type filter
+      if (currentTasksFilter === 'personal') {
+        tasks = tasks.filter(t => t.type === 'personal');
+      } else if (currentTasksFilter === 'project') {
+        tasks = tasks.filter(t => t.type === 'project');
+      } else if (currentTasksFilter === 'reminders') {
+        tasks = tasks.filter(t => t.reminder && !t.reminder.fired);
+      }
+      
+      // Apply search
+      if (tasksSearchQuery) {
+        tasks = tasks.filter(t => t.title.toLowerCase().includes(tasksSearchQuery));
+      }
+      
+      // Separate active and completed
+      const activeTasks = tasks.filter(t => t.status !== 'done');
+      const completedTasks = tasks.filter(t => t.status === 'done');
+      
+      // Group active tasks by urgency
+      const overdue = activeTasks.filter(t => t.dueDate && t.dueDate < today);
+      const dueToday = activeTasks.filter(t => t.dueDate === today);
+      const thisWeek = activeTasks.filter(t => t.dueDate && t.dueDate > today && t.dueDate <= weekEndStr);
+      const backlog = activeTasks.filter(t => !t.dueDate || t.dueDate > weekEndStr);
+      
+      if (activeTasks.length === 0 && completedTasks.length === 0) {
+        container.innerHTML = '<div class="todo-empty">No tasks yet. Click "New Task" to add one!</div>';
         return;
       }
-
+      
       let html = '';
       
-      // Active todos
-      if (active.length > 0) {
-        html += `
-          <div class="todo-priority-section">
-            <div class="todo-priority-header medium">
-              <i data-lucide="circle"></i>
-              To-Do (${active.length})
-            </div>
-            <div class="todo-list">
-              ${active.map(item => `
-                <div class="todo-item">
-                  <div class="todo-checkbox"></div>
-                  <div class="todo-content">
-                    <div class="todo-text">${item.title}</div>
-                    <div class="todo-meta">
-                      ${item.description ? `<span style="color: #666;">${item.description}</span>` : ''}
-                      ${item.dueDate ? `<span class="todo-due">📅 ${item.dueDate}</span>` : ''}
-                      ${item.reminder ? `<span style="color: #f59e0b; margin-left: 8px;">🔔 ${item.reminder}</span>` : ''}
-                    </div>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
+      // Overdue
+      if (overdue.length > 0) {
+        html += renderTaskGroup('OVERDUE', overdue, '#f87171', 'alert-triangle');
       }
       
-      // Completed todos
-      if (completed.length > 0) {
-        html += `
-          <div class="todo-priority-section" style="margin-top: 24px;">
-            <div class="todo-priority-header completed">
-              <i data-lucide="check-circle"></i>
-              Completed (${completed.length})
-            </div>
-            <div class="todo-list">
-              ${completed.map(item => `
-                <div class="todo-item completed">
-                  <div class="todo-checkbox"></div>
-                  <div class="todo-content">
-                    <div class="todo-text">${item.title}</div>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
+      // Today
+      if (dueToday.length > 0) {
+        html += renderTaskGroup('TODAY', dueToday, '#fbbf24', 'clock');
       }
-
+      
+      // This Week
+      if (thisWeek.length > 0) {
+        html += renderTaskGroup('THIS WEEK', thisWeek, '#555', 'calendar');
+      }
+      
+      // Backlog
+      if (backlog.length > 0) {
+        html += renderTaskGroup('BACKLOG', backlog, '#555', 'activity');
+      }
+      
+      // Add task inline
+      html += `
+        <div class="add-task-inline" onclick="openTaskModal()">
+          <i data-lucide="plus" style="width: 16px; height: 16px; color: #444;"></i>
+          <span>Add task...</span>
+        </div>
+      `;
+      
+      // Completed (show recent 5)
+      if (completedTasks.length > 0) {
+        const recentCompleted = completedTasks.slice(0, 5);
+        html += renderTaskGroup(`COMPLETED · ${completedTasks.length} total · showing recent`, recentCompleted, '#4ade80', 'check-circle', true);
+      }
+      
       container.innerHTML = html;
       lucide.createIcons();
+      
+      // Wire up task item clicks
+      container.querySelectorAll('.task-check').forEach(check => {
+        check.onclick = (e) => {
+          e.stopPropagation();
+          const taskId = check.dataset.id;
+          const isDone = check.classList.contains('checked');
+          if (isDone) {
+            reopenTask(taskId);
+          } else {
+            completeTask(taskId);
+          }
+        };
+      });
+      
+      container.querySelectorAll('.task-edit-btn').forEach(btn => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          openTaskModal(btn.dataset.id);
+        };
+      });
+      
+      container.querySelectorAll('.task-delete-btn').forEach(btn => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          if (confirm('Delete this task?')) {
+            deleteTask(btn.dataset.id);
+          }
+        };
+      });
+    }
+
+    function renderTaskGroup(title, tasks, color, icon, isDone = false) {
+      const now = new Date();
+      const today = now.toISOString().split('T')[0];
+      
+      return `
+        <div class="tasks-group">
+          <div class="tasks-group-header" style="color: ${color};">
+            <i data-lucide="${icon}" style="width: 12px; height: 12px;"></i>
+            ${title} <span class="group-count">· ${tasks.length}</span>
+          </div>
+          ${tasks.map(task => {
+            const project = task.projectId ? allProjectsForTasks.find(p => p._id === task.projectId) : null;
+            const priorityClass = task.priority || 'medium';
+            const checkClass = isDone ? 'checked' : priorityClass;
+            
+            // Due date formatting
+            let dueDateHtml = '';
+            if (task.dueDate && !isDone) {
+              const dueClass = task.dueDate < today ? 'overdue' : (task.dueDate === today ? 'today' : 'upcoming');
+              const dueDate = new Date(task.dueDate + 'T12:00:00');
+              const dueDateStr = task.dueDate === today ? 'Today' : 
+                task.dueDate < today ? `${dueDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} — ${Math.ceil((new Date(today) - dueDate) / (1000*60*60*24))} days overdue` :
+                dueDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+              dueDateHtml = `<span class="task-due ${dueClass}"><i data-lucide="clock" style="width: 12px; height: 12px;"></i>${dueDateStr}</span>`;
+            } else if (task.completedAt && isDone) {
+              const compDate = new Date(task.completedAt);
+              dueDateHtml = `<span class="task-due upcoming"><i data-lucide="clock" style="width: 12px; height: 12px;"></i>Done ${compDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>`;
+            }
+            
+            // Reminder badge
+            let reminderHtml = '';
+            if (task.reminder && !task.reminder.fired && !isDone) {
+              const reminderDate = new Date(task.reminder.at);
+              const reminderStr = reminderDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+              reminderHtml = `<span class="task-reminder-badge"><i data-lucide="bell" style="width: 12px; height: 12px;"></i>Reminder ${reminderStr}</span>`;
+            }
+            
+            return `
+              <div class="task-item ${isDone ? 'done' : ''}">
+                <div class="task-check ${checkClass}" data-id="${task._id}"></div>
+                <div class="task-body">
+                  <div class="task-title">${task.title}</div>
+                  ${task.description ? `<div class="task-desc">${task.description}</div>` : ''}
+                  <div class="task-meta">
+                    ${task.type === 'project' && project ? `<span class="task-tag tag-project">${project.title}</span>` : ''}
+                    ${task.type === 'personal' ? `<span class="task-tag tag-personal">personal</span>` : ''}
+                    ${task.assignee ? `<span class="task-tag tag-assignee">${task.assignee}</span>` : ''}
+                    ${task.category ? `<span class="task-tag tag-category">${task.category}</span>` : ''}
+                    ${dueDateHtml}
+                    ${reminderHtml}
+                  </div>
+                </div>
+                ${!isDone ? `
+                  <div class="task-actions">
+                    <button class="task-action-btn task-edit-btn" data-id="${task._id}" title="Edit">
+                      <i data-lucide="pencil" style="width: 14px; height: 14px;"></i>
+                    </button>
+                    <button class="task-action-btn delete task-delete-btn" data-id="${task._id}" title="Delete">
+                      <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
+                    </button>
+                  </div>
+                ` : ''}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function toggleReminderFields() {
+      const toggle = document.getElementById('taskFormReminderToggle');
+      const fields = document.getElementById('taskReminderFields');
+      fields.style.display = toggle.classList.contains('on') ? 'flex' : 'none';
+    }
+
+    function openTaskModal(editId = null) {
+      const modal = document.getElementById('taskModalOverlay');
+      const title = document.getElementById('taskModalTitle');
+      const saveBtn = document.querySelector('.task-btn-save');
+      
+      // Reset form
+      document.getElementById('taskEditId').value = '';
+      document.getElementById('taskFormTitle').value = '';
+      document.getElementById('taskFormDesc').value = '';
+      document.getElementById('taskFormType').value = 'personal';
+      document.getElementById('taskFormPriority').value = 'medium';
+      document.getElementById('taskFormProject').value = '';
+      document.getElementById('taskFormAssignee').value = '';
+      document.getElementById('taskFormDueDate').value = '';
+      document.getElementById('taskFormCategory').value = '';
+      document.getElementById('taskFormReminderToggle').classList.remove('on');
+      document.getElementById('taskReminderFields').style.display = 'none';
+      document.getElementById('taskFormReminderAt').value = '';
+      document.getElementById('taskFormReminderRepeat').value = 'never';
+      
+      if (editId) {
+        const task = tasksData.find(t => t._id === editId);
+        if (task) {
+          document.getElementById('taskEditId').value = editId;
+          document.getElementById('taskFormTitle').value = task.title || '';
+          document.getElementById('taskFormDesc').value = task.description || '';
+          document.getElementById('taskFormType').value = task.type || 'personal';
+          document.getElementById('taskFormPriority').value = task.priority || 'medium';
+          document.getElementById('taskFormProject').value = task.projectId || '';
+          document.getElementById('taskFormAssignee').value = task.assignee || '';
+          document.getElementById('taskFormDueDate').value = task.dueDate || '';
+          document.getElementById('taskFormCategory').value = task.category || '';
+          
+          if (task.reminder) {
+            document.getElementById('taskFormReminderToggle').classList.add('on');
+            document.getElementById('taskReminderFields').style.display = 'flex';
+            document.getElementById('taskFormReminderAt').value = task.reminder.at ? task.reminder.at.slice(0, 16) : '';
+            document.getElementById('taskFormReminderRepeat').value = task.reminder.repeat || 'never';
+          }
+          
+          title.textContent = 'Edit Task';
+          saveBtn.textContent = 'Save Changes';
+        }
+      } else {
+        title.textContent = 'New Task';
+        saveBtn.textContent = 'Create Task';
+      }
+      
+      modal.classList.add('active');
+    }
+
+    function closeTaskModal() {
+      document.getElementById('taskModalOverlay').classList.remove('active');
+    }
+
+    async function saveTask() {
+      const editId = document.getElementById('taskEditId').value;
+      const title = document.getElementById('taskFormTitle').value.trim();
+      if (!title) {
+        alert('Please enter a title');
+        return;
+      }
+      
+      const taskData = {
+        title,
+        description: document.getElementById('taskFormDesc').value.trim() || undefined,
+        type: document.getElementById('taskFormType').value,
+        priority: document.getElementById('taskFormPriority').value,
+        projectId: document.getElementById('taskFormProject').value || undefined,
+        assignee: document.getElementById('taskFormAssignee').value || undefined,
+        dueDate: document.getElementById('taskFormDueDate').value || undefined,
+        category: document.getElementById('taskFormCategory').value || undefined,
+      };
+      
+      // Handle reminder
+      const reminderOn = document.getElementById('taskFormReminderToggle').classList.contains('on');
+      if (reminderOn) {
+        const reminderAt = document.getElementById('taskFormReminderAt').value;
+        if (reminderAt) {
+          taskData.reminder = {
+            at: new Date(reminderAt).toISOString(),
+            repeat: document.getElementById('taskFormReminderRepeat').value,
+            fired: false,
+          };
+        }
+      }
+      
+      try {
+        if (editId) {
+          await convexClient.mutation("tasks:update", { id: editId, ...taskData });
+          showToast('Task updated');
+        } else {
+          await convexClient.mutation("tasks:add", taskData);
+          showToast('Task created');
+        }
+        closeTaskModal();
+        await loadTasks();
+        renderTasks();
+      } catch (e) {
+        console.error('Failed to save task:', e);
+        alert('Failed to save task');
+      }
+    }
+
+    async function completeTask(taskId) {
+      try {
+        await convexClient.mutation("tasks:complete", { id: taskId });
+        showToast('Task completed');
+        await loadTasks();
+        renderTasks();
+      } catch (e) {
+        console.error('Failed to complete task:', e);
+      }
+    }
+
+    async function reopenTask(taskId) {
+      try {
+        await convexClient.mutation("tasks:reopen", { id: taskId });
+        showToast('Task reopened');
+        await loadTasks();
+        renderTasks();
+      } catch (e) {
+        console.error('Failed to reopen task:', e);
+      }
+    }
+
+    async function deleteTask(taskId) {
+      try {
+        await convexClient.mutation("tasks:remove", { id: taskId });
+        showToast('Task deleted');
+        await loadTasks();
+        renderTasks();
+      } catch (e) {
+        console.error('Failed to delete task:', e);
+      }
     }
 
     // Docs functions
@@ -3443,9 +4454,9 @@
 
     // Auto-refresh
     setInterval(loadData, 30000);
-    setInterval(loadTodos, 30000);
+    setInterval(loadTasks, 30000);
     loadData();
-    loadTodos();
+    loadTasks();
 
     // Edit Modal Functions
     let currentEditId = null;
