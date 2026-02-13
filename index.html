@@ -2056,28 +2056,20 @@
           notes: t.notes,
         }));
         
-        // Crons still static for now (could add to Convex later)
-        const crons = [
-          { name: "Morning Brief", schedule: "9am HKT", enabled: true },
-          { name: "Dubai Tickets Reminder", schedule: "9am daily", enabled: true },
-          { name: "Jessica Hotel Reminder", schedule: "Sat 12pm", enabled: true },
-          { name: "IREN Options Reminder", schedule: "Feb 4 9am", enabled: true },
-          { name: "THT Pre-Market", schedule: "6:30am M-F", enabled: true },
-          { name: "THT Mid-Day", schedule: "12pm M-F", enabled: true },
-          { name: "THT Evening Recap", schedule: "6pm M-F", enabled: true },
-          { name: "Schwab Token Refresh", schedule: "Every 25 min", enabled: true },
-          { name: "Workspace Backup", schedule: "Every hour", enabled: true },
-          { name: "Daily Summary", schedule: "11pm HKT", enabled: true },
-          { name: "Transcript Archive", schedule: "11pm HKT", enabled: true },
-          { name: "MMP Daily Scan", schedule: "10am daily", enabled: true }
-        ];
+        // Load crons from activity.json (has agent, model, desc)
+        let crons = [];
+        try {
+          const cronResp = await fetch('activity.json?' + Date.now());
+          const actJson = await cronResp.json();
+          crons = actJson.crons || [];
+        } catch(e) { console.warn('Could not load crons from activity.json'); }
         
         data = {
           items,
           todos: dashboardData.todos.active,
           activity: activityMapped,
           recentActivity: activityMapped, // render() expects this
-          namLocation: { city: "Hong Kong", timezone: "HKT (UTC+8)" },
+          namLocation: { city: "Dubai", timezone: "GST (UTC+4)" },
           stats: { ...dashboardData.stats, tools: dashboardData.tools.total },
           tools: tools,
           toolsByCategory: dashboardData.tools.byCategory,
@@ -2907,7 +2899,7 @@
       // Search crons
       if (data.crons) {
         data.crons.forEach(cron => {
-          if (cron.name.toLowerCase().includes(q) || cron.desc.toLowerCase().includes(q)) {
+          if (cron.name.toLowerCase().includes(q) || (cron.desc || '').toLowerCase().includes(q)) {
             results.push({ title: cron.name, type: 'Cron Job', status: cron.enabled ? 'active' : 'inactive' });
           }
         });
