@@ -3128,7 +3128,7 @@
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
           renderDocs();
-        } else if (currentFilter === 'projects') {
+        } else if (currentFilter === 'projects' || currentFilter === 'projects-hub') {
           toolsSection.style.display = 'none';
           cronsSection.style.display = 'none';
           document.getElementById('filesSection').style.display = 'none';
@@ -3136,10 +3136,8 @@
           document.getElementById('skillsSection').style.display = 'none';
           document.getElementById('docsSection').style.display = 'none';
           document.getElementById('todosSection').style.display = 'none';
-          document.getElementById('projectsHubSection').style.display = 'none';
           document.getElementById('orgChartSection').style.display = 'none';
           document.getElementById('notesSection').style.display = 'none';
-          document.getElementById('projectsHubSection').style.display = 'block';
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
@@ -3147,6 +3145,7 @@
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
+          document.getElementById('projectsHubSection').style.display = 'block';
           renderProjectsHub();
         } else if (currentFilter === 'org-chart') {
           toolsSection.style.display = 'none';
