@@ -2555,8 +2555,8 @@
         const toolsSection = document.getElementById('toolsSection');
         const projectsSection = document.getElementById('projectsSection');
         const activitySection = document.getElementById('activitySection');
-        const statsRow = document.querySelector('.stats-row');
-        const currentBanner = document.getElementById('currentBanner'); // may be null (removed)
+        const statsRow = document.querySelector('.stats-row'); // may be null
+        const currentBanner = document.getElementById('currentBanner'); // may be null
         
         const cronsSection = document.getElementById('cronsSection');
         
@@ -2571,7 +2571,7 @@
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
-          statsRow.style.display = 'none';
+          if (statsRow) statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
@@ -2586,7 +2586,7 @@
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
-          statsRow.style.display = 'none';
+          if (statsRow) statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
@@ -2601,7 +2601,7 @@
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
-          statsRow.style.display = 'none';
+          if (statsRow) statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
@@ -2616,7 +2616,7 @@
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
-          statsRow.style.display = 'none';
+          if (statsRow) statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
@@ -2631,7 +2631,7 @@
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
-          statsRow.style.display = 'none';
+          if (statsRow) statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
@@ -2647,7 +2647,7 @@
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
-          statsRow.style.display = 'none';
+          if (statsRow) statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
@@ -2663,7 +2663,7 @@
           projectsSection.style.display = 'none';
           document.getElementById('tasksSection').style.display = 'none';
           activitySection.style.display = 'none';
-          statsRow.style.display = 'none';
+          if (statsRow) statsRow.style.display = 'none';
           if (currentBanner) currentBanner.style.display = 'none';
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
@@ -2679,7 +2679,7 @@
           projectsSection.style.display = 'block';
           document.getElementById('tasksSection').style.display = 'block';
           activitySection.style.display = 'block';
-          statsRow.style.display = 'flex';
+          if (statsRow) statsRow.style.display = 'flex';
           document.getElementById('commandCenter').style.display = 'grid';
           if (currentBanner) currentBanner.style.display = 'flex';
           render();
