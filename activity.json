@@ -296,7 +296,7 @@
     {
       "name": "Schwab Token Refresh",
       "desc": "Auto-refresh OAuth token every 25 min",
-      "schedule": "*/25 * * * *",
+      "schedule": "Every 25 min",
       "agent": "alfred",
       "model": "system",
       "enabled": true
@@ -304,7 +304,7 @@
     {
       "name": "Workspace Backup",
       "desc": "Git commit + push workspace changes",
-      "schedule": "0 * * * *",
+      "schedule": "Hourly :00",
       "agent": "alfred",
       "model": "system",
       "enabled": true
@@ -312,7 +312,7 @@
     {
       "name": "Local Backup Sync",
       "desc": "Rsync brain/memory/secrets to Documents",
-      "schedule": "30 * * * *",
+      "schedule": "Hourly :30",
       "agent": "alfred",
       "model": "system",
       "enabled": true
@@ -320,7 +320,7 @@
     {
       "name": "API Health Check",
       "desc": "Run api-monitor, post to #errors if failures, update dashboard",
-      "schedule": "0 */4 * * *",
+      "schedule": "Every 4 hours",
       "agent": "alfred",
       "model": "haiku",
       "enabled": true
@@ -328,7 +328,7 @@
     {
       "name": "Email Forward",
       "desc": "Forward new emails from alfred-x@agentmail.to",
-      "schedule": "0 9,14,20 * * *",
+      "schedule": "9am \u00b7 2pm \u00b7 8pm",
       "agent": "alfred",
       "model": "haiku",
       "enabled": true
@@ -336,7 +336,7 @@
     {
       "name": "Daily Summary",
       "desc": "Write daily summary to memory/YYYY-MM-DD.md, sync to MC",
-      "schedule": "0 7 * * *",
+      "schedule": "7:00am",
       "agent": "alfred",
       "model": "system",
       "enabled": true
@@ -344,7 +344,7 @@
     {
       "name": "Transcript Archive",
       "desc": "Archive chat transcripts to memory/transcripts/",
-      "schedule": "5 7 * * *",
+      "schedule": "7:05am",
       "agent": "alfred",
       "model": "sonnet 4.5",
       "enabled": true
@@ -352,7 +352,7 @@
     {
       "name": "Oura Daily Briefing",
       "desc": "Comprehensive Oura data: readiness, sleep, HRV, stress, SpO2",
-      "schedule": "0 8 * * *",
+      "schedule": "8:00am",
       "agent": "alfred",
       "model": "sonnet 4.5",
       "enabled": true
@@ -360,7 +360,7 @@
     {
       "name": "Oura Weekly Summary",
       "desc": "7-day deep analysis with trends and recommendations",
-      "schedule": "0 9 * * 0",
+      "schedule": "Sun 9:00am",
       "agent": "alfred",
       "model": "sonnet 4.5",
       "enabled": true
@@ -368,7 +368,7 @@
     {
       "name": "Daily AI Trends",
       "desc": "Top 20 viral AI tweets from past 24h via X API",
-      "schedule": "0 9 * * *",
+      "schedule": "9:00am",
       "agent": "alfred",
       "model": "haiku",
       "enabled": true
@@ -376,7 +376,7 @@
     {
       "name": "Evening Daily Brief",
       "desc": "Health + weather + markets + calendar + email + news",
-      "schedule": "0 17 * * *",
+      "schedule": "5:00pm",
       "agent": "alfred",
       "model": "sonnet 4.5",
       "enabled": true
@@ -384,7 +384,7 @@
     {
       "name": "Daily Ideas",
       "desc": "10 fresh ideas: skills, automations, trading, health, workflow",
-      "schedule": "0 18 * * *",
+      "schedule": "6:00pm",
       "agent": "alfred",
       "model": "sonnet 4.5",
       "enabled": true
@@ -392,7 +392,7 @@
     {
       "name": "Night Shift",
       "desc": "Autonomous overnight work: trading prep, tools, monitoring",
-      "schedule": "0 23 * * *",
+      "schedule": "11:00pm",
       "agent": "alfred",
       "model": "sonnet 4.5",
       "enabled": true
@@ -400,7 +400,7 @@
     {
       "name": "Daily Reflection",
       "desc": "Extract patterns, preferences, decisions from today's sessions",
-      "schedule": "0 23 * * *",
+      "schedule": "11:00pm",
       "agent": "alfred",
       "model": "sonnet 4.5",
       "enabled": true
@@ -408,7 +408,7 @@
     {
       "name": "Thread Archiver",
       "desc": "Check Discord threads inactive 48h+, offer archive/pin/save",
-      "schedule": "0 10,22 * * *",
+      "schedule": "10am \u00b7 10pm",
       "agent": "alfred",
       "model": "haiku",
       "enabled": true
@@ -416,7 +416,7 @@
     {
       "name": "Weekly Memory Archive",
       "desc": "Move daily logs older than 7 days to archive/",
-      "schedule": "0 3 * * 0",
+      "schedule": "Sun 3:00am",
       "agent": "alfred",
       "model": "haiku",
       "enabled": true
@@ -424,7 +424,7 @@
     {
       "name": "Weekly Learning",
       "desc": "Update USER.md with new preferences and patterns",
-      "schedule": "0 22 * * 0",
+      "schedule": "Sun 10:00pm",
       "agent": "alfred",
       "model": "sonnet 4.5",
       "enabled": true
@@ -432,7 +432,7 @@
     {
       "name": "Monthly Learning",
       "desc": "Consolidate MEMORY.md with past month's insights",
-      "schedule": "0 22 1 * *",
+      "schedule": "1st 10:00pm",
       "agent": "alfred",
       "model": "sonnet 4.5",
       "enabled": true
@@ -440,7 +440,7 @@
     {
       "name": "Channel Lifecycle",
       "desc": "Flag inactive Discord channels for archive/delete",
-      "schedule": "0 10 1 * *",
+      "schedule": "1st 10:00am",
       "agent": "alfred",
       "model": "sonnet 4.5",
       "enabled": true
@@ -448,7 +448,7 @@
     {
       "name": "Subscription Review",
       "desc": "Monthly review of paid subscriptions and usage",
-      "schedule": "0 10 5 * *",
+      "schedule": "5th 10:00am",
       "agent": "alfred",
       "model": "haiku",
       "enabled": true
@@ -456,7 +456,7 @@
     {
       "name": "Netflix Weekly",
       "desc": "Check new Netflix releases and trending content",
-      "schedule": "0 9 * * 1",
+      "schedule": "Mon 9:00am",
       "agent": "alfred",
       "model": "system",
       "enabled": true
@@ -464,7 +464,7 @@
     {
       "name": "Flight Cancel Check",
       "desc": "Remind about CGK\u2192LAX Feb 15 flight",
-      "schedule": "0 10 12-15 2 *",
+      "schedule": "Feb 12-15 10am",
       "agent": "alfred",
       "model": "\u2014",
       "enabled": true
@@ -472,7 +472,7 @@
     {
       "name": "Sentinel Market Scan",
       "desc": "Check X for breaking news/sentiment on holdings (TSLA, NVDA, AMD, etc)",
-      "schedule": "0 7,9,11,13,15 * * 1-5",
+      "schedule": "M-F 7\u00b79\u00b711am\u00b71\u00b73pm",
       "agent": "sentinel",
       "model": "haiku",
       "enabled": true
@@ -480,7 +480,7 @@
     {
       "name": "Earnings Intel Daily",
       "desc": "Scrape Estimize, calculate divergence signals, update Convex",
-      "schedule": "0 6,16 * * 1-5",
+      "schedule": "M-F 6am \u00b7 4pm",
       "agent": "sentinel",
       "model": "sonnet 4.5",
       "enabled": true
@@ -488,7 +488,7 @@
     {
       "name": "Earnings Scanner Daily",
       "desc": "Scan earnings with weekly options, sort by spread tightness",
-      "schedule": "0 11 * * 1-5",
+      "schedule": "M-F 11:00am",
       "agent": "sentinel",
       "model": "sonnet 4.5",
       "enabled": true
@@ -496,7 +496,7 @@
     {
       "name": "Morning Spread Rankings",
       "desc": "Schwab pre-trade capture, rank by bid/ask spread quality",
-      "schedule": "0 10 * * 1-5 ET",
+      "schedule": "M-F 10:00am ET",
       "agent": "sentinel",
       "model": "sonnet 4.5",
       "enabled": true
@@ -504,7 +504,7 @@
     {
       "name": "Pre-Trade Pipeline",
       "desc": "OQuants snapshot + Schwab pre-trade for tomorrow's earnings",
-      "schedule": "15 15 * * 1-5 ET",
+      "schedule": "M-F 3:15pm ET",
       "agent": "sentinel",
       "model": "sonnet 4.5",
       "enabled": true
@@ -512,7 +512,7 @@
     {
       "name": "Auto-Detect New Trades",
       "desc": "Detect newly opened earnings trades in Schwab",
-      "schedule": "0 17-20 * * 1-5 ET",
+      "schedule": "M-F 5\u00b76\u00b77\u00b78pm ET",
       "agent": "sentinel",
       "model": "haiku",
       "enabled": true
@@ -520,7 +520,7 @@
     {
       "name": "Auto-Close Check",
       "desc": "Check if earnings trades hit close targets",
-      "schedule": "30 10,12,14 * * 1-5 ET",
+      "schedule": "M-F 10:30\u00b712:30\u00b72:30 ET",
       "agent": "sentinel",
       "model": "haiku",
       "enabled": true
@@ -528,7 +528,7 @@
     {
       "name": "Post-Trade Capture",
       "desc": "Capture yesterday's earnings results: W/L, P&L, IV crush",
-      "schedule": "45 14 * * 1-5 ET",
+      "schedule": "M-F 2:45pm ET",
       "agent": "sentinel",
       "model": "sonnet 4.5",
       "enabled": true
@@ -536,7 +536,7 @@
     {
       "name": "EOD Recap",
       "desc": "End-of-day X sentiment on holdings, AH news, sector sentiment",
-      "schedule": "0 16 * * 1-5",
+      "schedule": "M-F 4:00pm",
       "agent": "sentinel",
       "model": "sonnet 4.5",
       "enabled": true
@@ -544,7 +544,7 @@
     {
       "name": "FTX Claim Daily",
       "desc": "Search Reddit/X for FTX payout/claim news",
-      "schedule": "0 20 * * *",
+      "schedule": "8:00pm",
       "agent": "sentinel",
       "model": "haiku",
       "enabled": true
@@ -552,7 +552,7 @@
     {
       "name": "Playtech Check",
       "desc": "Check LON:PTEC price and news (2x daily)",
-      "schedule": "0 6,14 * * 1-5",
+      "schedule": "M-F 6am \u00b7 2pm",
       "agent": "sentinel",
       "model": "sonnet 4.5",
       "enabled": true
@@ -560,7 +560,7 @@
     {
       "name": "BTC \u2192 HOOD Alert",
       "desc": "If BTC up 3%+, alert HOOD call opportunity (Chris Camillo thesis)",
-      "schedule": "0 7,10,14 * * 1-5",
+      "schedule": "M-F 7\u00b710am \u00b7 2pm",
       "agent": "sentinel",
       "model": "haiku",
       "enabled": true
@@ -568,7 +568,7 @@
     {
       "name": "AMZN Buy Reminder",
       "desc": "Daily nudge: Anthropic stake thesis, hidden value",
-      "schedule": "0 9 * * 1-5",
+      "schedule": "M-F 9:00am",
       "agent": "sentinel",
       "model": "haiku",
       "enabled": true
@@ -576,7 +576,7 @@
     {
       "name": "Social Arb Daily Scan",
       "desc": "Scrape TikTok trends, analyze for retail arb opportunities",
-      "schedule": "30 6 * * 1-5 ET",
+      "schedule": "M-F 6:30am ET",
       "agent": "sentinel",
       "model": "sonnet 4.5",
       "enabled": true
@@ -584,7 +584,7 @@
     {
       "name": "Social Arb X Scanner",
       "desc": "X API demand signal scanner for social arb brands",
-      "schedule": "30 6 * * 1-5 ET",
+      "schedule": "M-F 6:30am ET",
       "agent": "sentinel",
       "model": "sonnet 4.5",
       "enabled": true
@@ -592,7 +592,7 @@
     {
       "name": "Social Arb Bright Data",
       "desc": "Scrape TikTok Top Products + Amazon via Bright Data",
-      "schedule": "0 6 * * 1,3,5 ET",
+      "schedule": "Mon\u00b7Wed\u00b7Fri 6am ET",
       "agent": "sentinel",
       "model": "haiku",
       "enabled": true
@@ -600,7 +600,7 @@
     {
       "name": "Social Arb Google Trends",
       "desc": "Google Trends scanner + dedup for social arb brands",
-      "schedule": "15 6 * * 1-5 ET",
+      "schedule": "M-F 6:15am ET",
       "agent": "sentinel",
       "model": "haiku",
       "enabled": true
@@ -608,7 +608,7 @@
     {
       "name": "Squeeze Outcome Tracker",
       "desc": "Check if squeeze candidates squeezed/dumped after earnings",
-      "schedule": "0 7 * * *",
+      "schedule": "7:00am",
       "agent": "sentinel",
       "model": "sonnet 4.5",
       "enabled": true
@@ -616,7 +616,7 @@
     {
       "name": "PTEC v Evolution Court",
       "desc": "Monitor Playtech vs Evolution lawsuit court dates/rulings",
-      "schedule": "0 9 * * 1,3,5",
+      "schedule": "Mon\u00b7Wed\u00b7Fri 9am",
       "agent": "sentinel",
       "model": "haiku",
       "enabled": true
@@ -624,7 +624,7 @@
     {
       "name": "Hadron Energy SPAC",
       "desc": "Track GigCapital7/Hadron merger: vote dates, SEC filings",
-      "schedule": "0 17 * * 1-5",
+      "schedule": "M-F 5:00pm",
       "agent": "sentinel",
       "model": "haiku",
       "enabled": true
@@ -632,7 +632,7 @@
     {
       "name": "Weekly Sentiment Deep Dive",
       "desc": "Comprehensive X analysis on portfolio: sector rotation, contrarian signals",
-      "schedule": "0 18 * * 0",
+      "schedule": "Sun 6:00pm",
       "agent": "sentinel",
       "model": "sonnet 4.5",
       "enabled": true
@@ -640,7 +640,7 @@
     {
       "name": "Coiled Earnings Weekly",
       "desc": "Scan for short squeeze setups near earnings, track in Convex",
-      "schedule": "0 18 * * 0",
+      "schedule": "Sun 6:00pm",
       "agent": "sentinel",
       "model": "sonnet 4.5",
       "enabled": true
@@ -648,7 +648,7 @@
     {
       "name": "Weekly Research Synthesis",
       "desc": "Synthesize daily logs, patterns, positions into weekly briefing",
-      "schedule": "0 18 * * 0",
+      "schedule": "Sun 6:00pm",
       "agent": "sentinel",
       "model": "sonnet 4.5",
       "enabled": true
@@ -656,7 +656,7 @@
     {
       "name": "Schwab Re-Auth Reminder",
       "desc": "Weekly reminder to refresh Schwab OAuth token",
-      "schedule": "0 9 * * 6",
+      "schedule": "Sat 9:00am",
       "agent": "sentinel",
       "model": "haiku",
       "enabled": true
@@ -664,7 +664,7 @@
     {
       "name": "DUOL Earnings Decision",
       "desc": "$236K position \u2014 sell or hold after Feb 26 earnings?",
-      "schedule": "0 9 27 2 * (one-shot)",
+      "schedule": "Feb 27 9:00am",
       "agent": "sentinel",
       "model": "sonnet 4.5",
       "enabled": true
@@ -672,7 +672,7 @@
     {
       "name": "Hikma Weekly",
       "desc": "HIK.L price update vs \u00a315.45 baseline, earnings Feb 26",
-      "schedule": "0 9 * * 0",
+      "schedule": "Sun 9:00am",
       "agent": "sentinel",
       "model": "haiku",
       "enabled": true
