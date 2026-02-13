@@ -2098,8 +2098,14 @@
 
     <!-- Crons Section -->
     <section class="section" id="cronsSection" style="display: none;">
-      <div class="section-header">
-        <span class="section-title"><i data-lucide="clock"></i> Scheduled Jobs</span>
+      <div class="section-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <span class="section-title"><i data-lucide="clock"></i> Scheduled Jobs <span id="cronCount" style="color:#666;font-size:14px;font-weight:400;"></span></span>
+        <div id="cronFilters" style="display:flex;gap:6px;">
+          <button class="cron-filter-btn active" data-agent="all" style="padding:4px 12px;border-radius:6px;border:1px solid #333;background:#232323;color:#ccc;cursor:pointer;font-size:12px;transition:all .2s;">All</button>
+          <button class="cron-filter-btn" data-agent="alfred" style="padding:4px 12px;border-radius:6px;border:1px solid #1a3a5c;background:transparent;color:#8bf;cursor:pointer;font-size:12px;transition:all .2s;">🤖 Alfred</button>
+          <button class="cron-filter-btn" data-agent="sentinel" style="padding:4px 12px;border-radius:6px;border:1px solid #3a1a5c;background:transparent;color:#c8f;cursor:pointer;font-size:12px;transition:all .2s;">🎯 Sentinel</button>
+          <button class="cron-filter-btn" data-agent="system" style="padding:4px 12px;border-radius:6px;border:1px solid #333;background:transparent;color:#888;cursor:pointer;font-size:12px;transition:all .2s;">⚙️ System</button>
+        </div>
       </div>
       <div class="table-container">
         <table class="table">
@@ -2433,6 +2439,39 @@
       `).join('');
     }
 
+    function renderCronTable(crons) {
+      document.getElementById('cronCount').textContent = `(${crons.length})`;
+      document.getElementById('cronsTable').innerHTML = crons.map(cron => {
+        const agentBadge = `<span class="agent-badge ${cron.agent || 'alfred'}">${cron.agent || 'alfred'}</span>`;
+        const statusDot = `<span class="status-dot ${cron.enabled !== false ? 'enabled' : 'disabled'}"></span>`;
+        const enabledText = cron.enabled !== false ? 'Enabled' : 'Disabled';
+        
+        let modelLabel = cron.model || 'system';
+        let modelBg, modelColor;
+        if (modelLabel === 'system' || modelLabel === '—') {
+          modelBg = '#1a1a1a'; modelColor = '#666';
+        } else if (modelLabel.includes('haiku')) {
+          modelBg = '#1a2a1a'; modelColor = '#6b8'; modelLabel = 'Haiku';
+        } else if (modelLabel.includes('sonnet')) {
+          modelBg = '#1a1a2a'; modelColor = '#8bf'; modelLabel = 'Sonnet 4.5';
+        } else {
+          modelBg = '#2a1a1a'; modelColor = '#f8a'; 
+        }
+        const modelBadge = `<span style="font-size:11px;padding:2px 8px;border-radius:4px;background:${modelBg};color:${modelColor}">${modelLabel}</span>`;
+        
+        return `
+          <tr>
+            <td><div class="title" style="font-size:13px;">${cron.name}</div></td>
+            <td style="color: #999; font-size: 12px; line-height: 1.4;">${cron.desc || ''}</td>
+            <td style="color: #888; font-family: 'SF Mono', monospace; font-size: 11px;">${cron.schedule}</td>
+            <td>${agentBadge}</td>
+            <td>${modelBadge}</td>
+            <td style="font-size: 12px;">${statusDot}${enabledText}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
     function renderCronStats() {
       if (!data.crons) return;
       
@@ -2756,26 +2795,28 @@
       // Crons
       if (data.crons) {
         document.getElementById('navCrons').textContent = data.crons.length;
-        document.getElementById('cronsTable').innerHTML = data.crons.map(cron => {
-          const statusIcon = cron.status === 'ok' ? '✅' : cron.status === 'pending' ? '⏳' : '❌';
-          const lastRun = cron.lastRun ? timeAgo(cron.lastRun) : '<span style="color: #555">Not yet</span>';
-          const agentBadge = `<span class="agent-badge ${cron.agent}">${cron.agent}</span>`;
-          const statusDot = `<span class="status-dot ${cron.enabled ? 'enabled' : 'disabled'}"></span>`;
-          const enabledText = cron.enabled ? 'Enabled' : 'Disabled';
-          
-          const modelBadge = cron.model ? `<span style="font-size:11px;padding:2px 6px;border-radius:4px;background:${cron.model.includes('haiku')?'#1a2a1a':'#1a1a2a'};color:${cron.model.includes('haiku')?'#6b8':'#8bf'}">${cron.model}</span>` : '<span style="color:#555">system</span>';
-          
-          return `
-            <tr>
-              <td><div class="title">${cron.name}</div></td>
-              <td style="color: #999; font-size: 12px;">${cron.desc || ''}</td>
-              <td style="color: #888; font-family: 'SF Mono', monospace; font-size: 12px;">${cron.schedule}</td>
-              <td>${agentBadge}</td>
-              <td>${modelBadge}</td>
-              <td style="font-size: 12px;">${statusDot}${enabledText}</td>
-            </tr>
-          `;
-        }).join('');
+        window._allCrons = data.crons;
+        renderCronTable(data.crons);
+        
+        // Wire up filter buttons
+        document.querySelectorAll('.cron-filter-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.cron-filter-btn').forEach(b => {
+              b.classList.remove('active');
+              b.style.background = 'transparent';
+            });
+            btn.classList.add('active');
+            btn.style.background = '#232323';
+            const agent = btn.dataset.agent;
+            if (agent === 'all') {
+              renderCronTable(window._allCrons);
+            } else if (agent === 'system') {
+              renderCronTable(window._allCrons.filter(c => c.model === 'system' || !c.model));
+            } else {
+              renderCronTable(window._allCrons.filter(c => c.agent === agent));
+            }
+          });
+        });
       }
 
       // Files
