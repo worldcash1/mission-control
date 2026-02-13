@@ -1,51 +1,60 @@
 {
   "currentTask": null,
   "namLocation": {
-    "city": "Hong Kong",
-    "timezone": "HKT (UTC+8)"
+    "city": "Dubai",
+    "timezone": "GST (UTC+4)"
   },
   "stats": {
-    "activeSkills": 11,
-    "availableSkills": 44,
-    "cronJobs": 16,
-    "apis": 13,
-    "dailyLogs": 6
+    "activeSkills": 10,
+    "availableSkills": 55,
+    "cronJobs": 44,
+    "apis": 14,
+    "clis": 16,
+    "dailyLogs": 19,
+    "agents": 2
   },
   "todos": [
     {
-      "id": "todo001",
-      "title": "Book Dubai tickets",
-      "description": "Daily reminder at 9am",
-      "status": "active",
-      "created": "2026-01-31T06:02:00"
-    },
-    {
       "id": "todo002",
       "title": "Book Jessica's hotel room",
-      "description": "April 6, 5 nights for Disneyland trip. Weekly reminder until April 6.",
+      "description": "April 6, 5 nights for Disneyland trip. Weekly Saturday reminder.",
       "status": "active",
       "created": "2026-01-31T06:18:00"
     },
     {
-      "id": "todo003",
-      "title": "Look into Hyatt vouchers",
-      "description": "$100 each - good for suite upgrades or $100 flat hotel nights",
+      "id": "todo006",
+      "title": "FTX Claim follow-up",
+      "description": "$3.6M+ claim. Daily monitoring for payout news.",
       "status": "active",
-      "created": "2026-01-31T06:22:00"
+      "created": "2026-02-05T00:00:00"
     },
     {
-      "id": "todo004",
-      "title": "Set up remote control to Apple iMac",
-      "description": "Find the best solution for remote access",
+      "id": "todo007",
+      "title": "Estimize trial decision",
+      "description": "~$99/mo trial ending ~Feb 23. Keep or cancel?",
       "status": "active",
-      "created": "2026-01-31T06:47:00"
+      "created": "2026-02-05T00:00:00"
     },
     {
-      "id": "todo005",
-      "title": "Buy IREN options",
-      "description": "Feb 6 catalyst - Amazon deal announcement, potential +20%. Reminder set for Feb 4.",
+      "id": "todo008",
+      "title": "CGK → LAX flight Feb 15",
+      "description": "Jakarta to LAX flight booked. Still needed or cancel?",
       "status": "active",
-      "created": "2026-01-31T07:31:00"
+      "created": "2026-02-11T00:00:00"
+    },
+    {
+      "id": "todo009",
+      "title": "DUOL earnings decision Feb 27",
+      "description": "$236K position. Earnings Feb 26 — sell or hold?",
+      "status": "active",
+      "created": "2026-02-04T00:00:00"
+    },
+    {
+      "id": "todo010",
+      "title": "Move trading crons to Sentinel",
+      "description": "Migrate remaining trading crons from Alfred to Sentinel agent",
+      "status": "active",
+      "created": "2026-02-08T00:00:00"
     }
   ],
   "items": [
@@ -57,24 +66,37 @@
       "status": "active",
       "progress": 95,
       "links": {
-        "live": "https://mission-control-zeta-livid.vercel.app",
+        "live": "https://mission-control-nams-projects-9474d015.vercel.app",
         "repo": "https://github.com/worldcash1/mission-control"
       },
       "created": "2026-01-29T04:00:00",
-      "updated": "2026-01-31T06:00:00"
+      "updated": "2026-02-12T00:00:00"
     },
     {
-      "id": "st001",
+      "id": "et001",
       "type": "project",
-      "title": "Strategy Tracker App",
-      "description": "Trading dashboard with P&L by strategy: Earnings, BX-Trender, Premium/Wheels, Ethan's Trades",
-      "status": "queue",
-      "progress": 30,
+      "title": "Earnings Tracker",
+      "description": "Full pipeline: pre-trade scans, auto-detect opens, auto-close, post-trade capture. Convex + Schwab API.",
+      "status": "active",
+      "progress": 85,
       "links": {
-        "repo": "https://github.com/worldcash1/trade-tracker-v2"
+        "repo": "~/projects/earnings-tracker"
       },
-      "created": "2026-01-27T00:00:00",
-      "updated": "2026-01-29T00:00:00"
+      "created": "2026-02-06T00:00:00",
+      "updated": "2026-02-12T00:00:00"
+    },
+    {
+      "id": "sa001",
+      "type": "project",
+      "title": "Social Arb (TikTok Trend Arbitrage)",
+      "description": "TikTok trends → Amazon/retail arb. Bright Data scraping, Google Trends, X demand signals.",
+      "status": "active",
+      "progress": 70,
+      "links": {
+        "repo": "~/projects/social-arb"
+      },
+      "created": "2026-02-08T00:00:00",
+      "updated": "2026-02-12T00:00:00"
     },
     {
       "id": "ms001",
@@ -91,6 +113,19 @@
       "updated": "2026-01-30T10:00:00"
     },
     {
+      "id": "st001",
+      "type": "project",
+      "title": "Strategy Tracker App",
+      "description": "Trading dashboard with P&L by strategy: Earnings, BX-Trender, Premium/Wheels",
+      "status": "queue",
+      "progress": 30,
+      "links": {
+        "repo": "https://github.com/worldcash1/trade-tracker-v2"
+      },
+      "created": "2026-01-27T00:00:00",
+      "updated": "2026-01-29T00:00:00"
+    },
+    {
       "id": "mf001",
       "type": "project",
       "title": "MandarinFlow / DailyLingo",
@@ -99,112 +134,117 @@
       "progress": 50,
       "created": "2026-01-27T00:00:00",
       "updated": "2026-01-27T00:00:00"
-    },
-    {
-      "id": "mcv14",
-      "type": "task",
-      "title": "Mission Control v1.4.0",
-      "description": "Fixed sidebar scroll - footer always visible, nav sections scroll",
-      "status": "done",
-      "created": "2026-01-31T05:31:00",
-      "completed": "2026-01-31T05:32:00"
-    },
-    {
-      "id": "mcv13",
-      "type": "task",
-      "title": "Mission Control v1.3.0",
-      "description": "Removed current task banner for cleaner UI",
-      "status": "done",
-      "created": "2026-01-31T05:11:00",
-      "completed": "2026-01-31T05:11:00"
-    },
-    {
-      "id": "mcv12",
-      "type": "task",
-      "title": "Mission Control v1.2.0",
-      "description": "Removed stat boxes, added Skills list/grid toggle",
-      "status": "done",
-      "created": "2026-01-31T05:04:00",
-      "completed": "2026-01-31T05:05:00"
-    },
-    {
-      "id": "dom01",
-      "type": "task",
-      "title": "Domain search for AgentSpace",
-      "description": "Searched domains for 'MySpace for agents' project. Found agenthive.dev, agentsocial.site available.",
-      "status": "done",
-      "created": "2026-01-31T04:45:00",
-      "completed": "2026-01-31T04:50:00"
-    },
-    {
-      "id": "tdch01",
-      "type": "task",
-      "title": "Created #to-do-list Discord channel",
-      "description": "Set up dedicated channel for task capture. Alfred auto-captures items dropped here.",
-      "status": "done",
-      "created": "2026-01-31T05:50:00",
-      "completed": "2026-01-31T05:55:00"
-    },
-    {
-      "id": "rem01",
-      "type": "task",
-      "title": "Set up reminder system",
-      "description": "Created #reminder-channel, configured cron jobs for Dubai tickets and Jessica hotel reminders",
-      "status": "done",
-      "created": "2026-01-31T06:00:00",
-      "completed": "2026-01-31T06:02:00"
     }
   ],
   "ideas": [
     {
       "id": "idea001",
       "title": "AgentSpace",
-      "description": "MySpace for AI agents - social profiles, capabilities, connections. Domains: agenthive.dev available.",
+      "description": "MySpace for AI agents - social profiles, capabilities, connections.",
       "created": "2026-01-31T04:45:00"
     },
     {
-      "id": "idea002",
-      "title": "Live Discord Sync",
-      "description": "Auto-sync Mission Control from #to-do-list channel + memory files instead of static JSON",
-      "created": "2026-01-31T06:33:00"
+      "id": "idea003",
+      "title": "Concierge Agent",
+      "description": "Dedicated agent for travel, bookings, restaurants. Future multi-agent expansion.",
+      "created": "2026-02-08T00:00:00"
+    },
+    {
+      "id": "idea004",
+      "title": "Builder Agent",
+      "description": "Dedicated coding/build agent for app development tasks.",
+      "created": "2026-02-08T00:00:00"
     }
   ],
   "activity": [
-    { "time": "2026-01-31T14:00:00", "text": "Manual data refresh for Mission Control" },
-    { "time": "2026-01-31T07:31:00", "text": "Added IREN options reminder for Feb 4" },
-    { "time": "2026-01-31T06:47:00", "text": "Added iMac remote control to-do" },
-    { "time": "2026-01-31T06:22:00", "text": "Added Hyatt vouchers to-do" },
-    { "time": "2026-01-31T06:18:00", "text": "Set up Jessica hotel weekly reminder" },
-    { "time": "2026-01-31T06:02:00", "text": "Set up Dubai tickets daily reminder" },
-    { "time": "2026-01-31T05:32:00", "text": "Mission Control v1.4.0 - sidebar scroll fix" }
+    { "time": "2026-02-12T19:30:00", "text": "Mission Control data refresh — updated all stats, crons, todos, projects" },
+    { "time": "2026-02-12T00:00:00", "text": "API health monitoring live — 4-hour checks with auto-recovery" },
+    { "time": "2026-02-11T00:00:00", "text": "Earnings auto-detect and auto-close pipeline running" },
+    { "time": "2026-02-10T00:00:00", "text": "Social Arb: Bright Data + Google Trends + X scanners deployed" },
+    { "time": "2026-02-09T00:00:00", "text": "Playtech v Evolution court date monitor added" },
+    { "time": "2026-02-08T00:00:00", "text": "Multi-agent architecture: Alfred + Sentinel live" },
+    { "time": "2026-02-07T00:00:00", "text": "Discord reorganized: 🤖 Agents category with #🏠-alfred, #🎯-sentinel" }
+  ],
+  "agents": [
+    {
+      "name": "Alfred",
+      "role": "Main — ops, health, orchestration",
+      "model": "Opus 4.6",
+      "channels": ["#🏠-alfred", "#briefings", "#oura-daily", "#daily-ideas"]
+    },
+    {
+      "name": "Sentinel",
+      "role": "Trading — market scans, earnings, sentiment",
+      "model": "Opus 4.6",
+      "channels": ["#🎯-sentinel", "#earnings-tracker", "#trading-journal", "#alerts"]
+    }
   ],
   "apis": [
     { "name": "OpenAI", "status": "active", "cost": "$20/mo cap" },
     { "name": "Anthropic", "status": "active", "cost": "Usage-based" },
+    { "name": "xAI/Grok", "status": "active", "cost": "Usage-based" },
     { "name": "Schwab", "status": "active", "cost": "Free" },
     { "name": "Alpha Vantage", "status": "active", "cost": "Free tier" },
     { "name": "Brave Search", "status": "active", "cost": "Free tier" },
-    { "name": "Twitter/X", "status": "active", "cost": "Free (read-only)" },
+    { "name": "Twitter/X API", "status": "active", "cost": "$200/mo (Pro)" },
     { "name": "Google OAuth", "status": "active", "cost": "Free" },
     { "name": "ElevenLabs", "status": "active", "cost": "Free tier" },
     { "name": "Oura", "status": "active", "cost": "Free" },
     { "name": "Discord", "status": "active", "cost": "Free" },
     { "name": "Telegram", "status": "active", "cost": "Free" },
     { "name": "Convex", "status": "active", "cost": "Free tier" },
-    { "name": "Vercel", "status": "active", "cost": "Free tier" }
+    { "name": "Vercel", "status": "active", "cost": "Free tier" },
+    { "name": "Bright Data", "status": "active", "cost": "~$24 balance" },
+    { "name": "Gemini", "status": "active", "cost": "Usage-based" }
   ],
   "crons": [
-    { "name": "Morning Brief", "schedule": "9am HKT", "enabled": true },
-    { "name": "Dubai Tickets Reminder", "schedule": "9am daily", "enabled": true },
-    { "name": "Jessica Hotel Reminder", "schedule": "Sat 12pm", "enabled": true },
-    { "name": "IREN Options Reminder", "schedule": "Feb 4 9am", "enabled": true },
-    { "name": "THT Pre-Market", "schedule": "6:30am M-F", "enabled": true },
-    { "name": "THT Mid-Day", "schedule": "12pm M-F", "enabled": true },
-    { "name": "THT Evening Recap", "schedule": "6pm M-F", "enabled": true },
-    { "name": "Schwab Token Refresh", "schedule": "Every 25 min", "enabled": true },
-    { "name": "Workspace Backup", "schedule": "Every hour", "enabled": true },
-    { "name": "Daily Summary", "schedule": "11pm HKT", "enabled": true },
-    { "name": "Transcript Archive", "schedule": "11pm HKT", "enabled": true },
-    { "name": "MMP Daily Scan", "schedule": "10am daily", "enabled": true }
+    { "name": "Schwab Token Refresh", "schedule": "Every 25 min", "agent": "alfred", "enabled": true },
+    { "name": "Workspace Backup", "schedule": "Every hour", "agent": "alfred", "enabled": true },
+    { "name": "Local Backup Sync", "schedule": "Every 30 min", "agent": "alfred", "enabled": true },
+    { "name": "API Health Check", "schedule": "Every 4 hours", "agent": "alfred", "enabled": true },
+    { "name": "Email Forward", "schedule": "9am/2pm/8pm", "agent": "alfred", "enabled": true },
+    { "name": "Daily Summary", "schedule": "7am", "agent": "alfred", "enabled": true },
+    { "name": "Transcript Archive", "schedule": "7:05am", "agent": "alfred", "enabled": true },
+    { "name": "Oura Daily Briefing", "schedule": "8am", "agent": "alfred", "enabled": true },
+    { "name": "Oura Weekly Summary", "schedule": "Sun 9am", "agent": "alfred", "enabled": true },
+    { "name": "Daily AI Trends", "schedule": "9am", "agent": "alfred", "enabled": true },
+    { "name": "Evening Daily Brief", "schedule": "5pm", "agent": "alfred", "enabled": true },
+    { "name": "Daily Ideas", "schedule": "6pm", "agent": "alfred", "enabled": true },
+    { "name": "Night Shift", "schedule": "11pm", "agent": "alfred", "enabled": true },
+    { "name": "Daily Reflection", "schedule": "11pm", "agent": "alfred", "enabled": true },
+    { "name": "Thread Archiver", "schedule": "10am/10pm", "agent": "alfred", "enabled": true },
+    { "name": "Weekly Memory Archive", "schedule": "Sun 3am", "agent": "alfred", "enabled": true },
+    { "name": "Weekly Learning (USER.md)", "schedule": "Sun 10pm", "agent": "alfred", "enabled": true },
+    { "name": "Monthly Learning (MEMORY.md)", "schedule": "1st 10pm", "agent": "alfred", "enabled": true },
+    { "name": "Channel Lifecycle", "schedule": "1st 10am", "agent": "alfred", "enabled": true },
+    { "name": "Subscription Review", "schedule": "5th 10am", "agent": "alfred", "enabled": true },
+    { "name": "Netflix Weekly", "schedule": "Mon 9am", "agent": "alfred", "enabled": true },
+    { "name": "Flight Cancel Check", "schedule": "Feb 12-15 10am", "agent": "alfred", "enabled": true },
+    { "name": "Sentinel Market Scan", "schedule": "7/9/11/1/3pm M-F", "agent": "sentinel", "enabled": true },
+    { "name": "Earnings Intel Daily", "schedule": "6am/4pm M-F", "agent": "sentinel", "enabled": true },
+    { "name": "Earnings Scanner Daily", "schedule": "11am M-F", "agent": "sentinel", "enabled": true },
+    { "name": "Morning Spread Rankings", "schedule": "10am ET M-F", "agent": "sentinel", "enabled": true },
+    { "name": "Pre-Trade Pipeline", "schedule": "3:15pm ET M-F", "agent": "sentinel", "enabled": true },
+    { "name": "Auto-Detect New Trades", "schedule": "5-8pm ET M-F", "agent": "sentinel", "enabled": true },
+    { "name": "Auto-Close Check", "schedule": "10:30/12:30/2:30 ET M-F", "agent": "sentinel", "enabled": true },
+    { "name": "Post-Trade Capture", "schedule": "2:45pm ET M-F", "agent": "sentinel", "enabled": true },
+    { "name": "EOD Recap", "schedule": "4pm M-F", "agent": "sentinel", "enabled": true },
+    { "name": "FTX Claim Daily", "schedule": "8pm", "agent": "sentinel", "enabled": true },
+    { "name": "Playtech Check", "schedule": "6am/2pm M-F", "agent": "sentinel", "enabled": true },
+    { "name": "BTC → HOOD Alert", "schedule": "7/10am/2pm M-F", "agent": "sentinel", "enabled": true },
+    { "name": "AMZN Buy Reminder", "schedule": "9am M-F", "agent": "sentinel", "enabled": true },
+    { "name": "Social Arb Daily Scan", "schedule": "6:30am ET M-F", "agent": "sentinel", "enabled": true },
+    { "name": "Social Arb X Scanner", "schedule": "6:30am ET M-F", "agent": "sentinel", "enabled": true },
+    { "name": "Social Arb Bright Data", "schedule": "6am ET Mon/Wed/Fri", "agent": "sentinel", "enabled": true },
+    { "name": "Social Arb Google Trends", "schedule": "6:15am ET M-F", "agent": "sentinel", "enabled": true },
+    { "name": "Squeeze Outcome Tracker", "schedule": "7am", "agent": "sentinel", "enabled": true },
+    { "name": "Playtech v Evolution Court", "schedule": "Mon/Wed/Fri 9am", "agent": "sentinel", "enabled": true },
+    { "name": "Hadron Energy SPAC Tracker", "schedule": "5pm M-F", "agent": "sentinel", "enabled": true },
+    { "name": "Weekly Sentiment Deep Dive", "schedule": "Sun 6pm", "agent": "sentinel", "enabled": true },
+    { "name": "Coiled Earnings Weekly", "schedule": "Sun 6pm", "agent": "sentinel", "enabled": true },
+    { "name": "Weekly Research Synthesis", "schedule": "Sun 6pm", "agent": "sentinel", "enabled": true },
+    { "name": "Schwab Re-Auth Reminder", "schedule": "Sat 9am", "agent": "sentinel", "enabled": true },
+    { "name": "DUOL Earnings Decision", "schedule": "Feb 27 9am (one-shot)", "agent": "sentinel", "enabled": true },
+    { "name": "Hikma Weekly", "schedule": "Sun 9am", "agent": "sentinel", "enabled": true }
   ]
 }
