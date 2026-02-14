@@ -1192,8 +1192,8 @@
       font-size: 11px;
     }
 
-    .task-check.high { border-color: #f87171; }
-    .task-check.medium { border-color: #fbbf24; }
+    .task-check.high { border-color: #f87171; background: #f8717110; }
+    .task-check.medium { border-color: #666; }
     .task-check.low { border-color: #4ade80; }
 
     .task-body {
@@ -1214,8 +1214,12 @@
 
     .task-desc {
       font-size: 12px;
-      color: #555;
+      color: #666;
       margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 600px;
     }
 
     .task-meta {
@@ -3310,6 +3314,7 @@
 
       // Nav counts
       document.getElementById('navAll').textContent = data.items.length;
+      document.getElementById('navProjects').textContent = data.items.filter(i => i.type === 'project').length;
       document.getElementById('navActive').textContent = active;
       document.getElementById('navQueue').textContent = queue;
       document.getElementById('navDone').textContent = done;
@@ -3617,11 +3622,14 @@
         document.getElementById('navDocs').textContent = data.docs.length;
       }
 
-      // Last updated
+      // Last updated — use most recent activity timestamp or current time
+      const lastTs = data.activity && data.activity.length > 0 
+        ? new Date(data.activity[0].time) 
+        : new Date();
       document.getElementById('lastUpdated').textContent = 
-        new Date(data.lastUpdated).toLocaleString('en-US', { 
-          month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' 
-        });
+        lastTs instanceof Date && !isNaN(lastTs) 
+          ? lastTs.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
+          : new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
     }
 
     // Navigation
@@ -4053,7 +4061,7 @@
       // Completed (show recent 5)
       if (completedTasks.length > 0) {
         const recentCompleted = completedTasks.slice(0, 5);
-        html += renderTaskGroup(`COMPLETED · ${completedTasks.length} total · showing recent`, recentCompleted, '#4ade80', 'check-circle', true);
+        html += renderTaskGroup(`COMPLETED`, recentCompleted, '#4ade80', 'check-circle', true);
       }
       
       container.innerHTML = html;
@@ -4123,8 +4131,10 @@
             let reminderHtml = '';
             if (task.reminder && !task.reminder.fired && !isDone) {
               const reminderDate = new Date(task.reminder.at);
-              const reminderStr = reminderDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
-              reminderHtml = `<span class="task-reminder-badge"><i data-lucide="bell" style="width: 12px; height: 12px;"></i>Reminder ${reminderStr}</span>`;
+              if (reminderDate instanceof Date && !isNaN(reminderDate)) {
+                const reminderStr = reminderDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+                reminderHtml = `<span class="task-reminder-badge"><i data-lucide="bell" style="width: 12px; height: 12px;"></i>${reminderStr}</span>`;
+              }
             }
             
             return `
@@ -4135,7 +4145,6 @@
                   ${task.description ? `<div class="task-desc">${task.description}</div>` : ''}
                   <div class="task-meta">
                     ${task.type === 'project' && project ? `<span class="task-tag tag-project">${project.title}</span>` : ''}
-                    ${task.type === 'personal' ? `<span class="task-tag tag-personal">personal</span>` : ''}
                     ${task.assignee ? `<span class="task-tag tag-assignee">${task.assignee}</span>` : ''}
                     ${task.category ? `<span class="task-tag tag-category">${task.category}</span>` : ''}
                     ${dueDateHtml}
