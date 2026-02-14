@@ -1,127 +1,34 @@
-# MEMORY.md - Long-Term Memory
+# MEMORY.md
 
-> Curated lessons, patterns, and context. Updated periodically from daily logs.
+## Context
+- **Human:** Nam (@namhbca)
+- **Location:** Dubai (traveling), home base OC California
 
----
+## Multi-Agent Architecture
+- **Alfred** (main): Opus 4.6, COO/orchestrator
+- **Sentinel** (trading): Opus 4.6, workspace ~/sentinel/, 7 Discord channels
+- **Future:** Concierge (travel), Builder (coding), Legal, Health
+- Discord category: 🤖 Agents — #🏠-alfred, #🎯-sentinel
 
-## 🧠 Who I Am
+## Shared Infrastructure
+- **brain/** — shared knowledge base (all agents read/write)
+  - brain/trading/ — Sentinel's domain (knowledge, playbooks, scans)
+  - brain/projects/ — project docs, research
+  - brain/health/ — Oura data, health notes
+  - brain/guides/ — patterns, workflows, SOPs
+  - brain/daily-logs/ — archived daily memory files
+  - brain/transcripts/ — conversation archives
+- **skills/** — shared skills (~/clawd/skills/)
+- **CLIs** — shared (~/bin/, 14 tools)
+- **Convex** — shared databases
+- **memory/** — Alfred's daily files (7 days, concise, ~20 lines each)
 
-**Name:** Alfred
-**Created:** 2026-01-26
-**Human:** Nam (@namhbca)
-**Home:** Mac mini (headless)
-**Purpose:** Personal AI assistant - research, automation, trading support
+## Health
+- Oura tracking, sleep optimization priority
+- ApoB 129 (target <80)
+- ALDH2 deficiency (no alcohol)
 
----
-
-## 👤 About Nam
-
-- Timezone: Travels (currently Hong Kong area based on restaurant requests)
-- Interests: Trading, technology, AI, food
-- Communication style: Direct, efficient, prefers action over discussion
-- Night owl: Often active late (2-3 AM)
-- Uses Obsidian for knowledge management
-- Has Oura Ring for health tracking
-
----
-
-## 📚 Key Lessons Learned
-
-### On Workspace Organization
-- **Everything in ~/clawd/** - One folder = portable
-- **Obsidian vault at brain/** - Visual access to all docs
-- **Daily logs in memory/** - Raw history
-- **MEMORY.md for curated** - Distilled wisdom
-- **PROJECTS.md for status** - One-glance overview
-
-### On Account Security
-- Keep credentials in brain/accounts.md (workspace-local)
-- Don't push secrets to public repos (GitHub blocks anyway)
-- worldcash1/alfred-brain has full backup with creds
-- alfred-assist-ai/alfred-brain is public-safe version
-
-### On Proactive Communication
-- Flag when blocked, finished, or need decision
-- Update PROJECTS.md after each session
-- Don't repeat old tasks from prior chats
-- Check HEARTBEAT.md for periodic tasks
-- **After long operations:** Always check for queued messages before continuing
-
-### On Tool Usage
-- Ask for username before creating accounts
-- Default email: Tustinlegacy1hq@gmail.com
-- Keep font preferences documented
-- Browser scraping works but API is better when available
-
----
-
-## 🎯 Nam's Preferences
-
-### Work Style
-- Likes organized systems
-- Wants daily summaries
-- Prefers visual dashboards (Obsidian)
-- Values portability and backup
-
-### Food (Hong Kong)
-- Interested in shabu shabu, Japanese, fine dining
-- Recommendations given: Panyin Shabu, LE-TA-SU, Zenpachi, Arbor, Duddell's
-
-### Health
-- Tracks with Oura Ring
-- Sleep issues noted (timing/regularity)
-- HRV and resting HR are solid
-
----
-
-## 🔑 Important Context
-
-### Trading (THT)
-- Has trading system called THT
-- Needs pre-market, mid-day, evening analysis
-- Cron jobs were set up for M-F schedule
-
-### Tech Stack
-- Clawdbot for AI orchestration
-- Obsidian for knowledge management
-- GitHub for version control/backup
-- Telegram for messaging
-- Mac mini as home server
-
-### Integrations Set Up
-- Oura Ring API ✅
-- GitHub (both accounts) ✅
-- Gmail ✅
-- Retell AI ✅
-
-### Integrations Pending
-- Twilio (blocked)
-- X API (not started, $100/mo)
-- Apple ID (deferred)
-
----
-
-## 📅 Timeline
-
-### 2026-01-26 (Day 1)
-- First conversation
-- Set up Gmail, GitHub, Retell
-- Explored ClawdHub skills
-- Connected Oura Ring
-- Organized workspace structure
-- Created cron jobs for trading/summaries
-- Discussed Apple ID (deferred)
-- Late night restaurant research for HK
-
-### 2026-01-27 (Day 2)
-- Memory wipe incident
-- Recovery from Telegram history
-- Rebuilding all files
-
----
-
-## 💭 Reflections
-
-This is our shared operating system. I update it, Nam reviews it. The goal is continuity across sessions - when I wake up fresh, these files tell me who I am and what we're working on.
-
-When something significant happens, it goes here. Daily noise stays in memory/YYYY-MM-DD.md.
+## Pending
+- FTX claim: $3.6M+
+- Mission Control web app — new HQ (replacing Obsidian plugins)
+- Future agents: Builder, Legal, Health, Concierge

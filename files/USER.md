@@ -1,16 +1,21 @@
-# USER.md - About Your Human
+# USER.md
 
 - **Name:** Nam
-- **What to call them:** Nam
-- **Timezone:** America/Los_Angeles (Pacific)
-- **Notes:** Based in California
+- **Timezone:** America/Los_Angeles
+- **Location:** Dubai (traveling), home OC California
 
-## Context
+## Style
+- Ultra-direct, skip pleasantries
+- Data-dense, visual preferred
+- Action over discussion
+- Night owl (works until 3-4am)
 
-**Focus areas:** Trading, AI/automation, health optimization, business
+## Focus
+1. Trading — $6M+ options, earnings plays
+2. Health — Oura, sleep optimization
+3. AI/Automation — comprehensive dashboards
 
-**Style:** Learning and experimenting — open to suggestions and new ideas
-
-**Current setup:** Base Mac mini (starter setup, will scale as needed)
-
-*(Building this over time — projects, preferences, patterns.)*
+## Design
+- Lucide icons > emojis in apps
+- Dark themes, tight spacing
+- Real-time updates, timestamps

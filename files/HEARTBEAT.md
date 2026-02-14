@@ -1,4 +1,8 @@
 # HEARTBEAT.md
 
-# Keep this file empty (or with only comments) to skip heartbeat API calls.
-# Add tasks below when you want the agent to check something periodically.
+## Quick Checks
+1. **#errors channel** (1467151310636843202) — any new app errors?
+2. **Lessons review** (Sundays) — scan `memory/lessons.md`
+3. **CLI health** (Sundays) — verify `~/bin/*` CLIs work
+
+If nothing needs attention: reply `HEARTBEAT_OK`
