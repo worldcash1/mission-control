@@ -49,6 +49,16 @@ export default defineSchema({
     createdAt: v.number(),
   }),
   
+  inbox: defineTable({
+    text: v.string(),
+    source: v.optional(v.string()), // "web" | "discord" | "slack" | "cli" | "voice"
+    triaged: v.optional(v.boolean()),
+    triagedTo: v.optional(v.string()), // "task" | "idea" | "note" | "dismissed"
+    triagedId: v.optional(v.string()), // ID of created task/idea
+    createdAt: v.number(),
+    triagedAt: v.optional(v.number()),
+  }),
+
   activity: defineTable({
     text: v.string(),
     timestamp: v.number(),

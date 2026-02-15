@@ -2398,6 +2398,10 @@
     <div class="sidebar-nav">
       <nav class="nav-section">
         <div class="nav-label">Overview</div>
+        <div class="nav-item" data-filter="inbox">
+          <i data-lucide="inbox"></i> Inbox
+          <span class="count" id="navInbox" style="background:#818cf830;color:#818cf8;border-radius:10px;padding:1px 7px;font-size:11px;">0</span>
+        </div>
         <div class="nav-item active" data-filter="all">
           <i data-lucide="layout-grid"></i> All Items
           <span class="count" id="navAll">0</span>
@@ -2755,6 +2759,35 @@
     </section>
 
     <!-- Tasks Full Section (standalone page) -->
+    <!-- INBOX SECTION -->
+    <section class="section" id="inboxSection" style="display: none;">
+      <div class="section-header">
+        <span class="section-title"><i data-lucide="inbox"></i> Inbox</span>
+        <span class="section-action" id="inboxTriageAllBtn" onclick="triageAllInbox()" style="cursor:pointer;">Alfred, sort these →</span>
+      </div>
+
+      <!-- Quick capture -->
+      <div style="margin-bottom: 20px;">
+        <div style="display:flex;gap:8px;">
+          <input type="text" id="inboxInput" placeholder="Brain dump anything... tasks, ideas, thoughts, reminders"
+            style="flex:1;background:#0a0a12;border:1px solid #1a1a2e;border-radius:10px;padding:12px 16px;font-size:14px;color:#e0e0e0;outline:none;font-family:inherit;"
+            onkeydown="if(event.key==='Enter')addToInbox()" />
+          <button onclick="addToInbox()"
+            style="background:#818cf8;color:#fff;border:none;border-radius:10px;padding:12px 20px;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;">
+            <i data-lucide="plus" style="width:14px;height:14px;"></i> Capture
+          </button>
+        </div>
+      </div>
+
+      <!-- Inbox items -->
+      <div id="inboxItems" style="display:flex;flex-direction:column;gap:4px;">
+        <div style="text-align:center;padding:48px;color:#444;">
+          <i data-lucide="inbox" style="width:32px;height:32px;margin-bottom:12px;"></i>
+          <div>Inbox empty — brain dump something!</div>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="tasksFullSection" style="display: none;">
       <div class="section-header">
         <span class="section-title"><i data-lucide="check-square"></i> Tasks</span>
@@ -3160,6 +3193,22 @@
           console.error('Failed to load:', e2);
         }
       }
+    }
+
+    function hideAllSections() {
+      const ids = ['toolsSection','cronsSection','filesSection','dailyLogsSection',
+        'skillsSection','docsSection','tasksFullSection','projectsHubSection',
+        'orgChartSection','notesSection','tasksSection','ideasSection',
+        'commandCenter','inboxSection'];
+      ids.forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+      const projectsSection = document.getElementById('projectsSection');
+      const activitySection = document.getElementById('activitySection');
+      const statsRow = document.querySelector('.stats-row');
+      const currentBanner = document.getElementById('currentBanner');
+      if (projectsSection) projectsSection.style.display = 'none';
+      if (activitySection) activitySection.style.display = 'none';
+      if (statsRow) statsRow.style.display = 'none';
+      if (currentBanner) currentBanner.style.display = 'none';
     }
 
     function formatTime(dateStr) {
@@ -3640,6 +3689,7 @@
         
         currentFilter = item.dataset.filter;
         const titles = {
+          inbox: 'Inbox',
           all: 'All Items',
           active: 'Active',
           queue: 'Queue',
@@ -3779,24 +3829,13 @@
           document.getElementById('ideasSection').style.display = 'none';
           document.getElementById('commandCenter').style.display = 'none';
           renderSkills();
+        } else if (currentFilter === 'inbox') {
+          hideAllSections();
+          document.getElementById('inboxSection').style.display = 'block';
+          loadInbox();
         } else if (currentFilter === 'tasks') {
-          toolsSection.style.display = 'none';
-          cronsSection.style.display = 'none';
-          document.getElementById('filesSection').style.display = 'none';
-          document.getElementById('dailyLogsSection').style.display = 'none';
-          document.getElementById('skillsSection').style.display = 'none';
-          document.getElementById('docsSection').style.display = 'none';
+          hideAllSections();
           document.getElementById('tasksFullSection').style.display = 'block';
-          document.getElementById('orgChartSection').style.display = 'none';
-          document.getElementById('notesSection').style.display = 'none';
-          projectsSection.style.display = 'none';
-          document.getElementById('tasksSection').style.display = 'none';
-          activitySection.style.display = 'none';
-          if (statsRow) statsRow.style.display = 'none';
-          if (currentBanner) currentBanner.style.display = 'none';
-          document.getElementById('ideasSection').style.display = 'none';
-          document.getElementById('commandCenter').style.display = 'none';
-          document.getElementById('projectsHubSection').style.display = 'none';
           renderTasks();
         } else if (currentFilter === 'docs') {
           toolsSection.style.display = 'none';
@@ -4467,6 +4506,111 @@
     setInterval(loadTasks, 30000);
     loadData();
     loadTasks();
+
+    // ─── INBOX ──────────────────────────────────────────────
+    let inboxData = [];
+
+    async function loadInbox() {
+      try {
+        inboxData = await convexClient.query("inbox:list", {});
+        document.getElementById('navInbox').textContent = inboxData.length;
+        renderInbox();
+      } catch (e) {
+        console.error('Failed to load inbox:', e);
+      }
+    }
+
+    function renderInbox() {
+      const container = document.getElementById('inboxItems');
+      if (inboxData.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center;padding:48px;color:#444;">
+            <i data-lucide="inbox" style="width:32px;height:32px;margin-bottom:12px;"></i>
+            <div style="font-size:14px;">Inbox empty — brain dump something!</div>
+            <div style="font-size:12px;margin-top:6px;color:#333;">Type above or send from Discord/Slack/voice</div>
+          </div>`;
+        lucide.createIcons();
+        return;
+      }
+      
+      container.innerHTML = inboxData.map((item, i) => {
+        const ago = formatTimeAgo(item.createdAt);
+        const sourceIcon = {web:'globe',discord:'message-circle',slack:'hash',cli:'terminal',voice:'mic',api:'zap'}[item.source] || 'inbox';
+        return `
+          <div class="inbox-item" data-id="${item._id}" style="
+            display:flex;align-items:flex-start;gap:12px;padding:14px 16px;
+            background:#13131f;border:1px solid #1a1a2e;border-radius:10px;
+            transition:all 0.15s;">
+            <i data-lucide="${sourceIcon}" style="width:16px;height:16px;color:#555;margin-top:2px;flex-shrink:0;"></i>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:14px;color:#e0e0e0;line-height:1.5;">${item.text}</div>
+              <div style="font-size:11px;color:#444;margin-top:4px;">${ago} · via ${item.source || 'web'}</div>
+            </div>
+            <div style="display:flex;gap:4px;flex-shrink:0;">
+              <button onclick="triageInbox('${item._id}','${item.text.replace(/'/g,"\\'")}','task')" title="→ Task"
+                style="background:#10b98115;color:#10b981;border:none;border-radius:6px;padding:6px 10px;font-size:11px;cursor:pointer;font-weight:500;">
+                Task
+              </button>
+              <button onclick="triageInbox('${item._id}','${item.text.replace(/'/g,"\\'")}','idea')" title="→ Idea"
+                style="background:#818cf815;color:#818cf8;border:none;border-radius:6px;padding:6px 10px;font-size:11px;cursor:pointer;font-weight:500;">
+                Idea
+              </button>
+              <button onclick="triageInbox('${item._id}','${item.text.replace(/'/g,"\\'")}','dismissed')" title="Dismiss"
+                style="background:#ffffff08;color:#555;border:none;border-radius:6px;padding:6px 10px;font-size:11px;cursor:pointer;">
+                ✕
+              </button>
+            </div>
+          </div>`;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function formatTimeAgo(ts) {
+      const diff = Date.now() - ts;
+      const mins = Math.floor(diff / 60000);
+      if (mins < 1) return 'just now';
+      if (mins < 60) return mins + 'm ago';
+      const hrs = Math.floor(mins / 60);
+      if (hrs < 24) return hrs + 'h ago';
+      const days = Math.floor(hrs / 24);
+      return days + 'd ago';
+    }
+
+    async function addToInbox() {
+      const input = document.getElementById('inboxInput');
+      const text = input.value.trim();
+      if (!text) return;
+      
+      await convexClient.mutation("inbox:add", { text, source: "web" });
+      input.value = '';
+      await loadInbox();
+    }
+
+    async function triageInbox(id, text, to) {
+      if (to === 'task') {
+        // Create a task from this inbox item
+        await convexClient.mutation("tasks:add", {
+          title: text,
+          priority: "medium",
+          type: "personal",
+        });
+      } else if (to === 'idea') {
+        await convexClient.mutation("ideas:add", {
+          title: text,
+        });
+      }
+      // Mark as triaged
+      await convexClient.mutation("inbox:triage", { id, to });
+      await loadInbox();
+    }
+
+    async function triageAllInbox() {
+      // For now, just reload — Alfred handles triage externally
+      alert('Alfred will sort your inbox items. Check back soon!');
+    }
+
+    // Load inbox count on startup
+    loadInbox();
 
     // Edit Modal Functions
     let currentEditId = null;

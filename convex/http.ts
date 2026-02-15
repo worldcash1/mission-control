@@ -100,6 +100,58 @@ http.route({
   }),
 });
 
+// ─── INBOX API ───────────────────────────────────────────────
+// POST /api/inbox — Quick capture (brain dump)
+http.route({
+  path: "/api/inbox",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    try {
+      const body = await request.json();
+      if (!body.text) {
+        return new Response(
+          JSON.stringify({ error: "text is required" }),
+          { status: 400, headers: corsHeaders("application/json") }
+        );
+      }
+      const id = await ctx.runMutation(api.inbox.add, {
+        text: body.text,
+        source: body.source || "api",
+      });
+      return new Response(
+        JSON.stringify({ success: true, id }),
+        { status: 201, headers: corsHeaders("application/json") }
+      );
+    } catch (error) {
+      return new Response(
+        JSON.stringify({ error: "Failed to add to inbox" }),
+        { status: 500, headers: corsHeaders("application/json") }
+      );
+    }
+  }),
+});
+
+// GET /api/inbox — List untriaged items
+http.route({
+  path: "/api/inbox",
+  method: "GET",
+  handler: httpAction(async (ctx) => {
+    const items = await ctx.runQuery(api.inbox.list, {});
+    return new Response(
+      JSON.stringify(items),
+      { status: 200, headers: corsHeaders("application/json") }
+    );
+  }),
+});
+
+http.route({
+  path: "/api/inbox",
+  method: "OPTIONS",
+  handler: httpAction(async () => {
+    return new Response(null, { status: 204, headers: corsHeaders() });
+  }),
+});
+
 // ─── LEGACY: Todos endpoint (backwards compat) ──────────────
 http.route({
   path: "/api/todos",

@@ -10,6 +10,9 @@ export const getData = query({
     const activity = await ctx.db.query("activity").order("desc").take(20);
     const tools = await ctx.db.query("tools").order("asc").collect();
 
+    const inboxItems = await ctx.db.query("inbox").order("desc").collect();
+    const untriagedInbox = inboxItems.filter(i => !i.triaged);
+
     const activeTasks = tasks.filter((t) => t.status !== "done");
     const completedTasks = tasks.filter((t) => t.status === "done");
     const activeProjects = projects.filter((p) => p.status === "active" || p.status === "building");
@@ -41,6 +44,10 @@ export const getData = query({
     const dueThisWeek = activeTasks.filter(t => t.dueDate && t.dueDate >= today && t.dueDate <= weekEndStr).length;
 
     return {
+      inbox: {
+        items: untriagedInbox,
+        count: untriagedInbox.length,
+      },
       tasks: {
         active: activeTasks,
         completed: completedTasks,
