@@ -9,7 +9,7 @@ export const list = query({
   handler: async (ctx, args) => {
     let projects = await ctx.db.query("projects").order("desc").collect();
     if (args.tag) {
-      projects = projects.filter(p => p.tags && p.tags.includes(args.tag));
+      projects = projects.filter(p => p.tags && p.tags.includes(args.tag!));
     }
     if (args.status) {
       projects = projects.filter(p => p.status === args.status);
