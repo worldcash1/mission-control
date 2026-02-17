@@ -255,85 +255,107 @@ export default function Tasks() {
         </div>
       </div>
 
-      {/* Kanban Columns */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {statusColumns.map((column) => {
+      {/* Compact Task List */}
+      <div className="space-y-6">
+        {statusColumns.filter(col => col.id !== "done").map((column) => {
           const columnTasks = filteredTasks.filter(task => task.status === column.id);
+          if (columnTasks.length === 0) return null;
           
           return (
-            <div key={column.id} className={`bg-card border-t-2 ${column.color} border-l border-r border-b border-border rounded-lg`}>
-              <div className="p-4 border-b border-border">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-semibold">{column.title}</h3>
-                  <span className="text-sm text-gray-400 bg-gray-700 px-2 py-1 rounded">
-                    {columnTasks.length}
-                  </span>
-                </div>
+            <div key={column.id}>
+              <div className="flex items-center gap-2 mb-2 px-1">
+                <div className={`w-2 h-2 rounded-full ${column.color.replace('border-', 'bg-')}`} />
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                  {column.title}
+                </h3>
+                <span className="text-xs text-gray-500">{columnTasks.length}</span>
               </div>
               
-              <div className="p-4 space-y-3 min-h-[400px]">
+              <div className="bg-card border border-border rounded-lg divide-y divide-border">
                 {columnTasks.map((task) => (
                   <div
                     key={task._id}
-                    className="bg-background border border-border rounded-md p-3 hover:border-gray-500 cursor-pointer transition-colors"
+                    className="flex items-center gap-3 px-3 py-2 hover:bg-white/[0.02] group transition-colors"
                   >
-                    <div className="flex justify-between items-start mb-2">
-                      <h4 className="font-medium text-sm">{task.title}</h4>
-                      <div className="flex gap-1">
-                        {task.priority && (
-                          <Flag size={12} className={priorityColors[task.priority as keyof typeof priorityColors]} />
-                        )}
-                      </div>
+                    {/* Priority dot */}
+                    <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                      task.priority === 'high' ? 'bg-red-400' : 
+                      task.priority === 'low' ? 'bg-gray-500' : 'bg-yellow-400/60'
+                    }`} />
+                    
+                    {/* Checkbox */}
+                    <button
+                      onClick={() => handleStatusChange(task._id, "done")}
+                      className="w-4 h-4 rounded border border-gray-600 hover:border-green-400 shrink-0 flex items-center justify-center transition-colors"
+                    >
+                      <span className="hidden group-hover:block text-green-400 text-[10px]">✓</span>
+                    </button>
+                    
+                    {/* Title + description inline */}
+                    <div className="flex-1 min-w-0 flex items-baseline gap-2">
+                      <span className="text-sm font-medium truncate">{task.title}</span>
+                      {task.description && (
+                        <span className="text-xs text-gray-500 truncate hidden md:inline">{task.description}</span>
+                      )}
                     </div>
                     
-                    {task.description && (
-                      <p className="text-xs text-gray-400 mb-3">{task.description}</p>
-                    )}
-                    
-                    <div className="flex justify-between items-center">
-                      <div className="flex gap-2 text-xs">
-                        {task.assignee && (
-                          <div className="flex items-center gap-1">
-                            <User size={10} />
-                            <span className={assigneeColors[task.assignee as keyof typeof assigneeColors]}>
-                              {task.assignee}
-                            </span>
-                          </div>
-                        )}
-                        {task.category && (
-                          <div className="flex items-center gap-1">
-                            <Tag size={10} />
-                            <span className="text-gray-400">{task.category}</span>
-                          </div>
-                        )}
-                      </div>
-                      
-                      <span className="text-xs text-gray-500">
-                        {new Date(task.createdAt).toLocaleDateString()}
-                      </span>
+                    {/* Tags row - compact pills */}
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      {task.category && (
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-700/50 text-gray-400">
+                          {task.category}
+                        </span>
+                      )}
+                      {task.assignee && (
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded bg-gray-700/50 ${
+                          assigneeColors[task.assignee as keyof typeof assigneeColors] ?? 'text-gray-400'
+                        }`}>
+                          {task.assignee}
+                        </span>
+                      )}
+                      {task.dueDate && (
+                        <span className="text-[10px] text-gray-500">{task.dueDate}</span>
+                      )}
                     </div>
-                    
-                    {/* Status Change Buttons */}
-                    <div className="mt-3 flex gap-1 flex-wrap">
-                      {statusColumns
-                        .filter(col => col.id !== task.status)
-                        .map(col => (
-                          <button
-                            key={col.id}
-                            onClick={() => handleStatusChange(task._id, col.id)}
-                            className="text-xs px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded text-gray-300"
-                          >
-                            → {col.title}
-                          </button>
-                        ))
-                      }
-                    </div>
+
+                    {/* Status quick-move */}
+                    <select
+                      value={task.status}
+                      onChange={(e) => handleStatusChange(task._id, e.target.value)}
+                      className="text-[10px] bg-transparent border border-transparent hover:border-gray-600 rounded px-1 py-0.5 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                    >
+                      {statusColumns.map(col => (
+                        <option key={col.id} value={col.id}>{col.title}</option>
+                      ))}
+                    </select>
                   </div>
                 ))}
               </div>
             </div>
           );
         })}
+        
+        {/* Completed section - collapsed */}
+        {filteredTasks.filter(t => t.status === "done").length > 0 && (
+          <details className="group">
+            <summary className="flex items-center gap-2 px-1 mb-2 cursor-pointer text-xs font-semibold uppercase tracking-wider text-gray-500 hover:text-gray-400">
+              <div className="w-2 h-2 rounded-full bg-green-500" />
+              Done
+              <span>{filteredTasks.filter(t => t.status === "done").length}</span>
+            </summary>
+            <div className="bg-card border border-border rounded-lg divide-y divide-border opacity-60">
+              {filteredTasks.filter(t => t.status === "done").map((task) => (
+                <div key={task._id} className="flex items-center gap-3 px-3 py-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0" />
+                  <span className="text-sm text-gray-500 line-through truncate">{task.title}</span>
+                  <span className="text-[10px] text-gray-600 ml-auto">
+                    {task.completedAt ? new Date(task.completedAt).toLocaleDateString() : ''}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </details>
+        )}
       </div>
     </div>
   );
