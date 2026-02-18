@@ -7,7 +7,8 @@ import {
   FolderOpen, 
   Lightbulb, 
   TrendingUp, 
-  Heart 
+  Heart,
+  Coins
 } from "lucide-react";
 
 const navigation = [
@@ -17,6 +18,7 @@ const navigation = [
   { name: "Ideas", href: "/ideas", icon: Lightbulb },
   { name: "Trading", href: "/trading", icon: TrendingUp },
   { name: "Health", href: "/health", icon: Heart },
+  { name: "Tokens", href: "/tokens", icon: Coins },
 ];
 
 export function Sidebar() {

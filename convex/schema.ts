@@ -77,4 +77,27 @@ export default defineSchema({
     notes: v.optional(v.string()),
     addedAt: v.number(),
   }),
+
+  tokenUsage: defineTable({
+    provider: v.string(),    // "openrouter" | "anthropic" | "openai" | "xai" | "google"
+    model: v.optional(v.string()),  // specific model name
+    date: v.string(),        // YYYY-MM-DD
+    inputTokens: v.optional(v.number()),
+    outputTokens: v.optional(v.number()),
+    cost: v.number(),        // USD
+    agent: v.optional(v.string()), // "alfred" | "sentinel" | "system"
+    sessions: v.optional(v.number()),
+    fetchedAt: v.number(),
+  })
+    .index("by_date", ["date"])
+    .index("by_provider", ["provider"]),
+
+  tokenBudget: defineTable({
+    monthlyBudget: v.number(),  // 300
+    alerts: v.optional(v.array(v.object({
+      threshold: v.number(), // percentage like 50, 80, 90
+      notified: v.optional(v.boolean()),
+    }))),
+    updatedAt: v.number(),
+  }),
 });
