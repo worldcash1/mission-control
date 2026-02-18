@@ -100,4 +100,17 @@ export default defineSchema({
     }))),
     updatedAt: v.number(),
   }),
+
+  notes: defineTable({
+    text: v.string(),
+    category: v.optional(v.string()), // "general" | "trading" | "health" | "ideas" | "research" | "personal" | "work"
+    tags: v.optional(v.array(v.string())),
+    pinned: v.optional(v.boolean()),
+    archived: v.optional(v.boolean()),
+    source: v.optional(v.string()), // "web" | "discord" | "alfred" | "manual"
+    createdAt: v.number(),
+    updatedAt: v.optional(v.number()),
+  })
+    .index("by_category", ["category"])
+    .index("by_created", ["createdAt"]),
 });

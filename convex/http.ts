@@ -100,6 +100,63 @@ http.route({
   }),
 });
 
+// ─── NOTES API (Second Brain) ─────────────────────────────────
+// POST /api/notes — Create a note
+// Body: { text, category?, tags?, source? }
+http.route({
+  path: "/api/notes",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    try {
+      const body = await request.json();
+      if (!body.text) {
+        return new Response(
+          JSON.stringify({ error: "text is required" }),
+          { status: 400, headers: corsHeaders("application/json") }
+        );
+      }
+
+      const id = await ctx.runMutation(api.notes.add, {
+        text: body.text,
+        category: body.category,
+        tags: body.tags,
+        source: body.source || "alfred",
+      });
+
+      return new Response(
+        JSON.stringify({ success: true, id }),
+        { status: 201, headers: corsHeaders("application/json") }
+      );
+    } catch (error) {
+      return new Response(
+        JSON.stringify({ error: "Failed to create note" }),
+        { status: 500, headers: corsHeaders("application/json") }
+      );
+    }
+  }),
+});
+
+// GET /api/notes — List notes
+http.route({
+  path: "/api/notes",
+  method: "GET",
+  handler: httpAction(async (ctx) => {
+    const notes = await ctx.runQuery(api.notes.list, {});
+    return new Response(
+      JSON.stringify(notes),
+      { status: 200, headers: corsHeaders("application/json") }
+    );
+  }),
+});
+
+http.route({
+  path: "/api/notes",
+  method: "OPTIONS",
+  handler: httpAction(async () => {
+    return new Response(null, { status: 204, headers: corsHeaders() });
+  }),
+});
+
 // ─── INBOX API ───────────────────────────────────────────────
 // POST /api/inbox — Quick capture (brain dump)
 http.route({

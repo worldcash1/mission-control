@@ -8,13 +8,15 @@ import {
   Lightbulb, 
   TrendingUp, 
   Heart,
-  Coins
+  Coins,
+  Brain
 } from "lucide-react";
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
   { name: "Tasks", href: "/tasks", icon: CheckSquare },
   { name: "Projects", href: "/projects", icon: FolderOpen },
+  { name: "Brain", href: "/brain", icon: Brain },
   { name: "Ideas", href: "/ideas", icon: Lightbulb },
   { name: "Trading", href: "/trading", icon: TrendingUp },
   { name: "Health", href: "/health", icon: Heart },
