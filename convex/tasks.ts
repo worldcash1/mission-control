@@ -120,6 +120,7 @@ export const update = mutation({
     assignee: v.optional(v.string()),
     category: v.optional(v.string()),
     dueDate: v.optional(v.string()),
+    completedAt: v.optional(v.number()),
     reminder: v.optional(v.object({
       at: v.string(),
       repeat: v.optional(v.string()),

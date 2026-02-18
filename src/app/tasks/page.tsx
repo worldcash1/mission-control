@@ -27,6 +27,7 @@ const assigneeColors = {
 export default function Tasks() {
   const tasks = useQuery(api.tasks.list, {});
   const updateTask = useMutation(api.tasks.update);
+  const completeTask = useMutation(api.tasks.complete);
   const createTask = useMutation(api.tasks.add);
   
   const [chatInput, setChatInput] = useState("");
@@ -285,7 +286,7 @@ export default function Tasks() {
                     
                     {/* Checkbox */}
                     <button
-                      onClick={() => handleStatusChange(task._id, "done")}
+                      onClick={() => completeTask({ id: task._id })}
                       className="w-4 h-4 rounded border border-gray-600 hover:border-green-400 shrink-0 flex items-center justify-center transition-colors"
                     >
                       <span className="hidden group-hover:block text-green-400 text-[10px]">✓</span>
