@@ -59,7 +59,7 @@ export function Sidebar() {
       </nav>
 
       <div className="pt-4 border-t border-border">
-        <span className="text-[10px] text-gray-600">v4.1.3</span>
+        <span className="text-[10px] text-gray-600">v4.1.4</span>
       </div>
     </div>
   );

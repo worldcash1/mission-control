@@ -1,8 +1,8 @@
 "use client";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { useState, useRef } from "react";
-import { Plus, Filter, User, Flag, Tag, Send, Sparkles, Undo2 } from "lucide-react";
+import { useState, useRef, useCallback } from "react";
+import { Plus, Filter, User, Flag, Tag, Send, Sparkles, Undo2, Check } from "lucide-react";
 import { Id } from "../../../convex/_generated/dataModel";
 
 const statusColumns = [
@@ -26,9 +26,9 @@ const assigneeColors = {
 
 export default function Tasks() {
   const tasks = useQuery(api.tasks.list, {});
-  const updateTask = useMutation(api.tasks.update);
-  const completeTask = useMutation(api.tasks.complete);
-  const reopenTask = useMutation(api.tasks.reopen);
+  const _updateTask = useMutation(api.tasks.update);
+  const _completeTask = useMutation(api.tasks.complete);
+  const _reopenTask = useMutation(api.tasks.reopen);
   const createTask = useMutation(api.tasks.add);
   
   const [chatInput, setChatInput] = useState("");
@@ -36,7 +36,30 @@ export default function Tasks() {
   const [filterAssignee, setFilterAssignee] = useState<string>("");
   const [filterPriority, setFilterPriority] = useState<string>("");
   const [filterCategory, setFilterCategory] = useState<string>("");
+  const [toast, setToast] = useState<string | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  // Show save confirmation toast
+  const showToast = useCallback((msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 1500);
+  }, []);
+
+  // Wrapped mutations with toast feedback
+  const updateTask = useCallback(async (args: Parameters<typeof _updateTask>[0]) => {
+    await _updateTask(args);
+    showToast("Saved");
+  }, [_updateTask, showToast]);
+
+  const completeTask = useCallback(async (args: Parameters<typeof _completeTask>[0]) => {
+    await _completeTask(args);
+    showToast("Done ✓");
+  }, [_completeTask, showToast]);
+
+  const reopenTask = useCallback(async (args: Parameters<typeof _reopenTask>[0]) => {
+    await _reopenTask(args);
+    showToast("Reopened");
+  }, [_reopenTask, showToast]);
 
   // Smart parser: extracts structured data from natural language
   function parseTaskInput(text: string) {
@@ -350,12 +373,16 @@ export default function Tasks() {
                   {/* Priority dot — match Active layout */}
                   <div className={`w-1.5 h-1.5 rounded-full shrink-0 bg-gray-600`} />
                   
-                  {/* Filled checkbox — visual only */}
-                  <div className="w-4 h-4 rounded bg-blue-500 shrink-0 flex items-center justify-center">
+                  {/* Filled checkbox — click to uncheck/reopen */}
+                  <button
+                    onClick={() => reopenTask({ id: task._id })}
+                    className="w-4 h-4 rounded bg-blue-500 hover:bg-blue-400 shrink-0 flex items-center justify-center transition-colors cursor-pointer"
+                    title="Uncheck — move back to Active"
+                  >
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="text-white">
                       <path d="M2 5L4 7L8 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                  </div>
+                  </button>
                   
                   <span className="text-sm text-gray-500 line-through truncate flex-1">{task.title}</span>
                   <span className="text-[10px] text-gray-600 shrink-0">
@@ -376,6 +403,14 @@ export default function Tasks() {
           </details>
         )}
       </div>
+
+      {/* Save toast */}
+      {toast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2 bg-green-900/80 border border-green-700 rounded-lg text-sm text-green-300 shadow-2xl backdrop-blur-sm transition-all duration-300">
+          <Check size={14} />
+          {toast}
+        </div>
+      )}
     </div>
   );
 }
