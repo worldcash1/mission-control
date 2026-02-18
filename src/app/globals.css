@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* v4.1.0 */
+
 :root {
   --background: #111111;
   --foreground: #ffffff;
