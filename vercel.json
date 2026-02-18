@@ -1,5 +1,3 @@
 {
-  "framework": "nextjs",
-  "buildCommand": "rm -rf node_modules/.cache .next && npm install && next build",
-  "outputDirectory": ".next"
+  "framework": "nextjs"
 }
