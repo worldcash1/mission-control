@@ -28,6 +28,7 @@ export default function Tasks() {
   const tasks = useQuery(api.tasks.list, {});
   const updateTask = useMutation(api.tasks.update);
   const completeTask = useMutation(api.tasks.complete);
+  const reopenTask = useMutation(api.tasks.reopen);
   const createTask = useMutation(api.tasks.add);
   
   const [chatInput, setChatInput] = useState("");
@@ -344,12 +345,20 @@ export default function Tasks() {
               Done
               <span>{filteredTasks.filter(t => t.status === "done").length}</span>
             </summary>
-            <div className="bg-card border border-border rounded-lg divide-y divide-border opacity-60">
+            <div className="bg-card border border-border rounded-lg divide-y divide-border opacity-60 hover:opacity-80 transition-opacity">
               {filteredTasks.filter(t => t.status === "done").map((task) => (
-                <div key={task._id} className="flex items-center gap-3 px-3 py-1.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0" />
-                  <span className="text-sm text-gray-500 line-through truncate">{task.title}</span>
-                  <span className="text-[10px] text-gray-600 ml-auto">
+                <div key={task._id} className="flex items-center gap-3 px-3 py-1.5 group/done">
+                  {/* Green check — click to reopen */}
+                  <button
+                    onClick={() => reopenTask({ id: task._id })}
+                    className="w-4 h-4 rounded border border-green-600 bg-green-600/20 shrink-0 flex items-center justify-center hover:border-yellow-400 hover:bg-yellow-400/20 transition-colors"
+                    title="Reopen task"
+                  >
+                    <span className="text-green-400 text-[10px] group-hover/done:hidden">✓</span>
+                    <span className="text-yellow-400 text-[10px] hidden group-hover/done:block">↩</span>
+                  </button>
+                  <span className="text-sm text-gray-500 line-through truncate flex-1">{task.title}</span>
+                  <span className="text-[10px] text-gray-600 shrink-0">
                     {task.completedAt ? new Date(task.completedAt).toLocaleDateString() : ''}
                   </span>
                 </div>
