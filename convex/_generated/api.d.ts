@@ -14,6 +14,7 @@ import type * as ideas from "../ideas.js";
 import type * as inbox from "../inbox.js";
 import type * as notes from "../notes.js";
 import type * as projects from "../projects.js";
+import type * as search from "../search.js";
 import type * as seedBudget from "../seedBudget.js";
 import type * as tasks from "../tasks.js";
 import type * as tokens from "../tokens.js";
@@ -32,6 +33,7 @@ declare const fullApi: ApiFromModules<{
   inbox: typeof inbox;
   notes: typeof notes;
   projects: typeof projects;
+  search: typeof search;
   seedBudget: typeof seedBudget;
   tasks: typeof tasks;
   tokens: typeof tokens;

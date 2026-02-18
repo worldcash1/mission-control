@@ -11,6 +11,7 @@ import {
   Coins,
   Brain
 } from "lucide-react";
+import { SearchTrigger } from "./GlobalSearch";
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
@@ -27,11 +28,16 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="w-64 bg-sidebar border-r border-border p-4">
-      <div className="mb-8">
+    <div className="w-64 bg-sidebar border-r border-border p-4 flex flex-col">
+      <div className="mb-4">
         <h1 className="text-xl font-bold">Mission Control</h1>
       </div>
-      <nav className="space-y-2">
+      
+      <div className="mb-4">
+        <SearchTrigger />
+      </div>
+
+      <nav className="space-y-1 flex-1">
         {navigation.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;

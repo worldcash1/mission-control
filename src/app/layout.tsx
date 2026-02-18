@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ConvexProvider } from "@/components/ConvexProvider";
 import { Sidebar } from "@/components/Sidebar";
+import { GlobalSearch } from "@/components/GlobalSearch";
 
 export const metadata: Metadata = {
   title: "Mission Control",
@@ -22,6 +23,7 @@ export default function RootLayout({
             <main className="flex-1 overflow-auto">
               {children}
             </main>
+            <GlobalSearch />
           </div>
         </ConvexProvider>
       </body>
