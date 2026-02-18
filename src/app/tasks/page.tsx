@@ -2,7 +2,7 @@
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useState, useRef } from "react";
-import { Plus, Filter, User, Flag, Tag, Send, Sparkles } from "lucide-react";
+import { Plus, Filter, User, Flag, Tag, Send, Sparkles, Undo2 } from "lucide-react";
 import { Id } from "../../../convex/_generated/dataModel";
 
 const statusColumns = [
@@ -346,21 +346,30 @@ export default function Tasks() {
             </summary>
             <div className="bg-card border border-border rounded-lg divide-y divide-border">
               {filteredTasks.filter(t => t.status === "done").map((task) => (
-                <div key={task._id} className="flex items-center gap-3 px-3 py-2 hover:bg-white/[0.02] transition-colors">
-                  {/* Filled checkbox — click to reopen */}
-                  <button
-                    onClick={() => reopenTask({ id: task._id })}
-                    className="w-4 h-4 rounded bg-blue-500 shrink-0 flex items-center justify-center hover:bg-yellow-500 transition-colors"
-                    title="Reopen task"
-                  >
+                <div key={task._id} className="flex items-center gap-3 px-3 py-2 hover:bg-white/[0.02] group transition-colors">
+                  {/* Priority dot — match Active layout */}
+                  <div className={`w-1.5 h-1.5 rounded-full shrink-0 bg-gray-600`} />
+                  
+                  {/* Filled checkbox — visual only */}
+                  <div className="w-4 h-4 rounded bg-blue-500 shrink-0 flex items-center justify-center">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="text-white">
                       <path d="M2 5L4 7L8 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                  </button>
+                  </div>
+                  
                   <span className="text-sm text-gray-500 line-through truncate flex-1">{task.title}</span>
                   <span className="text-[10px] text-gray-600 shrink-0">
                     {task.completedAt ? new Date(task.completedAt).toLocaleDateString() : ''}
                   </span>
+                  
+                  {/* Reopen button — appears on hover */}
+                  <button
+                    onClick={() => reopenTask({ id: task._id })}
+                    className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-white/[0.05] text-gray-500 hover:text-yellow-400 transition-all shrink-0"
+                    title="Reopen task"
+                  >
+                    <Undo2 size={12} />
+                  </button>
                 </div>
               ))}
             </div>
