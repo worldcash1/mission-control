@@ -285,13 +285,12 @@ export default function Tasks() {
                       task.priority === 'low' ? 'bg-gray-500' : 'bg-yellow-400/60'
                     }`} />
                     
-                    {/* Checkbox */}
+                    {/* Checkbox — empty, click to complete */}
                     <button
                       onClick={() => completeTask({ id: task._id })}
-                      className="w-4 h-4 rounded border border-gray-600 hover:border-green-400 shrink-0 flex items-center justify-center transition-colors"
-                    >
-                      <span className="hidden group-hover:block text-green-400 text-[10px]">✓</span>
-                    </button>
+                      className="w-4 h-4 rounded border border-gray-600 hover:border-blue-400 hover:bg-blue-400/10 shrink-0 flex items-center justify-center transition-colors"
+                      title="Mark done"
+                    />
                     
                     {/* Title + description inline */}
                     <div className="flex-1 min-w-0 flex items-baseline gap-2">
@@ -339,23 +338,24 @@ export default function Tasks() {
         
         {/* Completed section - collapsed */}
         {filteredTasks.filter(t => t.status === "done").length > 0 && (
-          <details className="group">
+          <details>
             <summary className="flex items-center gap-2 px-1 mb-2 cursor-pointer text-xs font-semibold uppercase tracking-wider text-gray-500 hover:text-gray-400">
               <div className="w-2 h-2 rounded-full bg-green-500" />
               Done
               <span>{filteredTasks.filter(t => t.status === "done").length}</span>
             </summary>
-            <div className="bg-card border border-border rounded-lg divide-y divide-border opacity-60 hover:opacity-80 transition-opacity">
+            <div className="bg-card border border-border rounded-lg divide-y divide-border">
               {filteredTasks.filter(t => t.status === "done").map((task) => (
-                <div key={task._id} className="flex items-center gap-3 px-3 py-1.5 group/done">
-                  {/* Green check — click to reopen */}
+                <div key={task._id} className="flex items-center gap-3 px-3 py-2 hover:bg-white/[0.02] transition-colors">
+                  {/* Filled checkbox — click to reopen */}
                   <button
                     onClick={() => reopenTask({ id: task._id })}
-                    className="w-4 h-4 rounded border border-green-600 bg-green-600/20 shrink-0 flex items-center justify-center hover:border-yellow-400 hover:bg-yellow-400/20 transition-colors"
+                    className="w-4 h-4 rounded bg-blue-500 shrink-0 flex items-center justify-center hover:bg-yellow-500 transition-colors"
                     title="Reopen task"
                   >
-                    <span className="text-green-400 text-[10px] group-hover/done:hidden">✓</span>
-                    <span className="text-yellow-400 text-[10px] hidden group-hover/done:block">↩</span>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="text-white">
+                      <path d="M2 5L4 7L8 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </button>
                   <span className="text-sm text-gray-500 line-through truncate flex-1">{task.title}</span>
                   <span className="text-[10px] text-gray-600 shrink-0">
